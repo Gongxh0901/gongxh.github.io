@@ -1,12 +1,15 @@
 source "https://rubygems.org"
 
-# Jekyll version
-gem "jekyll", "~> 4.4.1"
+# Jekyll version (compatible with Ruby 3.4)
+gem "jekyll", "~> 4.4.0"
 
-# Plugins
+# Required standard library gems for Ruby 3.4+
+gem "csv"
+gem "logger"
+
+# Essential plugins
 group :jekyll_plugins do
   gem "jekyll-feed", "~> 0.12"
-  gem "jekyll-paginate", "~> 1.1"
   gem "jekyll-sitemap", "~> 1.4"
   gem "jekyll-seo-tag", "~> 2.8"
 end
