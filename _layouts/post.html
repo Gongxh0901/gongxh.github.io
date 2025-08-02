@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page.title }} - {{ site.title | default: "游戏开发技术分享平台" }}</title>
+    <meta name="description"
+        content="{{ page.excerpt | default: site.description | strip_html | strip_newlines | truncate: 160 }}">
+
+    <link rel="stylesheet" href="{{ '/assets/main.css' | relative_url }}">
+    {% if site.plugins contains "jekyll-feed" %}
+    <link type="application/atom+xml" rel="alternate" href="{{ '/feed.xml' | relative_url }}"
+        title="{{ site.title | escape }}">
+    {% endif %}
+</head>
+
+<body>
+    <div class="page-wrapper">
+        {% include header.html %}
+
+        <div class="main-layout">
+            {% include sidebar.html %}
+
+            <main class="main-content" id="mainContent">
+                <div class="content-wrapper">
+                    <article class="post">
+                        <header class="post-header">
+                            <h1 class="post-title">{{ page.title }}</h1>
+                            <div class="post-meta">
+                                <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%Y年%m月%d日"
+                                    }}</time>
+                                {% if page.categories %}
+                                <span class="post-categories">
+                                    {% for category in page.categories %}
+                                    <span class="category">{{ category }}</span>
+                                    {% endfor %}
+                                </span>
+                                {% endif %}
+                                {% if page.tags %}
+                                <span class="post-tags">
+                                    {% for tag in page.tags %}
+                                    <span class="tag">#{{ tag }}</span>
+                                    {% endfor %}
+                                </span>
+                                {% endif %}
+                            </div>
+                            {% if page.excerpt %}
+                            <div class="post-excerpt">{{ page.excerpt }}</div>
+                            {% endif %}
+                        </header>
+
+                        <div class="post-content">
+                            {{ content }}
+                        </div>
+
+                        <footer class="post-footer">
+                            <div class="post-navigation">
+                                {% if page.previous %}
+                                <a href="{{ page.previous.url | relative_url }}" class="prev-post">
+                                    <span class="nav-label">上一篇</span>
+                                    <span class="nav-title">{{ page.previous.title }}</span>
+                                </a>
+                                {% endif %}
+
+                                {% if page.next %}
+                                <a href="{{ page.next.url | relative_url }}" class="next-post">
+                                    <span class="nav-label">下一篇</span>
+                                    <span class="nav-title">{{ page.next.title }}</span>
+                                </a>
+                                {% endif %}
+                            </div>
+                        </footer>
+                    </article>
+                </div>
+            </main>
+        </div>
+
+        {% include footer.html %}
+    </div>
+
+    <script src="{{ '/assets/js/main.js' | relative_url }}"></script>
+</body>
+
+</html>

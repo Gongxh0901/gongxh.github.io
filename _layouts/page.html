@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page.title }} - {{ site.title | default: "游戏开发技术分享平台" }}</title>
+    <meta name="description"
+        content="{{ page.excerpt | default: site.description | strip_html | strip_newlines | truncate: 160 }}">
+
+    <link rel="stylesheet" href="{{ '/assets/main.css' | relative_url }}">
+    {% if site.plugins contains "jekyll-feed" %}
+    <link type="application/atom+xml" rel="alternate" href="{{ '/feed.xml' | relative_url }}"
+        title="{{ site.title | escape }}">
+    {% endif %}
+</head>
+
+<body>
+    <div class="page-wrapper">
+        {% include header.html %}
+
+        <div class="main-layout">
+            {% include sidebar.html %}
+
+            <main class="main-content" id="mainContent">
+                <div class="content-wrapper">
+                    <article class="page">
+                        {% if page.title %}
+                        <header class="page-header">
+                            <h1 class="page-title">{{ page.title }}</h1>
+                            {% if page.subtitle %}
+                            <p class="page-subtitle">{{ page.subtitle }}</p>
+                            {% endif %}
+                        </header>
+                        {% endif %}
+
+                        <div class="page-content">
+                            {{ content }}
+                        </div>
+                    </article>
+                </div>
+            </main>
+        </div>
+
+        {% include footer.html %}
+    </div>
+
+    <script src="{{ '/assets/js/main.js' | relative_url }}"></script>
+</body>
+
+</html>
