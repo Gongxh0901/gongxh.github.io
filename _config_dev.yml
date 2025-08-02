@@ -1,0 +1,8 @@
+# 开发环境配置 - 覆盖主配置的某些设置
+# 使用方法: bundle exec jekyll serve --config _config.yml,_config_dev.yml
+
+# 开发环境下baseurl为空，避免路径问题
+baseurl: ""
+
+# 开发环境下的URL
+url: "http://localhost:4000" 

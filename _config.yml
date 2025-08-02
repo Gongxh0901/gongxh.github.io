@@ -1,55 +1,79 @@
-# Welcome to Jekyll!
+# 欢迎使用 Jekyll!
 #
-# This config file is meant for settings that affect your whole blog, values
-# which you are expected to set up once and rarely edit after that. If you find
-# yourself editing this file very often, consider using Jekyll's data files
-# feature for the data you need to update frequently.
+# 这个配置文件用于设置影响整个博客的设置，这些值
+# 你通常只需要设置一次，很少需要再次编辑。如果你发现
+# 自己经常编辑这个文件，考虑使用 Jekyll 的数据文件
+# 功能来存储需要经常更新的数据。
 #
-# For technical reasons, this file is *NOT* reloaded automatically when you use
-# 'bundle exec jekyll serve'. If you change this file, please restart the server process.
+# 由于技术原因，当你使用 'bundle exec jekyll serve' 时，
+# 这个文件不会自动重新加载。如果你修改了这个文件，请重启服务器进程。
 #
-# If you need help with YAML syntax, here are some quick references for you:
+# 如果你需要 YAML 语法帮助，这里有一些快速参考：
 # https://learn-the-web.algonquindesign.ca/topics/markdown-yaml-cheat-sheet/#yaml
 # https://learnxinyminutes.com/docs/yaml/
 #
-# Site settings
-# These are used to personalize your new site. If you look in the HTML files,
-# you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
-# You can create any custom variable you would like, and they will be accessible
-# in the templates via {{ site.myvariable }}.
+# 网站设置
+# 这些用于个性化你的新网站。如果你查看HTML文件，
+# 你会看到它们通过 {{ site.title }}、{{ site.email }} 等方式被访问。
+# 你可以创建任何你喜欢的自定义变量，它们将可以
+# 在模板中通过 {{ site.myvariable }} 访问。
 
-title: Your awesome title
-email: your-email@example.com
-description: >- # this means to ignore newlines until "baseurl:"
-  Write an awesome description for your new site here. You can edit this
-  line in _config.yml. It will appear in your document head meta (for
-  Google search results) and in your feed.xml site description.
-baseurl: "" # the subpath of your site, e.g. /blog
-url: "" # the base hostname & protocol for your site, e.g. http://example.com
-twitter_username: jekyllrb
-github_username:  jekyll
+title: gongxh的主页
+email: gong.xinhai@163.com
+description: >- # 这意味着忽略换行符直到 "baseurl:"
+  拥有10+年游戏开发经验的技术分享平台，专注于Cocos Creator游戏开发。
+  深度分享开发工具使用、踩坑经验总结、技术原理解析，
+  致力于帮助游戏开发者提升技能，携手共同成长。
+baseurl: "/personal-website" # 网站的子路径，如果部署在GitHub Pages可能是 "/personal-website"
+url: "https://gongxh0901.github.io" # 网站的基础主机名和协议，例如 https://gongxh.github.io
 
-# Build settings
+# 联系方式
+github_username: gongxh0901
+gitee_username: gongxinhai  # 国内Gitee仓库
+wechat_id: G0900901  # 微信号，可在关于页面显示
+
+# 构建设置
 theme: minima
 plugins:
   - jekyll-feed
 
-# Exclude from processing.
-# The following items will not be processed, by default.
-# Any item listed under the `exclude:` key here will be automatically added to
-# the internal "default list".
+# 自定义设置
+author:
+  name: "gongxh"
+  bio: "10+年游戏开发老兵，专注Cocos Creator技术分享与开发者成长"
+  
+# 项目展示
+featured_projects:
+  - name: "Cocos Creator开发框架"
+    description: "高效的游戏开发工具链与框架"
+    tech: "Cocos Creator, TypeScript"
+    url: "https://github.com/gongxh/cocos-framework"
+  - name: "H5小游戏合集" 
+    description: "微信小游戏与H5游戏项目"
+    tech: "Cocos Creator, 微信小程序"
+    url: "https://github.com/gongxh/h5-games"
+  - name: "性能优化工具集"
+    description: "游戏性能分析与优化工具"
+    tech: "Cocos Creator, 性能调优"
+    url: "https://gitee.com/gongxh/performance-tools"
+
+# 排除处理的文件
+# 以下项目默认不会被处理。
+# 在"排除："键下列出的任何项目都会自动添加到
+# 内部"默认列表"中。
 #
-# Excluded items can be processed by explicitly listing the directories or
-# their entries' file path in the `include:` list.
+# 排除的项目可以通过在"包含："列表中明确列出目录或
+# 其条目的文件路径来处理。
 #
-# exclude:
-#   - .sass-cache/
-#   - .jekyll-cache/
-#   - gemfiles/
-#   - Gemfile
-#   - Gemfile.lock
-#   - node_modules/
-#   - vendor/bundle/
-#   - vendor/cache/
-#   - vendor/gems/
-#   - vendor/ruby/
+exclude:
+  - .sass-cache/
+  - .jekyll-cache/
+  - gemfiles/
+  - Gemfile
+  - Gemfile.lock
+  - node_modules/
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  - .cursor-rules  # 排除 Cursor 规则文件
