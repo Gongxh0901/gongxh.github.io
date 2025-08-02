@@ -5,26 +5,98 @@
 layout: home
 ---
 
-<div class="hero-section">
-  <h1 class="hero-title">{{ site.author.name }}</h1>
-  <p class="hero-subtitle">{{ site.description }}</p>
-  <p class="hero-bio">{{ site.author.bio }}</p>
+<!-- 左侧导航菜单 -->
+<nav class="sidebar-nav">
+  <div class="nav-toggle">
+    <span class="nav-toggle-icon">☰</span>
+  </div>
+  <div class="nav-content">
+    <ul class="nav-tree">
+      <li class="nav-item">
+        <a href="#home" class="nav-link active">🏠 主页</a>
+      </li>
+      <li class="nav-item has-children">
+        <span class="nav-toggle-btn">📁 项目介绍</span>
+        <ul class="nav-children">
+          <li><a href="#cocos-framework" class="nav-link">Cocos Creator开发框架</a></li>
+          <li><a href="#h5-games" class="nav-link">H5小游戏合集</a></li>
+          <li><a href="#performance-tools" class="nav-link">性能优化工具集</a></li>
+        </ul>
+      </li>
+      <li class="nav-item has-children">
+        <span class="nav-toggle-btn">📝 技术文章</span>
+        <ul class="nav-children">
+          <li><a href="#game-engine" class="nav-link">游戏引擎架构</a></li>
+          <li><a href="#performance-optimization" class="nav-link">性能优化技巧</a></li>
+          <li><a href="#development-tools" class="nav-link">开发工具分享</a></li>
+          <li><a href="#best-practices" class="nav-link">最佳实践案例</a></li>
+        </ul>
+      </li>
+      <li class="nav-item">
+        <a href="/about/" class="nav-link">👤 关于我</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div class="main-content">
+
+<!-- 主页内容 -->
+<div class="content-section active" id="home-content">
+  <div class="hero-section">
+    <h1 class="hero-title">{{ site.author.name }}</h1>
+    <p class="hero-subtitle">{{ site.description }}</p>
+    <p class="hero-bio">{{ site.author.bio }}</p>
+  </div>
+  
+  <section class="quick-overview">
+    <h2 class="section-title">🌟 快速概览</h2>
+    <div class="overview-grid">
+      <div class="overview-card">
+        <h3>🎮 精选项目</h3>
+        <p>{{ site.featured_projects.size }}个优质项目，涵盖Cocos Creator开发框架、H5游戏和性能优化工具</p>
+      </div>
+      <div class="overview-card">
+        <h3>📝 技术文章</h3>
+        <p>深度分享游戏开发经验，包括引擎架构、性能优化、开发工具等核心技术</p>
+      </div>
+      <div class="overview-card">
+        <h3>🏆 专业经验</h3>
+        <p>10+年游戏开发经验，专注Cocos Creator技术栈和最佳实践</p>
+      </div>
+    </div>
+  </section>
 </div>
 
-<section class="projects-section">
+<!-- 项目介绍内容 -->
+<div class="content-section" id="projects-content">
+  <h1 class="page-title">🎮 项目介绍</h1>
+  <section class="projects-section" id="projects">
   <h2 class="section-title">🎮 精选项目</h2>
   <div class="projects-grid">
-    {% for project in site.featured_projects %}
-    <div class="project-card">
-      <h3 class="project-name">{{ project.name }}</h3>
-      <p class="project-description">{{ project.description }}</p>
-      <span class="project-tech">{{ project.tech }}</span>
+    <div class="project-card" id="cocos-framework">
+      <h3 class="project-name">{{ site.featured_projects[0].name }}</h3>
+      <p class="project-description">{{ site.featured_projects[0].description }}</p>
+      <span class="project-tech">{{ site.featured_projects[0].tech }}</span>
     </div>
-    {% endfor %}
+    <div class="project-card" id="h5-games">
+      <h3 class="project-name">{{ site.featured_projects[1].name }}</h3>
+      <p class="project-description">{{ site.featured_projects[1].description }}</p>
+      <span class="project-tech">{{ site.featured_projects[1].tech }}</span>
+    </div>
+    <div class="project-card" id="performance-tools">
+      <h3 class="project-name">{{ site.featured_projects[2].name }}</h3>
+      <p class="project-description">{{ site.featured_projects[2].description }}</p>
+      <span class="project-tech">{{ site.featured_projects[2].tech }}</span>
+    </div>
   </div>
 </section>
+</div>
 
-<section class="articles-section">
+<!-- 技术文章内容 -->
+<div class="content-section" id="articles-content">
+  <h1 class="page-title">📝 技术文章</h1>
+  <section class="articles-section" id="articles">
   <h2 class="section-title">📝 技术文章</h2>
   <ul class="article-list">
     {% for post in site.posts limit:5 %}
@@ -35,42 +107,213 @@ layout: home
     </li>
     {% endfor %}
     {% if site.posts.size == 0 %}
-    <li class="article-item">
+    <li class="article-item" id="game-engine">
       <a href="#" class="article-title">游戏引擎架构设计与实现</a>
       <p class="article-excerpt">深入探讨现代游戏引擎的核心架构，包括渲染管线、资源管理、物理系统等关键组件的设计原理...</p>
       <span class="article-date">2024年12月15日</span>
     </li>
-    <li class="article-item">
-      <a href="#" class="article-title">Vulkan图形编程入门指南</a>
-      <p class="article-excerpt">从基础概念到实际应用，详细介绍Vulkan API的使用方法，以及如何利用现代图形API提升渲染性能...</p>
-      <span class="article-date">2024年12月10日</span>
+    <li class="article-item" id="performance-optimization">
+      <a href="#" class="article-title">Cocos Creator性能优化技巧</a>
+      <p class="article-excerpt">分享在Cocos Creator开发过程中常用的性能优化方法，包括内存管理、渲染优化、脚本优化等实用技巧...</p>
+      <span class="article-date">2024年12月16日</span>
     </li>
-    <li class="article-item">
-      <a href="#" class="article-title">Unity性能优化技巧集锦</a>
-      <p class="article-excerpt">分享在Unity开发过程中常用的性能优化方法，包括内存管理、渲染优化、脚本优化等实用技巧...</p>
+    <li class="article-item" id="development-tools">
+      <a href="#" class="article-title">开发工具与插件制作</a>
+      <p class="article-excerpt">从工具使用到自制插件，详细介绍如何提升Cocos Creator开发效率的工具链和最佳实践...</p>
       <span class="article-date">2024年12月05日</span>
     </li>
-    <li class="article-item">
-      <a href="#" class="article-title">C++游戏开发最佳实践</a>
-      <p class="article-excerpt">总结多年C++游戏开发经验，涵盖代码规范、内存管理、设计模式在游戏开发中的应用...</p>
+    <li class="article-item" id="best-practices">
+      <a href="#" class="article-title">游戏开发最佳实践</a>
+      <p class="article-excerpt">总结多年游戏开发经验，涵盖代码规范、架构设计、项目管理在游戏开发中的应用...</p>
       <span class="article-date">2024年11月28日</span>
-    </li>
-    <li class="article-item">
-      <a href="#" class="article-title">游戏AI算法探索</a>
-      <p class="article-excerpt">探讨游戏中常用的AI算法，包括状态机、行为树、神经网络在游戏NPC行为设计中的应用...</p>
-      <span class="article-date">2024年11月20日</span>
     </li>
     {% endif %}
   </ul>
 </section>
+</div>
 
-<section class="contact-section">
-  <h2 class="section-title">📫 联系我</h2>
-  <p>欢迎交流游戏开发技术，分享创意想法</p>
-  <div class="contact-links">
-    <a href="https://github.com/{{ site.github_username }}" class="contact-link">GitHub</a>
-    <a href="https://gitee.com/{{ site.gitee_username }}" class="contact-link">Gitee</a>
-    <a href="mailto:{{ site.email }}" class="contact-link">邮箱</a>
-    <a href="/about/" class="contact-link">关于我</a>
+<!-- 关于我内容 -->
+<div class="content-section" id="about-content">
+  <h1 class="page-title">👤 关于我</h1>
+  <div class="about-hero">
+    <h2 class="hero-title">Cocos Creator开发者</h2>
+    <p class="hero-subtitle">十年磨一剑，专注Cocos Creator技术分享</p>
   </div>
-</section>
+
+  <section class="about-section">
+    <h2>👨‍💻 个人简介</h2>
+    <p>我是一名拥有10+年游戏开发经验的技术分享者，专注于Cocos Creator游戏开发领域。从传统PC游戏到移动端H5小游戏，见证并参与了游戏行业的技术变迁。现在致力于通过技术分享，帮助更多开发者在Cocos Creator的道路上少走弯路，快速成长。</p>
+  </section>
+
+  <section class="about-section">
+    <h2>🛠 技术专长</h2>
+    <div class="skills-grid">
+      <div class="skill-category">
+        <h3>Cocos Creator生态</h3>
+        <ul>
+          <li><strong>Cocos Creator 2.x/3.x</strong> - 全栈开发经验</li>
+          <li><strong>TypeScript/JavaScript</strong> - 游戏逻辑开发</li>
+          <li><strong>渲染优化</strong> - 性能调优与内存管理</li>
+          <li><strong>插件开发</strong> - 编辑器扩展与工具制作</li>
+        </ul>
+      </div>
+      <div class="skill-category">
+        <h3>平台发布</h3>
+        <ul>
+          <li><strong>微信小游戏</strong> - 小程序生态深度开发</li>
+          <li><strong>H5游戏</strong> - 跨平台Web游戏</li>
+          <li><strong>移动原生</strong> - iOS/Android应用发布</li>
+          <li><strong>桌面应用</strong> - Windows/Mac客户端</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact-section" id="contact">
+    <h2 class="section-title">📫 联系交流</h2>
+    <p>欢迎与我交流Cocos Creator开发相关的任何问题</p>
+    <div class="contact-links">
+      <a href="https://github.com/{{ site.github_username }}" class="contact-link">GitHub</a>
+      <a href="https://gitee.com/{{ site.gitee_username }}" class="contact-link">Gitee</a>
+      <a href="mailto:{{ site.email }}" class="contact-link">邮箱</a>
+      <span class="contact-link">微信: {{ site.wechat_id }}</span>
+    </div>
+  </section>
+</div>
+
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const sidebarNav = document.querySelector('.sidebar-nav');
+  const mainContent = document.querySelector('.main-content');
+  const navToggle = document.querySelector('.nav-toggle');
+  const navToggleIcon = document.querySelector('.nav-toggle-icon');
+  const toggleBtns = document.querySelectorAll('.nav-toggle-btn');
+  const navLinks = document.querySelectorAll('.nav-link');
+  const contentSections = document.querySelectorAll('.content-section');
+  
+  let isCollapsed = false;
+  let isMobile = window.innerWidth <= 768;
+  
+  // 导航栏整体收起/展开功能
+  navToggle.addEventListener('click', function() {
+    if (isMobile) {
+      // 移动端：显示/隐藏导航栏
+      sidebarNav.classList.toggle('mobile-open');
+      navToggleIcon.textContent = sidebarNav.classList.contains('mobile-open') ? '✕' : '☰';
+    } else {
+      // 桌面端：收起/展开导航栏
+      isCollapsed = !isCollapsed;
+      sidebarNav.classList.toggle('collapsed', isCollapsed);
+      mainContent.classList.toggle('expanded', isCollapsed);
+      navToggleIcon.textContent = isCollapsed ? '☰' : '◄';
+    }
+  });
+  
+  // 子菜单开关
+  toggleBtns.forEach(btn => {
+    btn.addEventListener('click', function() {
+      const parent = btn.closest('.nav-item');
+      const children = parent.querySelector('.nav-children');
+      const isOpen = children.style.display === 'block';
+      
+      children.style.display = isOpen ? 'none' : 'block';
+      btn.innerHTML = btn.innerHTML.replace(isOpen ? '📂' : '📁', isOpen ? '📁' : '📂');
+    });
+  });
+  
+  // 内容切换功能
+  function showContent(targetId) {
+    // 隐藏所有内容区域
+    contentSections.forEach(section => {
+      section.classList.remove('active');
+    });
+    
+    // 显示目标内容区域
+    const targetContent = document.getElementById(targetId + '-content');
+    if (targetContent) {
+      targetContent.classList.add('active');
+    }
+    
+    // 更新导航链接状态
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+    });
+    
+    // 设置当前链接为活动状态
+    const activeLink = document.querySelector(`[href="#${targetId}"]`);
+    if (activeLink) {
+      activeLink.classList.add('active');
+    }
+    
+    // 移动端：自动关闭导航栏
+    if (isMobile) {
+      sidebarNav.classList.remove('mobile-open');
+      navToggleIcon.textContent = '☰';
+    }
+  }
+  
+  // 导航链接点击事件
+  navLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      const href = this.getAttribute('href');
+      
+      if (href.startsWith('#')) {
+        const targetId = href.substring(1);
+        showContent(targetId);
+      } else if (href === '/about/') {
+        showContent('about');
+      }
+    });
+  });
+  
+  // 子菜单链接点击事件
+  document.querySelectorAll('.nav-children .nav-link').forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      const href = this.getAttribute('href');
+      const targetId = href.substring(1);
+      
+      // 如果是项目子项，显示项目页面并滚动到对应项目
+      if (['cocos-framework', 'h5-games', 'performance-tools'].includes(targetId)) {
+        showContent('projects');
+        setTimeout(() => {
+          const targetElement = document.getElementById(targetId);
+          if (targetElement) {
+            targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
+        }, 100);
+      }
+      // 如果是技术文章子项，显示文章页面并滚动到对应文章
+      else if (['game-engine', 'performance-optimization', 'development-tools', 'best-practices'].includes(targetId)) {
+        showContent('articles');
+        setTimeout(() => {
+          const targetElement = document.getElementById(targetId);
+          if (targetElement) {
+            targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
+        }, 100);
+      }
+    });
+  });
+  
+  // 响应式处理
+  window.addEventListener('resize', function() {
+    const wasMobile = isMobile;
+    isMobile = window.innerWidth <= 768;
+    
+    if (wasMobile !== isMobile) {
+      // 清理状态
+      sidebarNav.classList.remove('mobile-open', 'collapsed');
+      mainContent.classList.remove('expanded');
+      isCollapsed = false;
+      navToggleIcon.textContent = '☰';
+    }
+  });
+  
+  // 初始化：设置默认图标
+  navToggleIcon.textContent = '☰';
+});
+</script>

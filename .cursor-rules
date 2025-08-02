@@ -134,8 +134,40 @@ bundle exec jekyll build    # 构建静态文件
 - 确保移动端体验良好
 - 及时回复读者反馈
 
+## 内容分块功能规则
+这是网站的核心交互功能，实现单页应用（SPA）架构的内容展示。
+
+### 导航栏功能
+- **宽度设计**: 标准宽度210px，收起状态40px
+- **收起/展开**: 通过右侧按钮控制整体收起和展开
+- **树形结构**: 支持一级和二级菜单的折叠展开
+- **移动端适配**: 全屏显示，滑动控制
+
+### 内容区域管理
+- **动态调整**: 根据导航栏状态自动调整margin-left
+- **内容切换**: 使用JavaScript控制.content-section的显示/隐藏
+- **平滑动画**: 内容切换包含fadeIn动画效果
+- **锚点定位**: 二级菜单点击后在对应页面内定位
+
+### 实现规范
+```css
+.sidebar-nav { width: 210px; }
+.sidebar-nav.collapsed { transform: translateX(-170px); }
+.main-content { margin-left: 210px; }
+.main-content.expanded { margin-left: 40px; }
+.content-section { display: none; }
+.content-section.active { display: block; }
+```
+
+### JavaScript功能要求
+- 导航栏收起/展开状态管理
+- 内容区域动态切换逻辑  
+- 移动端和桌面端响应式处理
+- 子菜单项的页面内定位功能
+
 ## 注意事项
 1. 修改 `_config.yml` 后需要重启Jekyll服务器
 2. 文章文件名中的日期必须是有效格式
 3. 确保所有外部链接的有效性
-4. 定期备份重要内容和配置 
+4. 定期备份重要内容和配置
+5. 内容分块功能修改后需要测试所有导航链接的正确性 
