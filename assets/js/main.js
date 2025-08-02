@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // DOM元素
     const sidebar = document.getElementById('sidebar');
     const mainContent = document.getElementById('mainContent');
+    const rightContentArea = document.querySelector('.right-content-area');
     const sidebarToggle = document.getElementById('sidebarToggle');
     const navLinks = document.querySelectorAll('.nav-link');
     const navSublinks = document.querySelectorAll('.nav-sublink');
@@ -17,12 +18,16 @@ document.addEventListener('DOMContentLoaded', function() {
         
         if (sidebarCollapsed) {
             sidebar.classList.add('collapsed');
-            mainContent.classList.add('expanded');
+            if (rightContentArea) {
+                rightContentArea.classList.add('expanded');
+            }
             sidebarToggle.querySelector('.toggle-icon').textContent = '☰';
             sidebarToggle.querySelector('.toggle-text').textContent = '展开';
         } else {
             sidebar.classList.remove('collapsed');
-            mainContent.classList.remove('expanded');
+            if (rightContentArea) {
+                rightContentArea.classList.remove('expanded');
+            }
             sidebarToggle.querySelector('.toggle-icon').textContent = '✕';
             sidebarToggle.querySelector('.toggle-text').textContent = '收起';
         }
@@ -81,7 +86,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // 事件监听器
     
     // 侧边栏切换按钮
-    sidebarToggle.addEventListener('click', toggleSidebar);
+    if (sidebarToggle) {
+        sidebarToggle.addEventListener('click', toggleSidebar);
+    }
     
     // 主导航链接点击
     navLinks.forEach(link => {
@@ -91,12 +98,14 @@ document.addEventListener('DOMContentLoaded', function() {
             const navItem = this.closest('.nav-item');
             
             // 如果有子菜单，切换展开状态
-            if (navItem.classList.contains('has-children')) {
+            if (navItem && navItem.classList.contains('has-children')) {
                 toggleSubmenu(navItem);
             }
             
             // 显示对应内容
-            showContent(target);
+            if (target) {
+                showContent(target);
+            }
         });
     });
     
@@ -107,7 +116,9 @@ document.addEventListener('DOMContentLoaded', function() {
             const target = this.getAttribute('data-target');
             
             // 显示对应内容
-            showContent(target);
+            if (target) {
+                showContent(target);
+            }
         });
     });
     
@@ -115,14 +126,30 @@ document.addEventListener('DOMContentLoaded', function() {
     function handleResize() {
         const isMobile = window.innerWidth <= 768;
         
-        if (isMobile && !sidebarCollapsed) {
-            // 移动端默认收起侧边栏
+        if (isMobile) {
+            // 移动端处理
+            if (!sidebarCollapsed) {
+                sidebar.classList.add('mobile-open');
+            } else {
+                sidebar.classList.remove('mobile-open');
+            }
+        } else {
+            // 桌面端处理
+            sidebar.classList.remove('mobile-open');
+        }
+    }
+    
+    // 移动端点击遮罩关闭侧边栏
+    function handleMobileOverlayClick(e) {
+        const isMobile = window.innerWidth <= 768;
+        if (isMobile && !sidebarCollapsed && !sidebar.contains(e.target) && !sidebarToggle.contains(e.target)) {
             toggleSidebar();
         }
     }
     
     // 初始化
     window.addEventListener('resize', handleResize);
+    document.addEventListener('click', handleMobileOverlayClick);
     handleResize(); // 初始调用
     
     // 默认显示首页内容
@@ -131,22 +158,34 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // 平滑滚动到顶部功能
 function scrollToTop() {
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-    });
+    const mainContent = document.getElementById('mainContent');
+    if (mainContent) {
+        mainContent.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    } else {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }
 }
 
 // 添加滚动监听，显示返回顶部按钮
-window.addEventListener('scroll', function() {
-    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+document.addEventListener('DOMContentLoaded', function() {
+    const mainContent = document.getElementById('mainContent');
     const backToTop = document.querySelector('.back-to-top');
     
-    if (backToTop) {
-        if (scrollTop > 300) {
-            backToTop.classList.add('visible');
-        } else {
-            backToTop.classList.remove('visible');
-        }
+    if (mainContent && backToTop) {
+        mainContent.addEventListener('scroll', function() {
+            const scrollTop = mainContent.scrollTop;
+            
+            if (scrollTop > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
     }
 }); 

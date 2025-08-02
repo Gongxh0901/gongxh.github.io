@@ -17,11 +17,15 @@
 
 <body>
     <div class="page-wrapper">
-        {% include header.html %}
+        <!-- 左侧固定导航栏 -->
+        {% include sidebar.html %}
 
-        <div class="main-layout">
-            {% include sidebar.html %}
+        <!-- 右侧内容区域 -->
+        <div class="right-content-area">
+            <!-- 固定顶部 header -->
+            {% include header.html %}
 
+            <!-- 可滚动的主内容区域 -->
             <main class="main-content" id="mainContent">
                 <div class="content-wrapper">
                     <article class="post">
@@ -73,10 +77,11 @@
                         </footer>
                     </article>
                 </div>
+
+                <!-- 页脚跟随内容滚动 -->
+                {% include footer.html %}
             </main>
         </div>
-
-        {% include footer.html %}
     </div>
 
     <script src="{{ '/assets/js/main.js' | relative_url }}"></script>

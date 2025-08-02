@@ -33,27 +33,67 @@ body {
   color: var(--text-dark);
   font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   line-height: 1.6;
-  overflow-x: hidden;
+  overflow: hidden; /* 防止body滚动 */
 }
 
-// 页面包装器
+// 页面包装器 - 双栏布局
 .page-wrapper {
   display: flex;
-  flex-direction: column;
-  min-height: 100vh;
+  height: 100vh;
+  overflow: hidden;
 }
 
-// 固定顶部header
+// 左侧固定导航栏
+.sidebar {
+  width: var(--sidebar-width);
+  height: 100vh;
+  background: white;
+  border-right: 2px solid var(--border-color);
+  overflow-y: auto;
+  z-index: 900;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.sidebar.collapsed {
+  width: var(--sidebar-collapsed-width);
+}
+
+.sidebar.collapsed .nav-text,
+.sidebar.collapsed .nav-subtext,
+.sidebar.collapsed .nav-arrow,
+.sidebar.collapsed .nav-submenu {
+  display: none;
+}
+
+.sidebar.collapsed .nav-link {
+  justify-content: center;
+  padding: 15px 0;
+}
+
+// 右侧内容区域
+.right-content-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+  margin-left: 0;
+  transition: margin-left 0.3s ease;
+}
+
+.right-content-area.expanded {
+  /* 当侧边栏收起时，右侧内容区域可以稍微扩展 */
+  margin-left: 0;
+}
+
+// 固定顶部header（在右侧内容区域内）
 .site-header-fixed {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
   background-color: var(--soft-green);
   border-bottom: 2px solid var(--border-color);
   box-shadow: 0 2px 8px rgba(45, 90, 65, 0.1);
   height: var(--header-height);
+  flex-shrink: 0;
 }
 
 .header-container {
@@ -99,43 +139,6 @@ body {
 
 .sidebar-toggle:hover {
   background: var(--light-green);
-}
-
-// 主布局
-.main-layout {
-  display: flex;
-  margin-top: var(--header-height);
-  min-height: calc(100vh - var(--header-height));
-}
-
-// 侧边栏
-.sidebar {
-  position: fixed;
-  left: 0;
-  top: var(--header-height);
-  width: var(--sidebar-width);
-  height: calc(100vh - var(--header-height));
-  background: white;
-  border-right: 2px solid var(--border-color);
-  overflow-y: auto;
-  z-index: 900;
-  transition: all 0.3s ease;
-}
-
-.sidebar.collapsed {
-  width: var(--sidebar-collapsed-width);
-}
-
-.sidebar.collapsed .nav-text,
-.sidebar.collapsed .nav-subtext,
-.sidebar.collapsed .nav-arrow,
-.sidebar.collapsed .nav-submenu {
-  display: none;
-}
-
-.sidebar.collapsed .nav-link {
-  justify-content: center;
-  padding: 15px 0;
 }
 
 // 导航样式
@@ -233,23 +236,25 @@ body {
   font-size: 14px;
 }
 
-// 主内容区域
+// 主内容区域 - 可滚动
 .main-content {
   flex: 1;
-  margin-left: var(--sidebar-width);
-  transition: margin-left 0.3s ease;
+  overflow-y: auto;
   background: var(--pale-green);
+  display: flex;
+  flex-direction: column;
 }
 
 .main-content.expanded {
-  margin-left: var(--sidebar-collapsed-width);
+  /* 保持原有的expanded类，但在新布局中不需要改变margin */
 }
 
 .content-wrapper {
+  flex: 1;
   padding: 40px;
   max-width: 1200px;
   margin: 0 auto;
-  min-height: calc(100vh - var(--header-height) - 200px);
+  width: 100%;
 }
 
 // 内容区域
@@ -379,7 +384,7 @@ body {
   margin: 0;
 }
 
-// 底部footer
+// 底部footer - 跟随内容滚动
 .site-footer {
   background: var(--soft-green);
   border-top: 2px solid var(--border-color);
@@ -650,21 +655,27 @@ body {
 
 // 响应式设计
 @media (max-width: 768px) {
+  .page-wrapper {
+    flex-direction: column;
+  }
+  
   .sidebar {
-    transform: translateX(-100%);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: var(--sidebar-width);
+    height: 100vh;
     z-index: 1100;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
   }
   
   .sidebar.mobile-open {
     transform: translateX(0);
   }
   
-  .main-content {
-    margin-left: 0;
-  }
-  
-  .main-content.expanded {
-    margin-left: 0;
+  .right-content-area {
+    width: 100%;
   }
   
   .content-wrapper {
