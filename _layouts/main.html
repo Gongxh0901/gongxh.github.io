@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if page.title %}{{ page.title }} - {% endif %}{{ site.title | default: "游戏开发技术分享平台" }}</title>
+    <meta name="description"
+        content="{{ page.excerpt | default: site.description | strip_html | strip_newlines | truncate: 160 }}">
+
+    <link rel="stylesheet" href="{{ '/assets/main.css' | relative_url }}">
+    {% if site.plugins contains "jekyll-feed" %}
+    <link type="application/atom+xml" rel="alternate" href="{{ '/feed.xml' | relative_url }}"
+        title="{{ site.title | escape }}">
+    {% endif %}
+</head>
+
+<body>
+    <div class="page-wrapper">
+        {% include header.html %}
+
+        <div class="main-layout">
+            {% include sidebar.html %}
+
+            <main class="main-content" id="mainContent">
+                <div class="content-wrapper">
+                    <!-- 首页内容 -->
+                    <section class="content-section active" id="home-content">
+                        <div class="page-header">
+                            <h1 class="page-title">欢迎来到游戏开发技术分享平台</h1>
+                            <p class="page-subtitle">专注于Cocos Creator游戏开发技术</p>
+                        </div>
+
+                        <div class="intro-section">
+                            <div class="intro-card">
+                                <h2>🎮 专业游戏开发</h2>
+                                <p>10+年游戏开发经验，专注于Cocos Creator引擎开发，深入理解游戏架构设计与性能优化。</p>
+                            </div>
+
+                            <div class="intro-card">
+                                <h2>🛠️ 开发工具专家</h2>
+                                <p>分享实用的开发工具使用技巧，提供自研工具和插件，帮助开发者提升效率。</p>
+                            </div>
+
+                            <div class="intro-card">
+                                <h2>📚 技术知识分享</h2>
+                                <p>定期分享技术文章、踩坑经验和最佳实践，与开发者社区共同成长。</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- 游戏项目内容 -->
+                    <section class="content-section" id="projects-content">
+                        <div class="page-header">
+                            <h1 class="page-title">游戏项目</h1>
+                            <p class="page-subtitle">我的游戏开发项目展示</p>
+                        </div>
+                        <div class="content-placeholder">
+                            <p>项目内容正在完善中...</p>
+                        </div>
+                    </section>
+
+                    <!-- 项目展示子页面 -->
+                    <section class="content-section" id="project-showcase-content">
+                        <div class="page-header">
+                            <h1 class="page-title">项目展示</h1>
+                        </div>
+                        <div class="content-placeholder">
+                            <p>项目展示内容正在完善中...</p>
+                        </div>
+                    </section>
+
+                    <!-- 项目详情子页面 -->
+                    <section class="content-section" id="project-details-content">
+                        <div class="page-header">
+                            <h1 class="page-title">项目详情</h1>
+                        </div>
+                        <div class="content-placeholder">
+                            <p>项目详情内容正在完善中...</p>
+                        </div>
+                    </section>
+
+                    <!-- 游戏开发工具内容 -->
+                    <section class="content-section" id="tools-content">
+                        <div class="page-header">
+                            <h1 class="page-title">游戏开发工具</h1>
+                            <p class="page-subtitle">实用的开发工具和插件</p>
+                        </div>
+                        <div class="content-placeholder">
+                            <p>开发工具内容正在完善中...</p>
+                        </div>
+                    </section>
+
+                    <!-- 开发工具子页面 -->
+                    <section class="content-section" id="dev-tools-content">
+                        <div class="page-header">
+                            <h1 class="page-title">开发工具</h1>
+                        </div>
+                        <div class="content-placeholder">
+                            <p>开发工具内容正在完善中...</p>
+                        </div>
+                    </section>
+
+                    <!-- 插件扩展子页面 -->
+                    <section class="content-section" id="plugins-content">
+                        <div class="page-header">
+                            <h1 class="page-title">插件扩展</h1>
+                        </div>
+                        <div class="content-placeholder">
+                            <p>插件扩展内容正在完善中...</p>
+                        </div>
+                    </section>
+
+                    <!-- 技术随笔内容 -->
+                    <section class="content-section" id="articles-content">
+                        <div class="page-header">
+                            <h1 class="page-title">技术随笔</h1>
+                            <p class="page-subtitle">技术文章与经验分享</p>
+                        </div>
+                        <div class="content-placeholder">
+                            <p>技术随笔内容正在完善中...</p>
+                        </div>
+                    </section>
+
+                    <!-- 技术文章子页面 -->
+                    <section class="content-section" id="tech-articles-content">
+                        <div class="page-header">
+                            <h1 class="page-title">技术文章</h1>
+                        </div>
+                        <div class="content-placeholder">
+                            <p>技术文章内容正在完善中...</p>
+                        </div>
+                    </section>
+
+                    <!-- 经验分享子页面 -->
+                    <section class="content-section" id="experience-content">
+                        <div class="page-header">
+                            <h1 class="page-title">经验分享</h1>
+                        </div>
+                        <div class="content-placeholder">
+                            <p>经验分享内容正在完善中...</p>
+                        </div>
+                    </section>
+
+                    <!-- 开源项目内容 -->
+                    <section class="content-section" id="opensource-content">
+                        <div class="page-header">
+                            <h1 class="page-title">开源项目</h1>
+                            <p class="page-subtitle">我的开源贡献</p>
+                        </div>
+                        <div class="content-placeholder">
+                            <p>开源项目内容正在完善中...</p>
+                        </div>
+                    </section>
+
+                    <!-- 我的开源子页面 -->
+                    <section class="content-section" id="my-opensource-content">
+                        <div class="page-header">
+                            <h1 class="page-title">我的开源</h1>
+                        </div>
+                        <div class="content-placeholder">
+                            <p>我的开源项目内容正在完善中...</p>
+                        </div>
+                    </section>
+
+                    <!-- 贡献记录子页面 -->
+                    <section class="content-section" id="contributions-content">
+                        <div class="page-header">
+                            <h1 class="page-title">贡献记录</h1>
+                        </div>
+                        <div class="content-placeholder">
+                            <p>贡献记录内容正在完善中...</p>
+                        </div>
+                    </section>
+
+                    <!-- 关于我内容 -->
+                    <section class="content-section" id="about-content">
+                        <div class="page-header">
+                            <h1 class="page-title">关于我</h1>
+                            <p class="page-subtitle">个人介绍与技能展示</p>
+                        </div>
+
+                        <div class="about-section">
+                            <div class="about-card">
+                                <h2>👨‍💻 个人简介</h2>
+                                <p>一名拥有10+年游戏开发经验的前端工程师，专注于Cocos Creator游戏开发技术。热爱技术分享，致力于帮助游戏开发者提升技能。</p>
+                            </div>
+
+                            <div class="about-card">
+                                <h2>🎯 技术专长</h2>
+                                <ul>
+                                    <li>Cocos Creator游戏引擎开发</li>
+                                    <li>TypeScript/JavaScript编程</li>
+                                    <li>游戏架构设计与性能优化</li>
+                                    <li>开发工具与插件开发</li>
+                                    <li>ECS系统设计</li>
+                                </ul>
+                            </div>
+
+                            <div class="about-card">
+                                <h2>🚀 开源项目</h2>
+                                <ul>
+                                    <li><strong>kunpolibrary</strong> - 基于creator3.0+的kunpocc库</li>
+                                    <li><strong>KunpoDemo</strong> - 界面编辑器和实体编辑器实例项目</li>
+                                    <li><strong>creator-build-tools</strong> - creator3.8+自动化打包工具</li>
+                                    <li><strong>kunpo-ecs</strong> - TypeScript实现的ECS系统</li>
+                                    <li><strong>kunpo-quadtree</strong> - 四叉树算法实现</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </main>
+        </div>
+
+        {% include footer.html %}
+    </div>
+
+    <script src="{{ '/assets/js/main.js' | relative_url }}"></script>
+</body>
+
+</html>

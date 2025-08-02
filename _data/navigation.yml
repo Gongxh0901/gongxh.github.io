@@ -1,0 +1,44 @@
+main:
+  - title: "首页"
+    id: "home"
+    icon: "🏠"
+    
+  - title: "游戏项目"
+    id: "projects"
+    icon: "🎮"
+    children:
+      - title: "项目展示"
+        id: "project-showcase"
+      - title: "项目详情"
+        id: "project-details"
+        
+  - title: "游戏开发工具"
+    id: "tools"
+    icon: "🛠️"
+    children:
+      - title: "开发工具"
+        id: "dev-tools"
+      - title: "插件扩展"
+        id: "plugins"
+        
+  - title: "技术随笔"
+    id: "articles"
+    icon: "📝"
+    children:
+      - title: "技术文章"
+        id: "tech-articles"
+      - title: "经验分享"
+        id: "experience"
+        
+  - title: "开源项目"
+    id: "opensource"
+    icon: "🔓"
+    children:
+      - title: "我的开源"
+        id: "my-opensource"
+      - title: "贡献记录"
+        id: "contributions"
+        
+  - title: "关于我"
+    id: "about"
+    icon: "👨‍💻" 
