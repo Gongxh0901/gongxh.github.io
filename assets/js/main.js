@@ -52,18 +52,16 @@ document.addEventListener('DOMContentLoaded', function() {
         navLinks.forEach(link => link.classList.remove('active'));
         navSublinks.forEach(link => link.classList.remove('active'));
         
-        // 设置活动状态
-        const activeLink = document.querySelector(`[data-target="${activeId}"]`);
-        if (activeLink) {
-            activeLink.classList.add('active');
-            
-            // 如果是子菜单，同时激活父菜单
-            if (activeLink.classList.contains('nav-sublink')) {
-                const parentId = activeLink.getAttribute('data-parent');
-                const parentLink = document.querySelector(`[data-target="${parentId}"]`);
-                if (parentLink) {
-                    parentLink.classList.add('active');
-                }
+        // 优先查找子菜单链接
+        const activeSublink = document.querySelector(`.nav-sublink[data-target="${activeId}"]`);
+        if (activeSublink) {
+            // 如果是子菜单链接，只激活子菜单，不激活父菜单
+            activeSublink.classList.add('active');
+        } else {
+            // 如果不是子菜单链接，查找父菜单链接
+            const activeMainLink = document.querySelector(`.nav-link[data-target="${activeId}"]`);
+            if (activeMainLink) {
+                activeMainLink.classList.add('active');
             }
         }
     }
