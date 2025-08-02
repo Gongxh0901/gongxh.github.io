@@ -91,12 +91,13 @@ document.addEventListener('DOMContentLoaded', function() {
             const target = this.getAttribute('data-target');
             const navItem = this.closest('.nav-item');
             
-            // 如果有子菜单，切换展开状态
+            // 如果有子菜单，只切换展开状态，不更新内容区域
             if (navItem && navItem.classList.contains('has-children')) {
                 toggleSubmenu(navItem);
+                return; // 有子菜单时直接返回，不执行后续内容显示
             }
             
-            // 显示对应内容
+            // 显示对应内容（只有没有子菜单的一级标题才会执行到这里）
             if (target) {
                 showContent(target);
             }
@@ -116,26 +117,31 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // 响应式处理
+    // 响应式处理 - 移动端和PC端使用统一逻辑
     function handleResize() {
         const isMobile = window.innerWidth <= 768;
         
+        // 移动端和PC端都使用相同的collapsed逻辑
+        // 不再使用mobile-open类，完全统一行为
         if (isMobile) {
-            // 移动端处理
+            // 移动端默认收起侧边栏
             if (!sidebarCollapsed) {
-                sidebar.classList.add('mobile-open');
-            } else {
-                sidebar.classList.remove('mobile-open');
+                sidebarCollapsed = true;
+                sidebar.classList.add('collapsed');
+                if (rightContentArea) {
+                    rightContentArea.classList.add('expanded');
+                }
             }
-        } else {
-            // 桌面端处理
-            sidebar.classList.remove('mobile-open');
         }
+        
+        // 清除任何遗留的mobile-open类
+        sidebar.classList.remove('mobile-open');
     }
     
-    // 移动端点击遮罩关闭侧边栏
+    // 移动端点击遮罩关闭侧边栏 - 使用统一逻辑
     function handleMobileOverlayClick(e) {
         const isMobile = window.innerWidth <= 768;
+        // 在移动端，如果侧边栏展开且点击了遮罩区域，则收起侧边栏
         if (isMobile && !sidebarCollapsed && !sidebar.contains(e.target) && !sidebarToggle.contains(e.target)) {
             toggleSidebar();
         }

@@ -18,7 +18,7 @@
 # 你可以创建任何你喜欢的自定义变量，它们将可以
 # 在模板中通过 {{ site.myvariable }} 访问。
 
-title: gongxh的个人空间
+title: gongxh
 email: gong.xinhai@163.com
 description: >- # 这意味着忽略换行符直到 "baseurl:"
   拥有10+年游戏开发经验的技术分享平台，专注于Cocos Creator游戏开发。

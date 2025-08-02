@@ -138,25 +138,26 @@ body {
   margin-left: 0; /* 收起状态：占满整个宽度 */
 }
 
-// 固定顶部header（在右侧内容区域内）
+// 固定顶部header（在右侧内容区域内）- 自适应高度
 .site-header-fixed {
   background-color: var(--soft-green);
   border-bottom: 2px solid var(--border-color);
   box-shadow: 0 2px 8px rgba(45, 90, 65, 0.1);
-  height: var(--header-height);
+  min-height: var(--header-height); /* 最小高度，可根据内容扩展 */
   flex-shrink: 0;
 }
 
 .header-container {
-  height: 100%;
+  width: 100%;
 }
 
 .header-content {
   display: flex;
-  justify-content: center; /* 居中显示标题 */
+  flex-direction: column; /* 垂直排列 */
+  justify-content: center;
   align-items: center;
-  height: 100%;
-  padding: 0 20px;
+  min-height: var(--header-height); /* 最小高度 */
+  padding: 15px 20px; /* 添加上下padding确保内容不贴边 */
   max-width: 1200px;
   margin: 0 auto;
 }
@@ -165,8 +166,18 @@ body {
   color: var(--primary-green);
   font-weight: 600;
   font-size: 1.5rem;
-  margin: 0;
+  margin: 0 0 8px 0; /* 添加底边距 */
   text-decoration: none;
+  text-align: center; /* 标题居中 */
+}
+
+.site-signature {
+  color: var(--text-light);
+  font-size: 0.75rem; /* 小字 */
+  line-height: 1.4;
+  width: 100%; /* 充满宽度 */
+  text-align: left; /* 左对齐 */
+  margin: 0;
 }
 
 // 旧的header nav样式已删除
@@ -420,14 +431,14 @@ body {
 .footer-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 40px 20px 20px;
+  padding: 10px 10px 5px; /* 再次压缩上下边距 */
 }
 
 .footer-content {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 40px;
-  margin-bottom: 30px;
+  gap: 20px; /* 压缩一半 */
+  margin-bottom: 8px; /* 再次压缩 */
 }
 
 .footer-section {
@@ -438,28 +449,29 @@ body {
   color: var(--primary-green);
   font-size: 1.3rem;
   font-weight: 600;
-  margin-bottom: 20px;
+  margin-bottom: 10px; /* 压缩一半 */
 }
 
-.footer-signature {
-  color: var(--text-dark);
-  line-height: 1.6;
-  font-style: italic;
-  margin: 0;
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3列 */
+  grid-template-rows: repeat(2, 1fr);    /* 2行 */
+  gap: 4px 20px; /* 再次压缩行间距 */
+  justify-items: start; /* 网格项目左对齐 */
 }
 
-.contact-info {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.contact-item {
+.contact-grid-item {
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: 8px;
   font-size: 14px;
+  text-align: left; /* 内容左对齐 */
+}
+
+.contact-category {
+  color: var(--primary-green);
+  font-weight: 600;
+  font-size: 15px;
 }
 
 .contact-icon {
@@ -486,7 +498,7 @@ body {
 
 .footer-bottom {
   text-align: center;
-  padding-top: 20px;
+  padding-top: 5px; /* 再次压缩 */
   border-top: 1px solid var(--border-color);
 }
 
@@ -679,43 +691,20 @@ body {
   font-size: 14px;
 }
 
-// 响应式设计
+// 响应式设计 - 移动端和PC端使用统一逻辑
 @media (max-width: 768px) {
   .page-wrapper {
     flex-direction: row; /* 保持双栏布局 */
   }
   
+  // 移动端侧边栏使用与PC端完全相同的逻辑
   .sidebar {
-    position: fixed;
-    top: 0;
-    left: calc(-1 * var(--sidebar-width)); /* 移动端默认隐藏 */
-    width: var(--sidebar-width);
-    height: 100vh;
-    z-index: 1100;
-    transition: left 0.3s ease;
+    z-index: 1100; /* 移动端需要更高的z-index */
   }
   
-  .sidebar.mobile-open {
-    left: 0; /* 移动端展开：完全显示 */
-  }
-  
-  // 移动端侧边栏切换按钮
+  // 移动端按钮位置与PC端保持一致
   .sidebar-toggle-btn {
-    position: fixed; /* 移动端固定定位 */
-    top: 50%; /* 移动端也垂直居中 */
-    transform: translateY(-50%); /* 移动端垂直居中偏移 */
-    left: -2px; /* 移动端向左移动2px与侧边栏融合 */
-    right: auto;
-    z-index: 1200;
-  }
-  
-  .sidebar.mobile-open .sidebar-toggle-btn {
-    left: calc(var(--sidebar-width) - 34px); /* 展开时移到侧边栏右边界，考虑2px偏移，按钮宽32px */
-  }
-  
-  .right-content-area {
-    width: 100%;
-    margin-left: 0; /* 移动端不留空间 */
+    z-index: 1200; /* 确保按钮在侧边栏之上 */
   }
   
   .content-wrapper {
@@ -738,21 +727,24 @@ body {
     grid-template-columns: 1fr;
     gap: 30px;
   }
-  
-  .contact-item {
-    flex-direction: column;
-    gap: 4px;
-  }
 }
 
 @media (max-width: 480px) {
   .header-content {
-    padding: 0 15px;
+    padding: 10px 15px; /* 移动端减少上下padding */
+    min-height: auto; /* 移动端不设最小高度，完全自适应 */
   }
   
   .site-title {
     font-size: 1.2rem;
+    margin: 0 0 6px 0; /* 减少标题底边距 */
   }
+  
+  .site-signature {
+    font-size: 0.7rem; /* 移动端签名字体更小 */
+    line-height: 1.3;
+  }
+}
   
   .sidebar-toggle .toggle-text {
     display: none;
