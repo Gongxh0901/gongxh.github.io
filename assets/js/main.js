@@ -16,15 +16,27 @@ document.addEventListener('DOMContentLoaded', function() {
     function toggleSidebar() {
         sidebarCollapsed = !sidebarCollapsed;
         
-        if (sidebarCollapsed) {
-            sidebar.classList.add('collapsed');
-            if (rightContentArea) {
-                rightContentArea.classList.add('expanded');
+        const isMobile = window.innerWidth <= 768;
+        
+        if (isMobile) {
+            // 移动端逻辑：使用overlay模式
+            if (sidebarCollapsed) {
+                sidebar.classList.remove('mobile-open');
+            } else {
+                sidebar.classList.add('mobile-open');
             }
         } else {
-            sidebar.classList.remove('collapsed');
-            if (rightContentArea) {
-                rightContentArea.classList.remove('expanded');
+            // PC端逻辑：使用推拉模式
+            if (sidebarCollapsed) {
+                sidebar.classList.add('collapsed');
+                if (rightContentArea) {
+                    rightContentArea.classList.add('expanded');
+                }
+            } else {
+                sidebar.classList.remove('collapsed');
+                if (rightContentArea) {
+                    rightContentArea.classList.remove('expanded');
+                }
             }
         }
     }
@@ -117,25 +129,40 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // 响应式处理 - 移动端和PC端使用统一逻辑
+    // 响应式处理 - 移动端和PC端使用不同逻辑
     function handleResize() {
         const isMobile = window.innerWidth <= 768;
         
-        // 移动端和PC端都使用相同的collapsed逻辑
-        // 不再使用mobile-open类，完全统一行为
         if (isMobile) {
+            // 移动端使用overlay模式
+            sidebar.classList.remove('collapsed'); // 移除PC端的类
+            if (rightContentArea) {
+                rightContentArea.classList.remove('expanded'); // 移除PC端的类
+            }
+            
             // 移动端默认收起侧边栏
             if (!sidebarCollapsed) {
-                sidebarCollapsed = true;
+                sidebar.classList.remove('mobile-open');
+            } else {
+                sidebar.classList.add('mobile-open');
+            }
+        } else {
+            // PC端使用推拉模式
+            sidebar.classList.remove('mobile-open'); // 移除移动端的类
+            
+            // PC端逻辑
+            if (sidebarCollapsed) {
                 sidebar.classList.add('collapsed');
                 if (rightContentArea) {
                     rightContentArea.classList.add('expanded');
                 }
+            } else {
+                sidebar.classList.remove('collapsed');
+                if (rightContentArea) {
+                    rightContentArea.classList.remove('expanded');
+                }
             }
         }
-        
-        // 清除任何遗留的mobile-open类
-        sidebar.classList.remove('mobile-open');
     }
     
     // 移动端点击遮罩关闭侧边栏 - 使用统一逻辑

@@ -691,20 +691,48 @@ body {
   font-size: 14px;
 }
 
-// 响应式设计 - 移动端和PC端使用统一逻辑
+// 响应式设计 - 移动端使用overlay模式
 @media (max-width: 768px) {
   .page-wrapper {
-    flex-direction: row; /* 保持双栏布局 */
+    flex-direction: row;
   }
   
-  // 移动端侧边栏使用与PC端完全相同的逻辑
+  // 移动端侧边栏使用overlay模式
   .sidebar {
-    z-index: 1100; /* 移动端需要更高的z-index */
+    position: fixed;
+    top: 0;
+    left: calc(-1 * var(--sidebar-width)); /* 默认隐藏 */
+    width: var(--sidebar-width);
+    height: 100vh;
+    z-index: 1100;
+    transition: left 0.3s ease;
+    box-shadow: 2px 0 8px rgba(45, 90, 65, 0.2); /* 添加阴影效果 */
   }
   
-  // 移动端按钮位置与PC端保持一致
+  // 移动端展开状态
+  .sidebar.mobile-open {
+    left: 0; /* 覆盖显示 */
+  }
+  
+  // 移动端按钮位置
   .sidebar-toggle-btn {
-    z-index: 1200; /* 确保按钮在侧边栏之上 */
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    left: -2px; /* 默认在左边界 */
+    z-index: 1200;
+    transition: left 0.3s ease;
+  }
+  
+  // 侧边栏展开时按钮位置
+  .sidebar.mobile-open .sidebar-toggle-btn {
+    left: calc(var(--sidebar-width) - 34px);
+  }
+  
+  // 移动端右侧区域固定宽度，不受侧边栏影响
+  .right-content-area {
+    width: 100%;
+    margin-left: 0; /* 固定位置，不变化 */
   }
   
   .content-wrapper {
