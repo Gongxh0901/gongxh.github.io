@@ -32,7 +32,7 @@ github_username: gongxh0901
 gitee_username: gongxinhai  # 国内Gitee仓库
 wechat_id: G0900901  # 微信号，可在关于页面显示
 
-# 构建设置 - 使用自定义布局
+# 构建设置 - 使用GitHub Pages
 plugins:
   - jekyll-feed
   - jekyll-sitemap
@@ -42,6 +42,20 @@ plugins:
 markdown: kramdown
 highlighter: rouge
 permalink: /:categories/:year/:month/:day/:title/
+
+# GitHub Pages设置
+safe: true
+source: .
+destination: ./_site
+keep_files: [".git", ".svn"]
+plugins_dir: _plugins
+layouts_dir: _layouts
+data_dir: _data
+includes_dir: _includes
+
+# 编码
+encoding: "utf-8"
+markdown_ext: "markdown,mkdown,mkdn,mkd,md"
 
 # 自定义设置
 author:

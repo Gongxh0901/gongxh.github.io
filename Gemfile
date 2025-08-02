@@ -1,18 +1,17 @@
 source "https://rubygems.org"
 
-# Jekyll version (compatible with Ruby 3.4)
-gem "jekyll", "~> 4.4.0"
+# GitHub Pages gem (recommended by GitHub Pages)
+gem "github-pages", group: :jekyll_plugins
 
-# Required standard library gems for Ruby 3.4+
+# Additional plugins not included in github-pages
+group :jekyll_plugins do
+  gem "jekyll-sitemap"
+  gem "jekyll-seo-tag"
+end
+
+# Required standard library gems for Ruby 3.1+
 gem "csv"
 gem "logger"
-
-# Essential plugins
-group :jekyll_plugins do
-  gem "jekyll-feed", "~> 0.12"
-  gem "jekyll-sitemap", "~> 1.4"
-  gem "jekyll-seo-tag", "~> 2.8"
-end
 
 # Windows and JRuby does not include zoneinfo files, so bundle the tzinfo-data gem
 # and associated library.
