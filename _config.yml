@@ -57,6 +57,12 @@ includes_dir: _includes
 encoding: "utf-8"
 markdown_ext: "markdown,mkdown,mkdn,mkd,md"
 
+# Sass配置
+sass:
+  style: compressed
+  sass_dir: _sass
+  cache: false
+
 # 自定义设置
 author:
   name: "gongxh"
