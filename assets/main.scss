@@ -26,7 +26,7 @@ body, html {
   --sidebar-width: 250px;
   --sidebar-collapsed-width: 60px;
   --header-height: 70px;
-  --toggle-btn-size: 48px;
+  --toggle-btn-size: 32px;
 }
 
 body {
@@ -78,10 +78,11 @@ body {
 // 侧边栏切换按钮 - 根据规则重新设计
 .sidebar-toggle-btn {
   position: fixed; /* 使用固定定位 */
-  top: 20px;
+  top: 50%; /* 垂直居中 */
+  transform: translateY(-50%); /* 垂直居中偏移 */
   left: calc(var(--sidebar-width) - 2px); /* 向左移动2px覆盖侧边栏边框 */
   width: var(--toggle-btn-size);
-  height: 80px; /* 长宽比3:5，宽48px，高80px */
+  height: 53px; /* 长宽比3:5，宽32px，高53px */
   background: var(--primary-green);
   border: none;
   border-radius: 0 8px 8px 0; /* 左侧直角，右侧圆角 */
@@ -699,14 +700,15 @@ body {
   // 移动端侧边栏切换按钮
   .sidebar-toggle-btn {
     position: fixed; /* 移动端固定定位 */
-    top: 20px;
+    top: 50%; /* 移动端也垂直居中 */
+    transform: translateY(-50%); /* 移动端垂直居中偏移 */
     left: -2px; /* 移动端向左移动2px与侧边栏融合 */
     right: auto;
     z-index: 1200;
   }
   
   .sidebar.mobile-open .sidebar-toggle-btn {
-    left: calc(var(--sidebar-width) - 50px); /* 展开时移到侧边栏右边界，考虑2px偏移 */
+    left: calc(var(--sidebar-width) - 34px); /* 展开时移到侧边栏右边界，考虑2px偏移，按钮宽32px */
   }
   
   .right-content-area {
