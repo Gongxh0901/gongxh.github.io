@@ -32,10 +32,11 @@ github_username: gongxh0901
 gitee_username: gongxinhai  # 国内Gitee仓库
 wechat_id: G0900901  # 微信号，可在关于页面显示
 
-# 构建设置
-theme: minima
+# 构建设置 - 使用自定义布局
+# remote_theme: jekyll/minima  # 注释掉远程主题
 plugins:
   - jekyll-feed
+  # - jekyll-remote-theme  # 注释掉远程主题插件
 
 # 自定义设置
 author:
