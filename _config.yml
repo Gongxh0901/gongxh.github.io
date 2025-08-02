@@ -24,7 +24,7 @@ description: >- # 这意味着忽略换行符直到 "baseurl:"
   拥有10+年游戏开发经验的技术分享平台，专注于Cocos Creator游戏开发。
   深度分享开发工具使用、踩坑经验总结、技术原理解析，
   致力于帮助游戏开发者提升技能，携手共同成长。
-baseurl: "/personal-website" # 网站的子路径，如果部署在GitHub Pages可能是 "/personal-website"
+baseurl: "" # 用户站点不需要子路径
 url: "https://gongxh0901.github.io" # 网站的基础主机名和协议，例如 https://gongxh.github.io
 
 # 联系方式
