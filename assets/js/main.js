@@ -21,15 +21,11 @@ document.addEventListener('DOMContentLoaded', function() {
             if (rightContentArea) {
                 rightContentArea.classList.add('expanded');
             }
-            sidebarToggle.querySelector('.toggle-icon').textContent = '☰';
-            sidebarToggle.querySelector('.toggle-text').textContent = '展开';
         } else {
             sidebar.classList.remove('collapsed');
             if (rightContentArea) {
                 rightContentArea.classList.remove('expanded');
             }
-            sidebarToggle.querySelector('.toggle-icon').textContent = '✕';
-            sidebarToggle.querySelector('.toggle-text').textContent = '收起';
         }
     }
     

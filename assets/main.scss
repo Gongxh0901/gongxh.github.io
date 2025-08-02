@@ -26,6 +26,7 @@ body, html {
   --sidebar-width: 250px;
   --sidebar-collapsed-width: 60px;
   --header-height: 70px;
+  --toggle-btn-size: 48px;
 }
 
 body {
@@ -53,10 +54,13 @@ body {
   z-index: 900;
   transition: all 0.3s ease;
   flex-shrink: 0;
+  position: fixed;
+  left: 0; /* 展开状态：左边紧贴浏览器左边界，完全显示 */
+  top: 0;
 }
 
 .sidebar.collapsed {
-  width: var(--sidebar-collapsed-width);
+  left: calc(-1 * var(--sidebar-width)); /* 收起状态：右边紧贴浏览器左边界，完全隐藏 */
 }
 
 .sidebar.collapsed .nav-text,
@@ -71,20 +75,64 @@ body {
   padding: 15px 0;
 }
 
-// 右侧内容区域
+// 侧边栏切换按钮 - 根据规则重新设计
+.sidebar-toggle-btn {
+  position: fixed; /* 使用固定定位 */
+  top: 20px;
+  left: calc(var(--sidebar-width) - 2px); /* 向左移动2px覆盖侧边栏边框 */
+  width: var(--toggle-btn-size);
+  height: 80px; /* 长宽比3:5，宽48px，高80px */
+  background: var(--primary-green);
+  border: none;
+  border-radius: 0 8px 8px 0; /* 左侧直角，右侧圆角 */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  transition: all 0.3s ease;
+  box-shadow: 2px 2px 8px rgba(45, 90, 65, 0.2);
+}
+
+.sidebar-toggle-btn:hover {
+  background: var(--light-green); /* 悬停效果：按钮颜色会变化 */
+}
+
+// 收起状态下的按钮位置
+.sidebar.collapsed .sidebar-toggle-btn {
+  left: -2px; /* 收起状态：向左移动2px与侧边栏完全融合 */
+}
+
+// 三横线图标
+.toggle-icon {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 20px;
+  height: 14px;
+}
+
+.toggle-icon span {
+  display: block;
+  height: 2px;
+  width: 100%;
+  background: white;
+  border-radius: 1px;
+}
+
+// 右侧内容区域 - 需要根据侧边栏状态调整
 .right-content-area {
   flex: 1;
   display: flex;
   flex-direction: column;
   height: 100vh;
   overflow: hidden;
-  margin-left: 0;
+  margin-left: var(--sidebar-width); /* 展开状态：为侧边栏留出空间 */
   transition: margin-left 0.3s ease;
 }
 
 .right-content-area.expanded {
-  /* 当侧边栏收起时，右侧内容区域可以稍微扩展 */
-  margin-left: 0;
+  margin-left: 0; /* 收起状态：占满整个宽度 */
 }
 
 // 固定顶部header（在右侧内容区域内）
@@ -102,7 +150,7 @@ body {
 
 .header-content {
   display: flex;
-  justify-content: space-between;
+  justify-content: center; /* 居中显示标题 */
   align-items: center;
   height: 100%;
   padding: 0 20px;
@@ -118,28 +166,7 @@ body {
   text-decoration: none;
 }
 
-.header-nav {
-  display: flex;
-  align-items: center;
-}
-
-.sidebar-toggle {
-  background: var(--primary-green);
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 6px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 14px;
-  transition: all 0.3s ease;
-}
-
-.sidebar-toggle:hover {
-  background: var(--light-green);
-}
+// 旧的header nav样式已删除
 
 // 导航样式
 .sidebar-nav {
@@ -243,10 +270,6 @@ body {
   background: var(--pale-green);
   display: flex;
   flex-direction: column;
-}
-
-.main-content.expanded {
-  /* 保持原有的expanded类，但在新布局中不需要改变margin */
 }
 
 .content-wrapper {
@@ -656,26 +679,39 @@ body {
 // 响应式设计
 @media (max-width: 768px) {
   .page-wrapper {
-    flex-direction: column;
+    flex-direction: row; /* 保持双栏布局 */
   }
   
   .sidebar {
     position: fixed;
     top: 0;
-    left: 0;
+    left: calc(-1 * var(--sidebar-width)); /* 移动端默认隐藏 */
     width: var(--sidebar-width);
     height: 100vh;
     z-index: 1100;
-    transform: translateX(-100%);
-    transition: transform 0.3s ease;
+    transition: left 0.3s ease;
   }
   
   .sidebar.mobile-open {
-    transform: translateX(0);
+    left: 0; /* 移动端展开：完全显示 */
+  }
+  
+  // 移动端侧边栏切换按钮
+  .sidebar-toggle-btn {
+    position: fixed; /* 移动端固定定位 */
+    top: 20px;
+    left: -2px; /* 移动端向左移动2px与侧边栏融合 */
+    right: auto;
+    z-index: 1200;
+  }
+  
+  .sidebar.mobile-open .sidebar-toggle-btn {
+    left: calc(var(--sidebar-width) - 50px); /* 展开时移到侧边栏右边界，考虑2px偏移 */
   }
   
   .right-content-area {
     width: 100%;
+    margin-left: 0; /* 移动端不留空间 */
   }
   
   .content-wrapper {
