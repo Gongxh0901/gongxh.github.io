@@ -128,10 +128,16 @@ body {
   text-decoration: none;
 }
 
-.nav-link.active {
-  background: var(--primary-green);
+.nav-toggle-btn.active {
+  background: var(--light-green);
   color: white !important;
-  border-left: 4px solid var(--light-green);
+  border-left: 4px solid var(--primary-green);
+}
+
+.nav-link.active {
+  background: var(--light-green);
+  color: white !important;
+  border-left: 4px solid var(--primary-green);
 }
 
 .nav-children {
@@ -192,6 +198,7 @@ body {
   text-align: center;
   margin-bottom: 40px;
   font-weight: 700;
+  padding: 20px 0;
 }
 
 // 快速概览样式
@@ -322,6 +329,7 @@ body {
   margin-bottom: 20px;
   font-weight: 700;
   letter-spacing: -0.5px;
+  text-align: center;
 }
 
 .hero-subtitle {

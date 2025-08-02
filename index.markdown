@@ -16,16 +16,16 @@ layout: home
         <a href="#home" class="nav-link active">🏠 主页</a>
       </li>
       <li class="nav-item has-children">
-        <span class="nav-toggle-btn">📁 项目介绍</span>
-        <ul class="nav-children">
+        <span class="nav-toggle-btn">📂 项目介绍</span>
+        <ul class="nav-children" style="display: block;">
           <li><a href="#cocos-framework" class="nav-link">Cocos Creator开发框架</a></li>
           <li><a href="#h5-games" class="nav-link">H5小游戏合集</a></li>
           <li><a href="#performance-tools" class="nav-link">性能优化工具集</a></li>
         </ul>
       </li>
       <li class="nav-item has-children">
-        <span class="nav-toggle-btn">📝 技术文章</span>
-        <ul class="nav-children">
+        <span class="nav-toggle-btn">📂 技术文章</span>
+        <ul class="nav-children" style="display: block;">
           <li><a href="#game-engine" class="nav-link">游戏引擎架构</a></li>
           <li><a href="#performance-optimization" class="nav-link">性能优化技巧</a></li>
           <li><a href="#development-tools" class="nav-link">开发工具分享</a></li>
@@ -207,7 +207,7 @@ document.addEventListener('DOMContentLoaded', function() {
       isCollapsed = !isCollapsed;
       sidebarNav.classList.toggle('collapsed', isCollapsed);
       mainContent.classList.toggle('expanded', isCollapsed);
-      navToggleIcon.textContent = isCollapsed ? '☰' : '◄';
+             navToggleIcon.textContent = '☰';
     }
   });
   
@@ -236,16 +236,7 @@ document.addEventListener('DOMContentLoaded', function() {
       targetContent.classList.add('active');
     }
     
-    // 更新导航链接状态
-    navLinks.forEach(link => {
-      link.classList.remove('active');
-    });
-    
-    // 设置当前链接为活动状态
-    const activeLink = document.querySelector(`[href="#${targetId}"]`);
-    if (activeLink) {
-      activeLink.classList.add('active');
-    }
+    // showContent函数不再处理选中状态，由各个事件处理器负责
     
     // 移动端：自动关闭导航栏
     if (isMobile) {
@@ -260,14 +251,23 @@ document.addEventListener('DOMContentLoaded', function() {
       e.preventDefault();
       const href = this.getAttribute('href');
       
+      // 先清除所有链接的选中状态
+      navLinks.forEach(l => l.classList.remove('active'));
+      document.querySelectorAll('.nav-toggle-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.nav-children .nav-link').forEach(l => l.classList.remove('active'));
+      
       if (href.startsWith('#')) {
         const targetId = href.substring(1);
         showContent(targetId);
+        // 设置当前链接为选中状态
+        this.classList.add('active');
       } else if (href === '/about/') {
         showContent('about');
+        // 设置关于我链接为选中状态
+        this.classList.add('active');
       }
-    });
-  });
+     });
+   });
   
   // 子菜单链接点击事件
   document.querySelectorAll('.nav-children .nav-link').forEach(link => {
@@ -276,26 +276,35 @@ document.addEventListener('DOMContentLoaded', function() {
       const href = this.getAttribute('href');
       const targetId = href.substring(1);
       
-      // 如果是项目子项，显示项目页面并滚动到对应项目
-      if (['cocos-framework', 'h5-games', 'performance-tools'].includes(targetId)) {
-        showContent('projects');
-        setTimeout(() => {
-          const targetElement = document.getElementById(targetId);
-          if (targetElement) {
-            targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          }
-        }, 100);
-      }
-      // 如果是技术文章子项，显示文章页面并滚动到对应文章
-      else if (['game-engine', 'performance-optimization', 'development-tools', 'best-practices'].includes(targetId)) {
-        showContent('articles');
-        setTimeout(() => {
-          const targetElement = document.getElementById(targetId);
-          if (targetElement) {
-            targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          }
-        }, 100);
-      }
+      // 先清除所有链接的选中状态
+      navLinks.forEach(l => l.classList.remove('active'));
+      document.querySelectorAll('.nav-toggle-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.nav-children .nav-link').forEach(l => l.classList.remove('active'));
+      
+             // 如果是项目子项，显示项目页面并滚动到对应项目
+       if (['cocos-framework', 'h5-games', 'performance-tools'].includes(targetId)) {
+         showContent('projects');
+         // 设置当前二级菜单项为选中状态
+         this.classList.add('active');
+         setTimeout(() => {
+           const targetElement = document.getElementById(targetId);
+           if (targetElement) {
+             targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+           }
+         }, 100);
+       }
+       // 如果是技术文章子项，显示文章页面并滚动到对应文章
+       else if (['game-engine', 'performance-optimization', 'development-tools', 'best-practices'].includes(targetId)) {
+         showContent('articles');
+         // 设置当前二级菜单项为选中状态
+         this.classList.add('active');
+         setTimeout(() => {
+           const targetElement = document.getElementById(targetId);
+           if (targetElement) {
+             targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+           }
+         }, 100);
+       }
     });
   });
   
@@ -313,7 +322,13 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
   
-  // 初始化：设置默认图标
+  // 初始化：设置默认图标和选中状态
   navToggleIcon.textContent = '☰';
+  
+  // 初始化时设置主页为选中状态
+  const homeLink = document.querySelector('[href="#home"]');
+  if (homeLink) {
+    homeLink.classList.add('active');
+  }
 });
 </script>
