@@ -9,8 +9,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const navSublinks = document.querySelectorAll('.nav-sublink');
     const contentSections = document.querySelectorAll('.content-section');
     
-    // 初始状态
-    let sidebarCollapsed = false;
+    // 初始状态 - 移动端默认收起，PC端默认展开
+    let sidebarCollapsed = window.innerWidth <= 768;
     
     // 切换侧边栏状态
     function toggleSidebar() {
@@ -140,11 +140,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 rightContentArea.classList.remove('expanded'); // 移除PC端的类
             }
             
-            // 移动端默认收起侧边栏
-            if (!sidebarCollapsed) {
-                sidebar.classList.remove('mobile-open');
+            // 移动端根据状态显示/隐藏侧边栏
+            if (sidebarCollapsed) {
+                sidebar.classList.remove('mobile-open'); // 收起状态：隐藏
             } else {
-                sidebar.classList.add('mobile-open');
+                sidebar.classList.add('mobile-open'); // 展开状态：显示
             }
         } else {
             // PC端使用推拉模式

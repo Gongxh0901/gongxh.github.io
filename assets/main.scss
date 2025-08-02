@@ -705,13 +705,14 @@ body {
     width: var(--sidebar-width);
     height: 100vh;
     z-index: 1100;
-    transition: left 0.3s ease;
-    box-shadow: 2px 0 8px rgba(45, 90, 65, 0.2); /* 添加阴影效果 */
+    transition: left 0.3s ease, box-shadow 0.3s ease; /* 阴影也有过渡 */
+    box-shadow: none; /* 隐藏状态无阴影 */
   }
   
   // 移动端展开状态
   .sidebar.mobile-open {
     left: 0; /* 覆盖显示 */
+    box-shadow: 2px 0 12px rgba(45, 90, 65, 0.3); /* 展开时显示明显阴影 */
   }
   
   // 移动端按钮位置
@@ -724,15 +725,16 @@ body {
     transition: left 0.3s ease;
   }
   
-  // 侧边栏展开时按钮位置
+  // 侧边栏展开时按钮位置 - 与PC端保持一致
   .sidebar.mobile-open .sidebar-toggle-btn {
-    left: calc(var(--sidebar-width) - 34px);
+    left: calc(var(--sidebar-width) - 2px); /* 与PC端相同的计算方式 */
   }
   
   // 移动端右侧区域固定宽度，不受侧边栏影响
   .right-content-area {
-    width: 100%;
-    margin-left: 0; /* 固定位置，不变化 */
+    width: 100% !important; /* 强制占满100% */
+    margin-left: 0 !important; /* 强制无左边距 */
+    transition: none; /* 移动端不需要过渡效果 */
   }
   
   .content-wrapper {
