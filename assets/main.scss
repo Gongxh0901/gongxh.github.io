@@ -454,28 +454,56 @@ body {
 
 .contact-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3列 */
-  grid-template-rows: repeat(2, 1fr);    /* 2行 */
-  gap: 4px 20px; /* 再次压缩行间距 */
-  justify-items: start; /* 网格项目左对齐 */
+  grid-template-columns: 1fr 1fr; /* 两列布局 */
+  gap: 20px; /* 列间距 */
+  max-width: 100%;
 }
 
-.contact-grid-item {
+.contact-group {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   gap: 8px;
-  font-size: 14px;
-  text-align: left; /* 内容左对齐 */
 }
 
-.contact-category {
+.contact-group-title {
   color: var(--primary-green);
   font-weight: 600;
   font-size: 15px;
+  margin-bottom: 4px;
+  text-align: center;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 4px;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 13px;
+  text-align: center;
+}
+
+.contact-item-link {
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.3s ease;
+}
+
+.contact-item-link:hover {
+  transform: translateY(-2px);
+  color: var(--primary-green);
 }
 
 .contact-icon {
   font-size: 16px;
+}
+
+.contact-icon svg {
+  width: 16px;
+  height: 16px;
+  fill: var(--primary-green);
+  vertical-align: middle;
 }
 
 .contact-label {
@@ -755,7 +783,20 @@ body {
   
   .footer-content {
     grid-template-columns: 1fr;
-    gap: 30px;
+    gap: 20px;
+  }
+  
+  .contact-grid {
+    gap: 15px; /* 移动端减少间距 */
+  }
+  
+  .contact-item {
+    font-size: 12px; /* 移动端字体稍小 */
+    gap: 4px;
+  }
+  
+  .contact-group-title {
+    font-size: 14px; /* 移动端标题稍小 */
   }
 }
 
