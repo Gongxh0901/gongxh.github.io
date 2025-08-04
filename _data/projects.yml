@@ -1,0 +1,72 @@
+featured:
+  - id: kunpolibrary
+    title: "KunpoLibrary"
+    description: "基于Cocos Creator 3.0+的游戏开发框架库，提供常用的游戏开发工具和组件。"
+    tech_stack: ["TypeScript", "Cocos Creator", "游戏开发"]
+    github: "https://github.com/gongxh0901/kunpolibrary"
+    demo: ""
+    image: "/assets/images/projects/kunpolibrary.png"
+    status: "active"
+    category: "framework"
+    
+  - id: kunpo-demo
+    title: "KunpoDemo"
+    description: "界面编辑器和实体编辑器的实例项目，展示如何使用KunpoLibrary进行游戏开发。"
+    tech_stack: ["TypeScript", "Cocos Creator", "UI编辑器"]
+    github: "https://github.com/gongxh0901/KunpoDemo"
+    demo: ""
+    image: "/assets/images/projects/kunpo-demo.png"
+    status: "active"
+    category: "demo"
+    
+  - id: creator-build-tools
+    title: "Creator构建工具"
+    description: "Cocos Creator 3.8+自动化打包工具，简化游戏发布流程。"
+    tech_stack: ["Node.js", "CLI", "自动化"]
+    github: "https://github.com/gongxh0901/creator-build-tools"
+    demo: ""
+    image: "/assets/images/projects/build-tools.png"
+    status: "active"
+    category: "tools"
+
+libraries:
+  - id: kunpo-ecs
+    title: "Kunpo ECS"
+    description: "TypeScript实现的Entity-Component-System架构库，为游戏提供高性能的实体管理。"
+    tech_stack: ["TypeScript", "ECS", "架构设计"]
+    github: "https://github.com/gongxh0901/kunpo-ecs"
+    demo: ""
+    image: "/assets/images/projects/kunpo-ecs.png"
+    status: "active"
+    category: "library"
+    
+  - id: kunpo-quadtree
+    title: "Kunpo Quadtree"
+    description: "高性能四叉树算法实现，用于游戏中的空间划分和碰撞检测优化。"
+    tech_stack: ["TypeScript", "算法", "性能优化"]
+    github: "https://github.com/gongxh0901/kunpo-quadtree"
+    demo: ""
+    image: "/assets/images/projects/quadtree.png"
+    status: "active"
+    category: "library"
+
+tools:
+  - id: performance-analyzer
+    title: "性能分析工具"
+    description: "游戏性能分析与优化工具集，帮助开发者识别和解决性能瓶颈。"
+    tech_stack: ["TypeScript", "性能分析", "开发工具"]
+    github: "https://gitee.com/gongxh/performance-tools"
+    demo: ""
+    image: "/assets/images/projects/performance-tools.png"
+    status: "development"
+    category: "tools"
+    
+  - id: asset-optimizer
+    title: "资源优化工具"
+    description: "自动化的游戏资源优化工具，支持纹理压缩、音频压缩等功能。"
+    tech_stack: ["Node.js", "图像处理", "自动化"]
+    github: ""
+    demo: ""
+    image: "/assets/images/projects/asset-optimizer.png"
+    status: "planning"
+    category: "tools" 

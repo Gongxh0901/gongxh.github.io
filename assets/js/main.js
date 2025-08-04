@@ -1,3 +1,249 @@
+// URL路由系统
+class URLRouter {
+    constructor() {
+        this.routes = new Map([
+            ['', 'home'],
+            ['home', 'home'],
+            ['about', 'about'],
+            ['projects', 'projects'],
+            ['project-showcase', 'project-showcase'],
+            ['project-details', 'project-details'],
+            ['tools', 'tools'],
+            ['dev-tools', 'dev-tools'],
+            ['plugins', 'plugins'],
+            ['articles', 'articles'],
+            ['tech-articles', 'tech-articles'],
+            ['experience', 'experience'],
+            ['opensource', 'opensource'],
+            ['my-opensource', 'my-opensource'],
+            ['contributions', 'contributions']
+        ]);
+        
+        this.contentLoader = new ContentLoader();
+        this.currentRoute = '';
+        
+        // 监听浏览器前进/后退
+        window.addEventListener('popstate', (e) => {
+            this.handlePopState(e);
+        });
+        
+        // 页面加载时处理初始路由
+        this.handleInitialRoute();
+    }
+    
+    handleInitialRoute() {
+        const hash = window.location.hash.substring(1); // 移除 # 号
+        const path = hash || window.location.pathname.substring(1) || '';
+        this.navigate(path, false); // 不更新历史记录
+    }
+    
+    navigate(path, updateHistory = true) {
+        // 清理路径
+        path = path.replace(/^\/+|\/+$/g, ''); // 移除首尾斜杠
+        
+        // 检查是否是有效路由
+        let targetId = this.routes.get(path);
+        
+        // 如果不是直接路由，尝试处理动态路由
+        if (!targetId) {
+            targetId = this.handleDynamicRoutes(path) || this.handleSpecialRoutes(path);
+        }
+        
+        if (targetId) {
+            this.currentRoute = path;
+            
+            // 更新URL（如果需要）
+            if (updateHistory) {
+                const newUrl = path ? `#${path}` : '#';
+                if (window.location.hash !== newUrl) {
+                    history.pushState({route: path}, '', newUrl);
+                }
+            }
+            
+            // 显示内容并处理动态子菜单选中
+            this.showContent(targetId);
+            this.handleDynamicNavigation(path, targetId);
+            
+            return true;
+        } else {
+            console.warn('未找到路由:', path);
+            // 重定向到首页
+            this.navigate('home', updateHistory);
+            return false;
+        }
+    }
+    
+    handleDynamicRoutes(path) {
+        // 处理动态子菜单路由：如 projects-1, tools-2, articles-3 等
+        const dynamicRoutePattern = /^(projects|tools|articles|opensource)-(\d+)$/;
+        const match = path.match(dynamicRoutePattern);
+        
+        if (match) {
+            const [, category, index] = match;
+            return category; // 返回主类别作为内容区域
+        }
+        
+        return null;
+    }
+    
+    handleDynamicNavigation(path, targetId) {
+        // 处理动态子菜单的选中状态
+        const dynamicRoutePattern = /^(projects|tools|articles|opensource)-(\d+)$/;
+        const match = path.match(dynamicRoutePattern);
+        
+        if (match) {
+            const [, category, index] = match;
+            
+            // 选中对应的动态子菜单项
+            setTimeout(() => {
+                const dynamicSublink = document.querySelector(`.nav-sublink[data-target="${path}"]`);
+                if (dynamicSublink) {
+                    // 只移除子菜单的选中状态，保持父菜单状态
+                    const parentNavItem = dynamicSublink.closest('.nav-item');
+                    if (parentNavItem) {
+                        // 移除同级子菜单的选中状态
+                        const siblingSublinks = parentNavItem.querySelectorAll('.nav-sublink');
+                        siblingSublinks.forEach(link => {
+                            link.classList.remove('active');
+                        });
+                        
+                        // 确保父菜单展开但不改变其选中状态
+                        const submenu = parentNavItem.querySelector('.nav-submenu');
+                        const arrow = parentNavItem.querySelector('.nav-arrow');
+                        if (submenu && !submenu.classList.contains('expanded')) {
+                            submenu.classList.add('expanded');
+                            if (arrow) {
+                                arrow.textContent = '▼';
+                            }
+                        }
+                    }
+                    
+                    // 选中当前子菜单项
+                    dynamicSublink.classList.add('active');
+                    
+                    // 直接显示文章内容，而不是子页签选择界面
+                    this.showArticleContent(category, index);
+                }
+            }, 50); // 减少延迟时间
+        }
+    }
+    
+    showArticleContent(category, index) {
+        // 直接切换到对应的子页签，显示完整文章内容
+        const mainContentSection = document.getElementById(`${category}-content`);
+        if (mainContentSection) {
+            // 显示page-header和dynamic-content（恢复正常的子页签界面）
+            const pageHeader = mainContentSection.querySelector('.page-header');
+            const dynamicContent = mainContentSection.querySelector('.dynamic-content');
+            
+            if (pageHeader) pageHeader.style.display = '';
+            if (dynamicContent) dynamicContent.style.display = '';
+            
+            // 隐藏文章显示区域（如果存在）
+            const articleDisplay = mainContentSection.querySelector('.article-display');
+            if (articleDisplay) {
+                articleDisplay.style.display = 'none';
+            }
+            
+            // 激活对应的子页签按钮
+            const targetBtn = mainContentSection.querySelector(`.sub-tab-btn[data-target="${category}-${index}"]`);
+            if (targetBtn) {
+                // 移除所有子页签的激活状态
+                const allSubTabBtns = mainContentSection.querySelectorAll('.sub-tab-btn');
+                allSubTabBtns.forEach(btn => btn.classList.remove('active'));
+                
+                // 激活目标按钮
+                targetBtn.classList.add('active');
+                
+                // 切换到对应的子内容
+                this.switchSubTabContent(mainContentSection, `${category}-${index}`);
+            }
+        }
+    }
+    
+    switchSubTabContent(parentSection, targetId) {
+        // 隐藏所有子内容
+        const subContents = parentSection.querySelectorAll('.sub-content');
+        subContents.forEach(content => content.classList.remove('active'));
+        
+        // 显示目标子内容
+        const targetContent = parentSection.querySelector(`#${targetId}-content`);
+        if (targetContent) {
+            targetContent.classList.add('active');
+            
+            // 确保内容区域可见
+            targetContent.scrollIntoView({ 
+                behavior: 'smooth', 
+                block: 'start',
+                inline: 'nearest'
+            });
+        }
+    }
+    
+    handleSubTabSelection(category, index) {
+        // 处理主内容区的子页签选中状态
+        const mainContentSection = document.getElementById(`${category}-content`);
+        if (mainContentSection) {
+            const subTabBtn = mainContentSection.querySelector(`.sub-tab-btn[data-target="${category}-${index}"]`);
+            if (subTabBtn) {
+                // 触发子页签切换
+                if (window.switchSubTab) {
+                    window.switchSubTab(subTabBtn, `${category}-${index}`);
+                }
+            }
+        }
+    }
+    
+    handleSpecialRoutes(path) {
+        // 处理特殊路由，如 posts/article-name 或 projects/project-name
+        const segments = path.split('/');
+        
+        if (segments[0] === 'posts' && segments[1]) {
+            // 文章路由：posts/article-name
+            return this.contentLoader.loadPost(segments[1]);
+        }
+        
+        if (segments[0] === 'projects' && segments[1]) {
+            // 项目路由：projects/project-name
+            return this.contentLoader.loadProject(segments[1]);
+        }
+        
+        return null;
+    }
+    
+    handlePopState(event) {
+        const hash = window.location.hash.substring(1);
+        const path = hash || '';
+        this.navigate(path, false);
+    }
+    
+    showContent(targetId) {
+        // 调用原有的showContent函数
+        if (window.showContentFunction) {
+            window.showContentFunction(targetId);
+        }
+    }
+}
+
+// 内容加载器
+class ContentLoader {
+    constructor() {
+        this.loadedPosts = new Map();
+        this.loadedProjects = new Map();
+    }
+    
+    loadPost(slug) {
+        // 目前返回文章页面的ID，后续可以改为AJAX加载
+        // 这里假设文章都在tech-articles分类下
+        return 'tech-articles';
+    }
+    
+    loadProject(id) {
+        // 目前返回项目展示页面的ID，后续可以改为AJAX加载
+        return 'project-showcase';
+    }
+}
+
 // 网站主要交互功能
 document.addEventListener('DOMContentLoaded', function() {
     // DOM元素
@@ -8,6 +254,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const navLinks = document.querySelectorAll('.nav-link');
     const navSublinks = document.querySelectorAll('.nav-sublink');
     const contentSections = document.querySelectorAll('.content-section');
+    
+    // 初始化路由系统
+    const router = new URLRouter();
+    
+    // 暴露router到全局作用域
+    window.router = router;
     
     // 初始状态 - 移动端默认收起，PC端默认展开
     let sidebarCollapsed = window.innerWidth <= 768;
@@ -52,28 +304,170 @@ document.addEventListener('DOMContentLoaded', function() {
         const targetSection = document.getElementById(targetId + '-content');
         if (targetSection) {
             targetSection.classList.add('active');
+            
+            // 检查是否是动态路由，如果不是，恢复正常显示
+            const dynamicRoutePattern = /^(projects|tools|articles|opensource)-(\d+)$/;
+            if (!dynamicRoutePattern.test(targetId)) {
+                // 恢复page-header和dynamic-content的显示
+                const pageHeader = targetSection.querySelector('.page-header');
+                const dynamicContent = targetSection.querySelector('.dynamic-content');
+                const articleDisplay = targetSection.querySelector('.article-display');
+                
+                if (pageHeader) pageHeader.style.display = '';
+                if (dynamicContent) dynamicContent.style.display = '';
+                if (articleDisplay) articleDisplay.style.display = 'none';
+            }
         }
         
         // 更新导航状态
         updateNavState(targetId);
     }
     
+    // 将showContent函数暴露给路由系统
+    window.showContentFunction = showContent;
+    
+    // 子页签功能
+    function initSubTabs() {
+        // 为所有子页签按钮添加点击事件
+        const subTabBtns = document.querySelectorAll('.sub-tab-btn');
+        subTabBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const targetId = this.getAttribute('data-target');
+                switchSubTab(this, targetId);
+            });
+        });
+    }
+    
+    function switchSubTab(clickedBtn, targetId) {
+        // 找到当前激活的页签容器
+        const parentSection = clickedBtn.closest('.content-section');
+        if (!parentSection) return;
+        
+        // 移除同组内所有按钮的激活状态
+        const siblingBtns = parentSection.querySelectorAll('.sub-tab-btn');
+        siblingBtns.forEach(btn => btn.classList.remove('active'));
+        
+        // 激活点击的按钮
+        clickedBtn.classList.add('active');
+        
+        // 使用路由系统的switchSubTabContent方法
+        if (window.router && window.router.switchSubTabContent) {
+            window.router.switchSubTabContent(parentSection, targetId);
+        } else {
+            // 备用方法：直接切换内容
+            const subContents = parentSection.querySelectorAll('.sub-content');
+            subContents.forEach(content => content.classList.remove('active'));
+            
+            const targetContent = parentSection.querySelector(`#${targetId}-content`);
+            if (targetContent) {
+                targetContent.classList.add('active');
+                
+                targetContent.scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'start',
+                    inline: 'nearest'
+                });
+            }
+        }
+        
+        // 更新URL以反映当前选择的子页签
+        const dynamicRoutePattern = /^(projects|tools|articles|opensource)-(\d+)$/;
+        if (dynamicRoutePattern.test(targetId)) {
+            const newUrl = `#${targetId}`;
+            if (window.location.hash !== newUrl) {
+                history.pushState({route: targetId}, '', newUrl);
+            }
+        }
+    }
+    
+    // 初始化时激活第一个子页签
+    function activateFirstSubTabs() {
+        const contentSections = document.querySelectorAll('.content-section');
+        contentSections.forEach(section => {
+            const firstBtn = section.querySelector('.sub-tab-btn');
+            if (firstBtn && !firstBtn.classList.contains('active')) {
+                firstBtn.classList.add('active');
+            }
+        });
+    }
+    
+    // 初始化子页签功能
+    initSubTabs();
+    activateFirstSubTabs();
+    
+    // 将switchSubTab函数暴露给路由系统
+    window.switchSubTab = switchSubTab;
+    
     // 更新导航栏状态
     function updateNavState(activeId) {
+        // 检查是否是动态子菜单ID（如 projects-1, tools-1）
+        const dynamicRoutePattern = /^(projects|tools|articles|opensource)-(\d+)$/;
+        const isDynamicRoute = dynamicRoutePattern.test(activeId);
+        
         // 清除所有active状态
         navLinks.forEach(link => link.classList.remove('active'));
         navSublinks.forEach(link => link.classList.remove('active'));
         
-        // 优先查找子菜单链接
-        const activeSublink = document.querySelector(`.nav-sublink[data-target="${activeId}"]`);
-        if (activeSublink) {
-            // 如果是子菜单链接，只激活子菜单，不激活父菜单
-            activeSublink.classList.add('active');
+        if (isDynamicRoute) {
+            // 对于动态子菜单，只激活子菜单项，不激活父菜单
+            const activeSublink = document.querySelector(`.nav-sublink[data-target="${activeId}"]`);
+            if (activeSublink) {
+                activeSublink.classList.add('active');
+                
+                // 确保父菜单展开，但不激活
+                const parentNavItem = activeSublink.closest('.nav-item');
+                if (parentNavItem) {
+                    const parentSubmenu = parentNavItem.querySelector('.nav-submenu');
+                    const parentArrow = parentNavItem.querySelector('.nav-arrow');
+                    if (parentSubmenu && !parentSubmenu.classList.contains('expanded')) {
+                        parentSubmenu.classList.add('expanded');
+                        if (parentArrow) {
+                            parentArrow.textContent = '▼';
+                        }
+                    }
+                }
+            }
         } else {
-            // 如果不是子菜单链接，查找父菜单链接
-            const activeMainLink = document.querySelector(`.nav-link[data-target="${activeId}"]`);
-            if (activeMainLink) {
-                activeMainLink.classList.add('active');
+            // 对于普通导航项，使用原有逻辑
+            // 优先查找子菜单链接
+            const activeSublink = document.querySelector(`.nav-sublink[data-target="${activeId}"]`);
+            if (activeSublink) {
+                // 如果是子菜单链接，激活子菜单和对应的父菜单
+                activeSublink.classList.add('active');
+                
+                // 展开父菜单
+                const parentNavItem = activeSublink.closest('.nav-item');
+                if (parentNavItem) {
+                    const parentSubmenu = parentNavItem.querySelector('.nav-submenu');
+                    const parentArrow = parentNavItem.querySelector('.nav-arrow');
+                    if (parentSubmenu && !parentSubmenu.classList.contains('expanded')) {
+                        parentSubmenu.classList.add('expanded');
+                        if (parentArrow) {
+                            parentArrow.textContent = '▼';
+                        }
+                    }
+                }
+            } else {
+                // 如果不是子菜单链接，查找父菜单链接
+                const activeMainLink = document.querySelector(`.nav-link[data-target="${activeId}"]`);
+                if (activeMainLink) {
+                    const parentNavItem = activeMainLink.closest('.nav-item');
+                    
+                    // 只有没有子菜单的父菜单才能被选中
+                    if (parentNavItem && !parentNavItem.classList.contains('has-children')) {
+                        activeMainLink.classList.add('active');
+                    } else if (parentNavItem && parentNavItem.classList.contains('has-children')) {
+                        // 如果父菜单有子菜单，只确保展开状态，不激活
+                        const submenu = parentNavItem.querySelector('.nav-submenu');
+                        const arrow = parentNavItem.querySelector('.nav-arrow');
+                        if (submenu && !submenu.classList.contains('expanded')) {
+                            submenu.classList.add('expanded');
+                            if (arrow) {
+                                arrow.textContent = '▼';
+                            }
+                        }
+                    }
+                }
             }
         }
     }
@@ -109,9 +503,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 return; // 有子菜单时直接返回，不执行后续内容显示
             }
             
-            // 显示对应内容（只有没有子菜单的一级标题才会执行到这里）
+            // 使用路由系统导航（只有没有子菜单的一级标题才会执行到这里）
             if (target) {
-                showContent(target);
+                router.navigate(target);
             }
         });
     });
@@ -122,9 +516,9 @@ document.addEventListener('DOMContentLoaded', function() {
             e.preventDefault();
             const target = this.getAttribute('data-target');
             
-            // 显示对应内容
+            // 使用路由系统导航
             if (target) {
-                showContent(target);
+                router.navigate(target);
             }
         });
     });
@@ -179,8 +573,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.addEventListener('click', handleMobileOverlayClick);
     handleResize(); // 初始调用
     
-    // 默认显示首页内容
-    showContent('home');
+    // 路由系统会自动处理初始页面显示，不需要手动调用showContent
 });
 
 // 平滑滚动到顶部功能

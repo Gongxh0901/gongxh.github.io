@@ -11,14 +11,18 @@
     <nav class="sidebar-nav">
         <ul class="nav-list">
             {% for item in site.data.navigation.main %}
-            <li class="nav-item{% if item.children %} has-children{% endif %}">
+            {% comment %} 动态子菜单将在下面直接处理 {% endcomment %}
+
+            <li class="nav-item{% if item.children or item.dynamic_children %} has-children{% endif %}">
                 <a href="#" class="nav-link" data-target="{{ item.id }}">
                     <span class="nav-icon">{{ item.icon }}</span>
                     <span class="nav-text">{{ item.title }}</span>
-                    {% if item.children %}
+                    {% if item.children or item.dynamic_children %}
                     <span class="nav-arrow">▼</span>
                     {% endif %}
                 </a>
+
+                {% comment %} 静态子菜单 {% endcomment %}
                 {% if item.children %}
                 <ul class="nav-submenu expanded">
                     {% for child in item.children %}
@@ -30,8 +34,56 @@
                     {% endfor %}
                 </ul>
                 {% endif %}
+
+                {% comment %} 动态子菜单 {% endcomment %}
+                {% if item.dynamic_children %}
+                <ul class="nav-submenu expanded">
+                    {% assign post_count = 0 %}
+                    {% for post in site.posts %}
+                    {% assign show_post = false %}
+                    {% if item.category_filter and post.categories contains item.category_filter %}
+                    {% assign show_post = true %}
+                    {% elsif item.path_filter and post.path contains item.path_filter %}
+                    {% assign show_post = true %}
+                    {% endif %}
+
+                    {% if show_post and post_count < 8 %} {% assign post_count=post_count | plus: 1 %} <li
+                        class="nav-subitem">
+                        <a href="#" class="nav-sublink" data-target="{{ item.id }}-{{ post_count }}"
+                            data-parent="{{ item.id }}">
+                            <span class="nav-subtext">{{ post.title | truncate: 15 }}</span>
+                        </a>
             </li>
+            {% endif %}
             {% endfor %}
+
+            {% comment %} 计算总文章数 {% endcomment %}
+            {% assign total_posts = 0 %}
+            {% for post in site.posts %}
+            {% if item.category_filter and post.categories contains item.category_filter %}
+            {% assign total_posts = total_posts | plus: 1 %}
+            {% elsif item.path_filter and post.path contains item.path_filter %}
+            {% assign total_posts = total_posts | plus: 1 %}
+            {% endif %}
+            {% endfor %}
+
+            {% if total_posts > 8 %}
+            <li class="nav-subitem">
+                <a href="#" class="nav-sublink" data-target="{{ item.id }}" data-parent="{{ item.id }}">
+                    <span class="nav-subtext">查看全部 ({{ total_posts }})</span>
+                </a>
+            </li>
+            {% endif %}
+
+            {% if total_posts == 0 %}
+            <li class="nav-subitem">
+                <span class="nav-subtext text-muted">暂无文章</span>
+            </li>
+            {% endif %}
+        </ul>
+        {% endif %}
+        </li>
+        {% endfor %}
         </ul>
     </nav>
 </aside>

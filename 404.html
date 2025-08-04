@@ -23,4 +23,36 @@ layout: page
 
   <p><strong>页面未找到</strong></p>
   <p>抱歉，您访问的页面不存在。请检查网址是否正确，或者返回<a href="{{ '/' | relative_url }}">首页</a>。</p>
+  <p id="redirect-message" style="display:none;">正在重定向到正确页面...</p>
 </div>
+
+<script>
+  (function () {
+    // GitHub Pages SPA路由重定向处理
+    var path = window.location.pathname;
+    var baseUrl = '{{ site.baseurl }}' || '';
+
+    // 如果不是根路径，尝试重定向到SPA路由
+    if (path !== '/' && path !== baseUrl + '/') {
+      // 移除baseUrl前缀（如果存在）
+      var routePath = path;
+      if (baseUrl && path.indexOf(baseUrl) === 0) {
+        routePath = path.substring(baseUrl.length);
+      }
+
+      // 显示重定向消息
+      var message = document.getElementById('redirect-message');
+      if (message) {
+        message.style.display = 'block';
+      }
+
+      // 重定向到首页，并带上路由信息
+      var redirectUrl = baseUrl + '/#' + routePath;
+
+      // 延迟1秒后重定向，让用户看到提示信息
+      setTimeout(function () {
+        window.location.replace(redirectUrl);
+      }, 1000);
+    }
+  })();
+</script>

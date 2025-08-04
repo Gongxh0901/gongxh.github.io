@@ -6,38 +6,26 @@ main:
   - title: "游戏项目"
     id: "projects"
     icon: "🎮"
-    children:
-      - title: "项目展示"
-        id: "project-showcase"
-      - title: "项目详情"
-        id: "project-details"
+    dynamic_children: true
+    category_filter: "游戏项目"
         
   - title: "游戏开发工具"
     id: "tools"
     icon: "🛠️"
-    children:
-      - title: "开发工具"
-        id: "dev-tools"
-      - title: "插件扩展"
-        id: "plugins"
+    dynamic_children: true
+    category_filter: "游戏开发工具"
         
-  - title: "技术随笔"
+  - title: "博客文章"
     id: "articles"
     icon: "📝"
-    children:
-      - title: "技术文章"
-        id: "tech-articles"
-      - title: "经验分享"
-        id: "experience"
+    dynamic_children: true
+    path_filter: "blog-articles"
         
   - title: "开源项目"
     id: "opensource"
     icon: "🔓"
-    children:
-      - title: "我的开源"
-        id: "my-opensource"
-      - title: "贡献记录"
-        id: "contributions"
+    dynamic_children: true
+    category_filter: "开源项目"
         
   - title: "关于我"
     id: "about"

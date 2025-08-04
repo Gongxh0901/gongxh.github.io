@@ -1,0 +1,39 @@
+categories:
+  - id: "tech-articles"
+    name: "技术文章"
+    description: "深度技术文章和教程"
+    icon: "📝"
+    
+  - id: "experience"
+    name: "经验分享"
+    description: "开发经验和踩坑记录"
+    icon: "💡"
+    
+  - id: "tutorials"
+    name: "教程"
+    description: "实用的开发教程"
+    icon: "📚"
+    
+  - id: "performance"
+    name: "性能优化"
+    description: "游戏性能优化相关文章"
+    icon: "⚡"
+
+tags:
+  - name: "Cocos Creator"
+    color: "#FF6B6B"
+    
+  - name: "TypeScript"
+    color: "#4ECDC4"
+    
+  - name: "性能优化"
+    color: "#45B7D1"
+    
+  - name: "ECS"
+    color: "#96CEB4"
+    
+  - name: "架构设计"
+    color: "#FFEAA7"
+    
+  - name: "游戏开发"
+    color: "#DDA0DD" 
