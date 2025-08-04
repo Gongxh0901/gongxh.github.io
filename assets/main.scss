@@ -766,7 +766,11 @@ body {
   }
   
   .content-wrapper {
-    padding: 20px;
+    padding: 8px;
+  }
+  
+  .post-content, .page-content {
+    padding: 10px;
   }
   
   .page-title {
@@ -852,10 +856,10 @@ body {
   
   // 文章显示优化
   .article-display {
-    padding: 1rem 0.5rem;
+    padding: 0.3rem 0.2rem;
     
     .post-summary {
-      padding: 2rem;
+      padding: 1rem;
       
       h2 {
         font-size: 1.6rem;
@@ -907,7 +911,11 @@ body {
   }
   
   .content-wrapper {
-    padding: 15px;
+    padding: 5px;
+  }
+  
+  .post-content, .page-content {
+    padding: 8px;
   }
   
   .page-title {
@@ -1259,10 +1267,10 @@ body {
 
 @media (max-width: 480px) {
   .article-display {
-    padding: 0.5rem;
+    padding: 0.2rem;
     
     .post-summary {
-      padding: 1.5rem;
+      padding: 0.8rem;
       
       h2 {
         font-size: 1.4rem;
@@ -1577,11 +1585,15 @@ body {
 
 @media (max-width: 480px) {
   .content-wrapper {
-    padding: 10px;
+    padding: 3px;
+  }
+  
+  .post-content, .page-content {
+    padding: 5px;
   }
   
   .post-full-content {
-    padding: 1rem 0.5rem;
+    padding: 0.5rem 0.3rem;
     
     h2 {
       font-size: 1.5rem;
