@@ -38,21 +38,13 @@ class URLRouter {
     }
     
     navigate(path, updateHistory = true) {
-        // 清理路径
-        path = path.replace(/^\/+|\/+$/g, ''); // 移除首尾斜杠
+        path = path.replace(/^\/+|\/+$/g, '');
         
-        // 检查是否是有效路由
-        let targetId = this.routes.get(path);
-        
-        // 如果不是直接路由，尝试处理动态路由
-        if (!targetId) {
-            targetId = this.handleDynamicRoutes(path) || this.handleSpecialRoutes(path);
-        }
+        let targetId = this.routes.get(path) || this.handleDynamicRoutes(path) || this.handleSpecialRoutes(path);
         
         if (targetId) {
             this.currentRoute = path;
             
-            // 更新URL（如果需要）
             if (updateHistory) {
                 const newUrl = path ? `#${path}` : '#';
                 if (window.location.hash !== newUrl) {
@@ -60,14 +52,11 @@ class URLRouter {
                 }
             }
             
-            // 显示内容并处理动态子菜单选中
             this.showContent(targetId);
             this.handleDynamicNavigation(path, targetId);
-            
             return true;
         } else {
             console.warn('未找到路由:', path);
-            // 重定向到首页
             this.navigate('home', updateHistory);
             return false;
         }
@@ -185,11 +174,8 @@ class URLRouter {
         const mainContentSection = document.getElementById(`${category}-content`);
         if (mainContentSection) {
             const subTabBtn = mainContentSection.querySelector(`.sub-tab-btn[data-target="${category}-${index}"]`);
-            if (subTabBtn) {
-                // 触发子页签切换
-                if (window.switchSubTab) {
-                    window.switchSubTab(subTabBtn, `${category}-${index}`);
-                }
+            if (subTabBtn && window.switchSubTab) {
+                window.switchSubTab(subTabBtn, `${category}-${index}`);
             }
         }
     }
@@ -218,28 +204,17 @@ class URLRouter {
     }
     
     showContent(targetId) {
-        // 调用原有的showContent函数
-        if (window.showContentFunction) {
-            window.showContentFunction(targetId);
-        }
+        window.showContentFunction?.(targetId);
     }
 }
 
-// 内容加载器
+// 内容加载器 - 简化版
 class ContentLoader {
-    constructor() {
-        this.loadedPosts = new Map();
-        this.loadedProjects = new Map();
-    }
-    
     loadPost(slug) {
-        // 目前返回文章页面的ID，后续可以改为AJAX加载
-        // 这里假设文章都在tech-articles分类下
         return 'tech-articles';
     }
     
     loadProject(id) {
-        // 目前返回项目展示页面的ID，后续可以改为AJAX加载
         return 'project-showcase';
     }
 }

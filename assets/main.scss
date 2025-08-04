@@ -798,6 +798,92 @@ body {
   .contact-group-title {
     font-size: 14px; /* 移动端标题稍小 */
   }
+  
+  // 文章和项目列表响应式
+  .article-grid,
+  .project-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .article-card,
+  .project-card {
+    padding: 1rem;
+  }
+  
+  .project-header {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-start;
+  }
+  
+  .article-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  // 子页签响应式
+  .sub-tabs {
+    justify-content: center;
+  }
+  
+  .sub-tab-btn {
+    flex: 1;
+    min-width: 120px;
+    text-align: center;
+    font-size: 0.8rem;
+    padding: 0.6rem 0.8rem;
+  }
+  
+  .post-summary {
+    padding: 1.5rem;
+    
+    h2 {
+      font-size: 1.3rem;
+    }
+    
+    .post-meta {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+  }
+  
+  // 文章显示优化
+  .article-display {
+    padding: 1rem 0.5rem;
+    
+    .post-summary {
+      padding: 2rem;
+      
+      h2 {
+        font-size: 1.6rem;
+      }
+      
+      .post-excerpt {
+        font-size: 1rem;
+      }
+    }
+  }
+  
+  // 完整文章内容优化
+  .post-full-content {
+    padding: 1.5rem;
+    
+    h2 {
+      font-size: 1.8rem;
+    }
+    
+    .post-content {
+      font-size: 1rem;
+      
+      h1 { font-size: 1.6rem; }
+      h2 { font-size: 1.4rem; }
+      h3 { font-size: 1.2rem; }
+      h4 { font-size: 1.1rem; }
+    }
+  }
 }
 
 @media (max-width: 480px) {
@@ -1094,31 +1180,6 @@ body {
   }
 }
 
-// 响应式优化
-@media (max-width: 768px) {
-  .article-grid,
-  .project-grid {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-  }
-  
-  .article-card,
-  .project-card {
-    padding: 1rem;
-  }
-  
-  .project-header {
-    flex-direction: column;
-    gap: 0.5rem;
-    align-items: flex-start;
-  }
-  
-  .article-meta {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.5rem;
-  }
-}
 
 @media (max-width: 480px) {
   .articles-container,
@@ -1195,23 +1256,6 @@ body {
   }
 }
 
-@media (max-width: 768px) {
-  .article-display {
-    padding: 1rem 0.5rem;
-    
-    .post-summary {
-      padding: 2rem;
-      
-      h2 {
-        font-size: 1.6rem;
-      }
-      
-      .post-excerpt {
-        font-size: 1rem;
-      }
-    }
-  }
-}
 
 @media (max-width: 480px) {
   .article-display {
@@ -1359,34 +1403,6 @@ body {
   padding: 2rem;
 }
 
-// 响应式适配
-@media (max-width: 768px) {
-  .sub-tabs {
-    justify-content: center;
-  }
-  
-  .sub-tab-btn {
-    flex: 1;
-    min-width: 120px;
-    text-align: center;
-    font-size: 0.8rem;
-    padding: 0.6rem 0.8rem;
-  }
-  
-  .post-summary {
-    padding: 1.5rem;
-    
-    h2 {
-      font-size: 1.3rem;
-    }
-    
-    .post-meta {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 0.5rem;
-    }
-  }
-}
 
 @media (max-width: 480px) {
   .dynamic-content {
@@ -1558,28 +1574,6 @@ body {
   }
 }
 
-@media (max-width: 768px) {
-  .content-wrapper {
-    padding: 15px;
-  }
-  
-  .post-full-content {
-    padding: 1.5rem;
-    
-    h2 {
-      font-size: 1.8rem;
-    }
-    
-    .post-content {
-      font-size: 1rem;
-      
-      h1 { font-size: 1.6rem; }
-      h2 { font-size: 1.4rem; }
-      h3 { font-size: 1.2rem; }
-      h4 { font-size: 1.1rem; }
-    }
-  }
-}
 
 @media (max-width: 480px) {
   .content-wrapper {
