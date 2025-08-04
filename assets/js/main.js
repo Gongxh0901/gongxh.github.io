@@ -159,24 +159,26 @@ class URLRouter {
         const targetContent = parentSection.querySelector(`#${targetId}-content`);
         if (targetContent) {
             targetContent.classList.add('active');
-            
-            // 确保内容区域可见
-            targetContent.scrollIntoView({ 
-                behavior: 'smooth', 
-                block: 'start',
-                inline: 'nearest'
-            });
         }
-    }
-    
-    handleSubTabSelection(category, index) {
-        // 处理主内容区的子页签选中状态
-        const mainContentSection = document.getElementById(`${category}-content`);
-        if (mainContentSection) {
-            const subTabBtn = mainContentSection.querySelector(`.sub-tab-btn[data-target="${category}-${index}"]`);
-            if (subTabBtn && window.switchSubTab) {
-                window.switchSubTab(subTabBtn, `${category}-${index}`);
-            }
+        
+        // 切换后立即滚动到内容区顶部
+        const immediateSuccess = scrollToTop();
+        
+        // 如果立即滚动失败，使用多层延迟重试机制
+        if (!immediateSuccess) {
+            setTimeout(() => {
+                const firstRetry = scrollToTop();
+                if (!firstRetry) {
+                    setTimeout(() => {
+                        const secondRetry = scrollToTop();
+                        if (!secondRetry) {
+                            setTimeout(() => {
+                                scrollToTop();
+                            }, 300);
+                        }
+                    }, 150);
+                }
+            }, 50);
         }
     }
     
@@ -292,6 +294,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (dynamicContent) dynamicContent.style.display = '';
                 if (articleDisplay) articleDisplay.style.display = 'none';
             }
+            
+            // 切换内容后滚动到顶部
+            setTimeout(() => {
+                const scrollSuccess = scrollToTop();
+                
+                // 如果第一次滚动失败，再次尝试
+                if (!scrollSuccess) {
+                    setTimeout(() => {
+                        scrollToTop();
+                    }, 100);
+                }
+            }, 50);
         }
         
         // 更新导航状态
@@ -301,77 +315,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // 将showContent函数暴露给路由系统
     window.showContentFunction = showContent;
     
-    // 子页签功能
-    function initSubTabs() {
-        // 为所有子页签按钮添加点击事件
-        const subTabBtns = document.querySelectorAll('.sub-tab-btn');
-        subTabBtns.forEach(btn => {
-            btn.addEventListener('click', function() {
-                const targetId = this.getAttribute('data-target');
-                switchSubTab(this, targetId);
-            });
-        });
-    }
-    
-    function switchSubTab(clickedBtn, targetId) {
-        // 找到当前激活的页签容器
-        const parentSection = clickedBtn.closest('.content-section');
-        if (!parentSection) return;
-        
-        // 移除同组内所有按钮的激活状态
-        const siblingBtns = parentSection.querySelectorAll('.sub-tab-btn');
-        siblingBtns.forEach(btn => btn.classList.remove('active'));
-        
-        // 激活点击的按钮
-        clickedBtn.classList.add('active');
-        
-        // 使用路由系统的switchSubTabContent方法
-        if (window.router && window.router.switchSubTabContent) {
-            window.router.switchSubTabContent(parentSection, targetId);
-        } else {
-            // 备用方法：直接切换内容
-            const subContents = parentSection.querySelectorAll('.sub-content');
-            subContents.forEach(content => content.classList.remove('active'));
-            
-            const targetContent = parentSection.querySelector(`#${targetId}-content`);
-            if (targetContent) {
-                targetContent.classList.add('active');
-                
-                targetContent.scrollIntoView({ 
-                    behavior: 'smooth', 
-                    block: 'start',
-                    inline: 'nearest'
-                });
-            }
-        }
-        
-        // 更新URL以反映当前选择的子页签
-        const dynamicRoutePattern = /^(projects|tools|articles|opensource)-(\d+)$/;
-        if (dynamicRoutePattern.test(targetId)) {
-            const newUrl = `#${targetId}`;
-            if (window.location.hash !== newUrl) {
-                history.pushState({route: targetId}, '', newUrl);
-            }
-        }
-    }
-    
-    // 初始化时激活第一个子页签
-    function activateFirstSubTabs() {
-        const contentSections = document.querySelectorAll('.content-section');
-        contentSections.forEach(section => {
-            const firstBtn = section.querySelector('.sub-tab-btn');
-            if (firstBtn && !firstBtn.classList.contains('active')) {
-                firstBtn.classList.add('active');
-            }
-        });
-    }
-    
-    // 初始化子页签功能
-    initSubTabs();
-    activateFirstSubTabs();
-    
-    // 将switchSubTab函数暴露给路由系统
-    window.switchSubTab = switchSubTab;
+    // 注意：子页签切换通过侧边栏导航和路由系统实现，不需要页面内按钮
+    // switchSubTab函数已删除 - 功能由路由系统的switchSubTabContent实现
+    // activateFirstSubTabs函数已删除 - 默认激活状态由HTML模板处理
+    // 子页签相关初始化已删除 - 功能由路由系统处理
     
     // 更新导航栏状态
     function updateNavState(activeId) {
@@ -494,6 +441,10 @@ document.addEventListener('DOMContentLoaded', function() {
             // 使用路由系统导航
             if (target) {
                 router.navigate(target);
+                // 确保滚动到顶部（额外保障）
+                setTimeout(() => {
+                    scrollToTop();
+                }, 100);
             }
         });
     });
@@ -551,19 +502,87 @@ document.addEventListener('DOMContentLoaded', function() {
     // 路由系统会自动处理初始页面显示，不需要手动调用showContent
 });
 
-// 平滑滚动到顶部功能
+// 智能滚动到顶部功能 - 自动检测滚动容器
 function scrollToTop() {
-    const mainContent = document.getElementById('mainContent');
-    if (mainContent) {
-        mainContent.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    } else {
+    // 候选滚动容器列表，按优先级排序
+    const scrollContainerCandidates = [
+        // 首先尝试主内容区域
+        document.getElementById('mainContent'),
+        // 然后尝试当前活动的content-section
+        document.querySelector('.content-section.active'),
+        // 再尝试dynamic-content
+        document.querySelector('.content-section.active .dynamic-content'),
+        // 最后尝试sub-content-area
+        document.querySelector('.content-section.active .sub-content-area'),
+        // body作为最后的fallback
+        document.body
+    ];
+    
+    for (let i = 0; i < scrollContainerCandidates.length; i++) {
+        const container = scrollContainerCandidates[i];
+        
+        if (!container) {
+            continue;
+        }
+        
+        // 检查是否是真正的滚动容器，放宽检测条件
+        const canScroll = container.scrollHeight > container.clientHeight || container.scrollTop > 0;
+        
+        if (canScroll || i === 0) {  // 主内容区域强制尝试滚动
+            try {
+                // 记录滚动前的位置
+                const beforeScroll = container.scrollTop;
+                
+                // 使用多种方法确保滚动成功
+                container.scrollTop = 0;
+                
+                // 如果仍有滚动位置，使用 scrollTo
+                if (container.scrollTop > 0) {
+                    container.scrollTo({
+                        top: 0,
+                        left: 0,
+                        behavior: 'smooth'
+                    });
+                    
+                    // 如果 smooth 行为无效，使用 instant
+                    setTimeout(() => {
+                        if (container.scrollTop > 0) {
+                            container.scrollTo({
+                                top: 0,
+                                left: 0,
+                                behavior: 'instant'
+                            });
+                        }
+                    }, 100);
+                }
+                
+                const afterScroll = container.scrollTop;
+                
+                // 成功标准：滚动到了0位置，或者是主内容容器
+                if (afterScroll === 0 || i === 0) {
+                    return true;
+                }
+                
+            } catch (error) {
+                // 静默处理错误，继续尝试下一个容器
+            }
+        }
+    }
+    
+    // 如果所有方法都失败，尝试window.scrollTo作为最后手段
+    try {
         window.scrollTo({
             top: 0,
+            left: 0,
             behavior: 'smooth'
         });
+        // 备用instant方法
+        setTimeout(() => {
+            window.scrollTo(0, 0);
+        }, 100);
+        return true;
+    } catch (error) {
+        return false;
     }
 }
 
