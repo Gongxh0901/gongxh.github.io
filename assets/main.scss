@@ -869,7 +869,7 @@ body {
   
   // 完整文章内容优化
   .post-full-content {
-    padding: 1.5rem;
+    padding: 1rem;
     
     h2 {
       font-size: 1.8rem;
@@ -1406,7 +1406,7 @@ body {
 
 @media (max-width: 480px) {
   .dynamic-content {
-    padding: 0 1rem;
+    padding: 0;
   }
   
   .sub-tab-btn {
@@ -1581,7 +1581,7 @@ body {
   }
   
   .post-full-content {
-    padding: 1rem;
+    padding: 1rem 0.5rem;
     
     h2 {
       font-size: 1.5rem;
