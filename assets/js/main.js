@@ -134,19 +134,8 @@ class URLRouter {
                 articleDisplay.style.display = 'none';
             }
             
-            // 激活对应的子页签按钮
-            const targetBtn = mainContentSection.querySelector(`.sub-tab-btn[data-target="${category}-${index}"]`);
-            if (targetBtn) {
-                // 移除所有子页签的激活状态
-                const allSubTabBtns = mainContentSection.querySelectorAll('.sub-tab-btn');
-                allSubTabBtns.forEach(btn => btn.classList.remove('active'));
-                
-                // 激活目标按钮
-                targetBtn.classList.add('active');
-                
-                // 切换到对应的子内容
-                this.switchSubTabContent(mainContentSection, `${category}-${index}`);
-            }
+            // 直接切换到对应的子内容，不依赖按钮
+            this.switchSubTabContent(mainContentSection, `${category}-${index}`);
         }
     }
     

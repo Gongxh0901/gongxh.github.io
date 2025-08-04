@@ -38,52 +38,43 @@
                 {% comment %} 动态子菜单 {% endcomment %}
                 {% if item.dynamic_children %}
                 <ul class="nav-submenu expanded">
-                    {% assign post_count = 0 %}
-                    {% for post in site.posts %}
-                    {% assign show_post = false %}
-                    {% if item.category_filter and post.categories contains item.category_filter %}
-                    {% assign show_post = true %}
-                    {% elsif item.path_filter and post.path contains item.path_filter %}
-                    {% assign show_post = true %}
+                    {% if item.category_filter %}
+                    {% assign filtered_posts = site.posts | where_exp: "post", "post.categories contains
+                    item.category_filter" %}
+                    {% elsif item.path_filter %}
+                    {% assign filtered_posts = site.posts | where_exp: "post", "post.path contains item.path_filter" %}
+                    {% else %}
+                    {% assign filtered_posts = site.posts %}
                     {% endif %}
-
-                    {% if show_post and post_count < 8 %} {% assign post_count=post_count | plus: 1 %} <li
-                        class="nav-subitem">
-                        <a href="#" class="nav-sublink" data-target="{{ item.id }}-{{ post_count }}"
+                    {% for post in filtered_posts limit: 8 %}
+                    <li class="nav-subitem">
+                        <a href="#" class="nav-sublink" data-target="{{ item.id }}-{{ forloop.index }}"
                             data-parent="{{ item.id }}">
                             <span class="nav-subtext">{{ post.title | truncate: 15 }}</span>
                         </a>
+                    </li>
+                    {% endfor %}
+
+                    {% comment %} 计算总文章数 {% endcomment %}
+                    {% assign total_posts = filtered_posts.size %}
+
+                    {% if total_posts > 8 %}
+                    <li class="nav-subitem">
+                        <a href="#" class="nav-sublink" data-target="{{ item.id }}" data-parent="{{ item.id }}">
+                            <span class="nav-subtext">查看全部 ({{ total_posts }})</span>
+                        </a>
+                    </li>
+                    {% endif %}
+
+                    {% if total_posts == 0 %}
+                    <li class="nav-subitem">
+                        <span class="nav-subtext text-muted">暂无文章</span>
+                    </li>
+                    {% endif %}
+                </ul>
+                {% endif %}
             </li>
-            {% endif %}
             {% endfor %}
-
-            {% comment %} 计算总文章数 {% endcomment %}
-            {% assign total_posts = 0 %}
-            {% for post in site.posts %}
-            {% if item.category_filter and post.categories contains item.category_filter %}
-            {% assign total_posts = total_posts | plus: 1 %}
-            {% elsif item.path_filter and post.path contains item.path_filter %}
-            {% assign total_posts = total_posts | plus: 1 %}
-            {% endif %}
-            {% endfor %}
-
-            {% if total_posts > 8 %}
-            <li class="nav-subitem">
-                <a href="#" class="nav-sublink" data-target="{{ item.id }}" data-parent="{{ item.id }}">
-                    <span class="nav-subtext">查看全部 ({{ total_posts }})</span>
-                </a>
-            </li>
-            {% endif %}
-
-            {% if total_posts == 0 %}
-            <li class="nav-subitem">
-                <span class="nav-subtext text-muted">暂无文章</span>
-            </li>
-            {% endif %}
-        </ul>
-        {% endif %}
-        </li>
-        {% endfor %}
         </ul>
     </nav>
 </aside>
