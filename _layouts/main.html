@@ -55,26 +55,9 @@
 
                     <!-- 游戏项目内容 -->
                     <section class="content-section" id="projects-content">
-                        <div class="page-header">
-                            <h1 class="page-title">游戏项目</h1>
-                            <p class="page-subtitle">我的游戏开发项目展示</p>
-                        </div>
                         <div class="dynamic-content">
-                            <!-- 动态子页签 -->
-                            <div class="sub-tabs">
-                                {% assign game_project_posts = site.posts | where_exp: "post", "post.categories contains
-                                '游戏项目'" %}
-                                {% if game_project_posts.size > 0 %}
-                                {% for post in game_project_posts %}
-                                <button class="sub-tab-btn" data-target="projects-{{ forloop.index }}">
-                                    {{ post.title }}
-                                </button>
-                                {% endfor %}
-                                {% else %}
-                                <p class="no-content">暂无游戏项目文章</p>
-                                {% endif %}
-                            </div>
-
+                            {% assign game_project_posts = site.posts | where_exp: "post", "post.categories contains
+                            '游戏项目'" %}
                             <!-- 动态内容区 -->
                             <div class="sub-content-area">
                                 {% if game_project_posts.size > 0 %}
@@ -99,6 +82,8 @@
                                     </div>
                                 </div>
                                 {% endfor %}
+                                {% else %}
+                                <p class="no-content">暂无游戏项目文章</p>
                                 {% endif %}
                             </div>
                         </div>
@@ -242,26 +227,9 @@
 
                     <!-- 游戏开发工具内容 -->
                     <section class="content-section" id="tools-content">
-                        <div class="page-header">
-                            <h1 class="page-title">游戏开发工具</h1>
-                            <p class="page-subtitle">实用的开发工具和插件</p>
-                        </div>
                         <div class="dynamic-content">
-                            <!-- 动态子页签 -->
-                            <div class="sub-tabs">
-                                {% assign dev_tool_posts = site.posts | where_exp: "post", "post.categories contains
-                                '游戏开发工具'" %}
-                                {% if dev_tool_posts.size > 0 %}
-                                {% for post in dev_tool_posts %}
-                                <button class="sub-tab-btn" data-target="tools-{{ forloop.index }}">
-                                    {{ post.title }}
-                                </button>
-                                {% endfor %}
-                                {% else %}
-                                <p class="no-content">暂无开发工具文章</p>
-                                {% endif %}
-                            </div>
-
+                            {% assign dev_tool_posts = site.posts | where_exp: "post", "post.categories contains
+                            '游戏开发工具'" %}
                             <!-- 动态内容区 -->
                             <div class="sub-content-area">
                                 {% if dev_tool_posts.size > 0 %}
@@ -286,6 +254,8 @@
                                     </div>
                                 </div>
                                 {% endfor %}
+                                {% else %}
+                                <p class="no-content">暂无开发工具文章</p>
                                 {% endif %}
                             </div>
                         </div>
@@ -294,26 +264,9 @@
 
                     <!-- 博客文章内容 -->
                     <section class="content-section" id="articles-content">
-                        <div class="page-header">
-                            <h1 class="page-title">博客文章</h1>
-                            <p class="page-subtitle">技术文章与经验分享</p>
-                        </div>
                         <div class="dynamic-content">
-                            <!-- 动态子页签 -->
-                            <div class="sub-tabs">
-                                {% assign blog_posts = site.posts | where_exp: "post", "post.path contains
-                                'blog-articles'" %}
-                                {% if blog_posts.size > 0 %}
-                                {% for post in blog_posts %}
-                                <button class="sub-tab-btn" data-target="articles-{{ forloop.index }}">
-                                    {{ post.title | truncate: 20 }}
-                                </button>
-                                {% endfor %}
-                                {% else %}
-                                <p class="no-content">暂无博客文章</p>
-                                {% endif %}
-                            </div>
-
+                            {% assign blog_posts = site.posts | where_exp: "post", "post.path contains 'blog-articles'"
+                            %}
                             <!-- 动态内容区 -->
                             <div class="sub-content-area">
                                 {% if blog_posts.size > 0 %}
@@ -338,6 +291,8 @@
                                     </div>
                                 </div>
                                 {% endfor %}
+                                {% else %}
+                                <p class="no-content">暂无博客文章</p>
                                 {% endif %}
                             </div>
                         </div>
@@ -400,26 +355,9 @@
 
                     <!-- 开源项目内容 -->
                     <section class="content-section" id="opensource-content">
-                        <div class="page-header">
-                            <h1 class="page-title">开源项目</h1>
-                            <p class="page-subtitle">我的开源贡献</p>
-                        </div>
                         <div class="dynamic-content">
-                            <!-- 动态子页签 -->
-                            <div class="sub-tabs">
-                                {% assign opensource_posts = site.posts | where_exp: "post", "post.categories contains
-                                '开源项目'" %}
-                                {% if opensource_posts.size > 0 %}
-                                {% for post in opensource_posts %}
-                                <button class="sub-tab-btn" data-target="opensource-{{ forloop.index }}">
-                                    {{ post.title | truncate: 25 }}
-                                </button>
-                                {% endfor %}
-                                {% else %}
-                                <p class="no-content">暂无开源项目文章</p>
-                                {% endif %}
-                            </div>
-
+                            {% assign opensource_posts = site.posts | where_exp: "post", "post.categories contains
+                            '开源项目'" %}
                             <!-- 动态内容区 -->
                             <div class="sub-content-area">
                                 {% if opensource_posts.size > 0 %}
@@ -444,6 +382,8 @@
                                     </div>
                                 </div>
                                 {% endfor %}
+                                {% else %}
+                                <p class="no-content">暂无开源项目文章</p>
                                 {% endif %}
                             </div>
                         </div>
