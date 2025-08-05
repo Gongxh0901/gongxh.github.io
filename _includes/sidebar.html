@@ -48,7 +48,7 @@
                     {% endif %}
                     {% for post in filtered_posts limit: 8 %}
                     <li class="nav-subitem">
-                        <a href="#" class="nav-sublink" data-target="{{ item.id }}-{{ forloop.index }}"
+                        <a href="#" class="nav-sublink" data-target="{{ item.id }}-{{ post.slug }}"
                             data-parent="{{ item.id }}">
                             <span class="nav-subtext">{{ post.title | truncate: 15 }}</span>
                         </a>

@@ -1,3 +1,25 @@
+// 安全的CSS选择器函数 - 处理包含特殊字符的属性值
+function safeCSSSelector(selector, attributeValue) {
+    // 转义CSS选择器中的特殊字符
+    const escaped = attributeValue.replace(/["\\]/g, '\\$&');
+    return selector.replace('${value}', escaped);
+}
+
+// 安全查询带有data-target属性的元素
+function findByDataTarget(targetValue, className = null) {
+    // 使用属性选择器，避免直接字符串插值的问题
+    const elements = document.querySelectorAll('[data-target]');
+    for (const element of elements) {
+        if (element.getAttribute('data-target') === targetValue) {
+            // 如果指定了className，检查元素是否包含该类
+            if (className === null || element.classList.contains(className)) {
+                return element;
+            }
+        }
+    }
+    return null;
+}
+
 // URL路由系统
 class URLRouter {
     constructor() {
@@ -64,7 +86,8 @@ class URLRouter {
     
     handleDynamicRoutes(path) {
         // 处理动态子菜单路由：如 projects-1, tools-2, articles-3 等
-        const dynamicRoutePattern = /^(projects|tools|articles|opensource)-(\d+)$/;
+        // 支持中文字符，使用更宽松的匹配模式
+        const dynamicRoutePattern = /^(projects|tools|articles|opensource)-(.+)$/;
         const match = path.match(dynamicRoutePattern);
         
         if (match) {
@@ -77,7 +100,7 @@ class URLRouter {
     
     handleDynamicNavigation(path, targetId) {
         // 处理动态子菜单的选中状态
-        const dynamicRoutePattern = /^(projects|tools|articles|opensource)-(\d+)$/;
+        const dynamicRoutePattern = /^(projects|tools|articles|opensource)-(.+)$/;
         const match = path.match(dynamicRoutePattern);
         
         if (match) {
@@ -85,7 +108,7 @@ class URLRouter {
             
             // 选中对应的动态子菜单项
             setTimeout(() => {
-                const dynamicSublink = document.querySelector(`.nav-sublink[data-target="${path}"]`);
+                const dynamicSublink = findByDataTarget(path, 'nav-sublink');
                 if (dynamicSublink) {
                     // 只移除子菜单的选中状态，保持父菜单状态
                     const parentNavItem = dynamicSublink.closest('.nav-item');
@@ -272,7 +295,7 @@ document.addEventListener('DOMContentLoaded', function() {
             targetSection.classList.add('active');
             
             // 检查是否是动态路由，如果不是，恢复正常显示
-            const dynamicRoutePattern = /^(projects|tools|articles|opensource)-(\d+)$/;
+            const dynamicRoutePattern = /^(projects|tools|articles|opensource)-(.+)$/;
             if (!dynamicRoutePattern.test(targetId)) {
                 // 恢复page-header和dynamic-content的显示
                 const pageHeader = targetSection.querySelector('.page-header');
@@ -312,7 +335,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // 更新导航栏状态
     function updateNavState(activeId) {
         // 检查是否是动态子菜单ID（如 projects-1, tools-1）
-        const dynamicRoutePattern = /^(projects|tools|articles|opensource)-(\d+)$/;
+        const dynamicRoutePattern = /^(projects|tools|articles|opensource)-(.+)$/;
         const isDynamicRoute = dynamicRoutePattern.test(activeId);
         
         // 清除所有active状态
@@ -321,7 +344,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         if (isDynamicRoute) {
             // 对于动态子菜单，只激活子菜单项，不激活父菜单
-            const activeSublink = document.querySelector(`.nav-sublink[data-target="${activeId}"]`);
+            const activeSublink = findByDataTarget(activeId, 'nav-sublink');
             if (activeSublink) {
                 activeSublink.classList.add('active');
                 
@@ -341,7 +364,7 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             // 对于普通导航项，使用原有逻辑
             // 优先查找子菜单链接
-            const activeSublink = document.querySelector(`.nav-sublink[data-target="${activeId}"]`);
+            const activeSublink = findByDataTarget(activeId, 'nav-sublink');
             if (activeSublink) {
                 // 如果是子菜单链接，激活子菜单和对应的父菜单
                 activeSublink.classList.add('active');
@@ -360,7 +383,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             } else {
                 // 如果不是子菜单链接，查找父菜单链接
-                const activeMainLink = document.querySelector(`.nav-link[data-target="${activeId}"]`);
+                const activeMainLink = findByDataTarget(activeId, 'nav-link');
                 if (activeMainLink) {
                     const parentNavItem = activeMainLink.closest('.nav-item');
                     

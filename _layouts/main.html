@@ -63,7 +63,7 @@
                                 {% if game_project_posts.size > 0 %}
                                 {% for post in game_project_posts %}
                                 <div class="sub-content {% if forloop.first %}active{% endif %}"
-                                    id="projects-{{ forloop.index }}-content">
+                                    id="projects-{{ post.slug }}-content">
                                     <div class="post-full-content">
                                         <h2>{{ post.title }}</h2>
                                         <div class="post-meta">
@@ -235,7 +235,7 @@
                                 {% if dev_tool_posts.size > 0 %}
                                 {% for post in dev_tool_posts %}
                                 <div class="sub-content {% if forloop.first %}active{% endif %}"
-                                    id="tools-{{ forloop.index }}-content">
+                                    id="tools-{{ post.slug }}-content">
                                     <div class="post-full-content">
                                         <h2>{{ post.title }}</h2>
                                         <div class="post-meta">
@@ -272,7 +272,7 @@
                                 {% if blog_posts.size > 0 %}
                                 {% for post in blog_posts %}
                                 <div class="sub-content {% if forloop.first %}active{% endif %}"
-                                    id="articles-{{ forloop.index }}-content">
+                                    id="articles-{{ post.slug }}-content">
                                     <div class="post-full-content">
                                         <h2>{{ post.title }}</h2>
                                         <div class="post-meta">
@@ -363,7 +363,7 @@
                                 {% if opensource_posts.size > 0 %}
                                 {% for post in opensource_posts %}
                                 <div class="sub-content {% if forloop.first %}active{% endif %}"
-                                    id="opensource-{{ forloop.index }}-content">
+                                    id="opensource-{{ post.slug }}-content">
                                     <div class="post-full-content">
                                         <h2>{{ post.title }}</h2>
                                         <div class="post-meta">
