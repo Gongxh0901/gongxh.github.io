@@ -87,6 +87,16 @@ class URLRouter {
             
             this.showContent(targetId);
             this.handleDynamicNavigation(path, targetId);
+            
+            // 对于动态路由，需要用完整路径更新导航状态
+            const dynamicRoutePattern = /^(projects|tools|articles|opensource)-(.+)$/;
+            if (dynamicRoutePattern.test(path)) {
+                setTimeout(() => {
+                    if (window.updateNavStateFunction) {
+                        window.updateNavStateFunction(path);
+                    }
+                }, 150); // 确保在showContent完成后执行
+            }
             return true;
         } else {
             console.warn('未找到路由:', path);
@@ -211,7 +221,16 @@ class URLRouter {
         
         if (segments[0] === 'posts' && segments[1]) {
             // 文章路由：posts/article-name
-            return this.contentLoader.loadPost(segments[1]);
+            const dynamicRoute = this.contentLoader.loadPost(segments[1]);
+            
+            // 如果是动态路由ID（格式：category-slug），直接重定向
+            if (dynamicRoute.includes('-') && dynamicRoute !== 'tech-articles') {
+                // 直接重定向到正确的动态路由，替换当前历史记录
+                window.location.hash = `#${dynamicRoute}`;
+                return null; // 返回null，让页面重新加载处理
+            }
+            
+            return dynamicRoute;
         }
         
         if (segments[0] === 'projects' && segments[1]) {
@@ -240,13 +259,48 @@ class URLRouter {
     }
     
     showContent(targetId) {
-        window.showContentFunction?.(targetId);
+        if (window.showContentFunction) {
+            window.showContentFunction(targetId);
+        } else {
+            setTimeout(() => {
+                if (window.showContentFunction) {
+                    window.showContentFunction(targetId);
+                }
+            }, 100);
+        }
     }
 }
 
 // 内容加载器 - 简化版
 class ContentLoader {
+    constructor() {
+        // 根据文章slug和分类映射到正确的导航ID
+        this.postMapping = new Map([
+            // 游戏开发工具文章
+            ['creator-build-tools', 'tools'],
+            ['实体配置插件', 'tools'],
+            ['窗口属性关联', 'tools'],
+            
+            // 游戏项目文章
+            ['kunpo-library-project', 'projects'],
+            
+            // 博客文章
+            ['cocos-creator-performance-tips', 'articles'],
+            
+            // 开源项目文章
+            ['开源项目集合', 'opensource']
+        ]);
+    }
+    
     loadPost(slug) {
+        // 根据文章slug查找对应的分类
+        const category = this.postMapping.get(slug);
+        if (category) {
+            // 返回完整的动态路由ID
+            return `${category}-${slug}`;
+        }
+        
+        // 如果找不到映射，返回技术文章页面
         return 'tech-articles';
     }
     
@@ -348,6 +402,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // 将showContent函数暴露给路由系统
     window.showContentFunction = showContent;
+    
+    // 将updateNavState函数暴露给路由系统
+    window.updateNavStateFunction = updateNavState;
     
     // 注意：子页签切换通过侧边栏导航和路由系统实现，不需要页面内按钮
     // switchSubTab函数已删除 - 功能由路由系统的switchSubTabContent实现
