@@ -55,7 +55,18 @@ class URLRouter {
     
     handleInitialRoute() {
         const hash = window.location.hash.substring(1); // 移除 # 号
-        const path = hash || window.location.pathname.substring(1) || '';
+        // 解码URL编码的中文字符，添加错误处理
+        let decodedHash = '';
+        if (hash) {
+            try {
+                decodedHash = decodeURIComponent(hash);
+            } catch (e) {
+                // 如果解码失败，使用原始hash
+                console.warn('URL解码失败，使用原始hash:', hash);
+                decodedHash = hash;
+            }
+        }
+        const path = decodedHash || window.location.pathname.substring(1) || '';
         this.navigate(path, false); // 不更新历史记录
     }
     
@@ -213,7 +224,18 @@ class URLRouter {
     
     handlePopState(event) {
         const hash = window.location.hash.substring(1);
-        const path = hash || '';
+        // 解码URL编码的中文字符，添加错误处理
+        let decodedHash = '';
+        if (hash) {
+            try {
+                decodedHash = decodeURIComponent(hash);
+            } catch (e) {
+                // 如果解码失败，使用原始hash
+                console.warn('URL解码失败，使用原始hash:', hash);
+                decodedHash = hash;
+            }
+        }
+        const path = decodedHash || '';
         this.navigate(path, false);
     }
     
