@@ -118,7 +118,10 @@ permalink: /about/
 
 欢迎与我交流Cocos Creator开发、项目架构设计相关的任何问题：
 
-联系方式见本站底部 (添加微信时请注明"技术交流")
+- 📧 邮箱: [{{ site.email }}](mailto:{{ site.email }})
+- 💻 GitHub: [{{ site.github_username }}](https://github.com/{{ site.github_username }})
+- 🦄 Gitee: [{{ site.gitee_username }}](https://gitee.com/{{ site.gitee_username }})
+- 💬 微信: {{ site.wechat_id }} (添加时请注明"技术交流")
 
 ### 交流方向
 - 🤝 技术问题讨论与解决方案

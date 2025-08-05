@@ -1,0 +1,29 @@
+<!-- About页面内容 -->
+{% assign about_page = site.pages | where: "path", "about.markdown" | first %}
+{% if about_page %}
+<div class="post-content">
+    {{ about_page.content }}
+</div>
+{% else %}
+<!-- 备用内容 -->
+<div class="hero-section">
+    <h1 class="hero-title">Cocos Creator开发者 & 技术分享者</h1>
+    <p class="hero-subtitle">十年游戏开发沉淀，专注技术传承与创新</p>
+</div>
+
+<div class="about-section">
+    <div class="about-card">
+        <h2>👨‍💻 个人简介</h2>
+        <p>你好，我是gongxh。拥有10+年一线游戏开发经验的技术从业者，专注于Cocos Creator游戏开发领域。</p>
+    </div>
+    <div class="about-card">
+        <h2>📞 联系交流</h2>
+        <ul>
+            <li>📧 邮箱: <a href="mailto:{{ site.email }}">{{ site.email }}</a></li>
+            <li>💻 GitHub: <a href="https://github.com/{{ site.github_username }}">{{ site.github_username }}</a></li>
+            <li>🦄 Gitee: <a href="https://gitee.com/{{ site.gitee_username }}">{{ site.gitee_username }}</a></li>
+            <li>💬 微信: {{ site.wechat_id }} (添加时请注明"技术交流")</li>
+        </ul>
+    </div>
+</div>
+{% endif %}
