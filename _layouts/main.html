@@ -8,6 +8,10 @@
     <meta name="description"
         content="{{ page.excerpt | default: site.description | strip_html | strip_newlines | truncate: 160 }}">
 
+    <!-- Favicon配置 -->
+    <link rel="icon" type="image/x-icon" href="{{ '/favicon.ico' | relative_url }}">
+    <meta name="theme-color" content="#2196F3">
+
     <link rel="stylesheet" href="{{ '/assets/main.css' | relative_url }}">
     {% if site.plugins contains "jekyll-feed" %}
     <link type="application/atom+xml" rel="alternate" href="{{ '/feed.xml' | relative_url }}"
