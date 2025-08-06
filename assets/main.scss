@@ -4,7 +4,7 @@
 
 @charset "UTF-8";
 
-// 基础重置和设置
+/* Base reset and settings */
 * {
   box-sizing: border-box;
 }
@@ -15,7 +15,7 @@ body, html {
   height: 100%;
 }
 
-// 护眼浅绿色主题
+/* Eye-friendly light green theme */
 :root {
   --primary-green: #2d5a41;
   --light-green: #7cb342;
@@ -36,17 +36,17 @@ body {
   color: var(--text-dark);
   font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   line-height: 1.6;
-  overflow: hidden; /* 防止body滚动 */
+  overflow: hidden; /* Prevent body scrolling */
 }
 
-// 页面包装器 - 双栏布局
+/* Page wrapper - two-column layout */
 .page-wrapper {
   display: flex;
   height: 100vh;
   overflow: hidden;
 }
 
-// 左侧固定导航栏
+/* Left fixed sidebar */
 .sidebar {
   width: var(--sidebar-width);
   height: 100vh;
@@ -57,12 +57,12 @@ body {
   transition: all 0.3s ease;
   flex-shrink: 0;
   position: fixed;
-  left: 0; /* 展开状态：左边紧贴浏览器左边界，完全显示 */
+  left: 0; /* Expanded: left edge aligned with browser, fully visible */
   top: 0;
 }
 
 .sidebar.collapsed {
-  left: calc(-1 * var(--sidebar-width)); /* 收起状态：右边紧贴浏览器左边界，完全隐藏 */
+  left: calc(-1 * var(--sidebar-width)); /* Collapsed: right edge aligned with browser left, fully hidden */
 }
 
 .sidebar.collapsed .nav-text,
@@ -77,17 +77,17 @@ body {
   padding: 15px 0;
 }
 
-// 侧边栏切换按钮 - 根据规则重新设计
+/* Sidebar toggle button - redesigned according to rules */
 .sidebar-toggle-btn {
-  position: fixed; /* 使用固定定位 */
-  top: 50%; /* 垂直居中 */
-  transform: translateY(-50%); /* 垂直居中偏移 */
-  left: calc(var(--sidebar-width) - 2px); /* 向左移动2px覆盖侧边栏边框 */
+  position: fixed; /* Use fixed positioning */
+  top: 50%; /* Vertical center */
+  transform: translateY(-50%); /* Vertical center offset */
+  left: calc(var(--sidebar-width) - 2px); /* Move left 2px to cover sidebar border */
   width: var(--toggle-btn-size);
-  height: 53px; /* 长宽比3:5，宽32px，高53px */
+  height: 53px; /* Aspect ratio 3:5, width 32px, height 53px */
   background: var(--primary-green);
   border: none;
-  border-radius: 0 8px 8px 0; /* 左侧直角，右侧圆角 */
+  border-radius: 0 8px 8px 0; /* Left straight edge, right rounded */
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -98,15 +98,15 @@ body {
 }
 
 .sidebar-toggle-btn:hover {
-  background: var(--light-green); /* 悬停效果：按钮颜色会变化 */
+  background: var(--light-green); /* Hover effect: button color changes */
 }
 
-// 收起状态下的按钮位置
+/* Button position when collapsed */
 .sidebar.collapsed .sidebar-toggle-btn {
-  left: -2px; /* 收起状态：向左移动2px与侧边栏完全融合 */
+  left: -2px; /* Collapsed: move left 2px to merge with sidebar */
 }
 
-// 三横线图标
+/* Three-line hamburger icon */
 .toggle-icon {
   display: flex;
   flex-direction: column;
@@ -123,27 +123,27 @@ body {
   border-radius: 1px;
 }
 
-// 右侧内容区域 - 需要根据侧边栏状态调整
+/* Right content area - adjust based on sidebar state */
 .right-content-area {
   flex: 1;
   display: flex;
   flex-direction: column;
   height: 100vh;
   overflow: hidden;
-  margin-left: var(--sidebar-width); /* 展开状态：为侧边栏留出空间 */
+  margin-left: var(--sidebar-width); /* Content spacing */
   transition: margin-left 0.3s ease;
 }
 
 .right-content-area.expanded {
-  margin-left: 0; /* 收起状态：占满整个宽度 */
+  margin-left: 0; /* Content spacing */
 }
 
-// 顶部header（跟随内容滚动）- 自适应高度
+/* Top header (scrolls with content) - adaptive height */
 .site-header-fixed {
   background-color: var(--soft-green);
   border-bottom: 2px solid var(--border-color);
   box-shadow: 0 2px 8px rgba(45, 90, 65, 0.1);
-  min-height: var(--header-height); /* 最小高度，可根据内容扩展 */
+  min-height: var(--header-height); /* Content spacing */
   flex-shrink: 0;
 }
 
@@ -153,11 +153,11 @@ body {
 
 .header-content {
   display: flex;
-  flex-direction: column; /* 垂直排列 */
+  flex-direction: column; /* Content spacing */
   justify-content: center;
   align-items: center;
-  min-height: var(--header-height); /* 最小高度 */
-  padding: 15px 20px; /* 添加上下padding确保内容不贴边 */
+  min-height: var(--header-height); /* Content spacing */
+  padding: 15px 20px; /* Content spacing */
   max-width: 1200px;
   margin: 0 auto;
 }
@@ -166,23 +166,23 @@ body {
   color: var(--primary-green);
   font-weight: 600;
   font-size: 1.5rem;
-  margin: 0 0 8px 0; /* 添加底边距 */
+  margin: 0 0 8px 0; /* Content spacing */
   text-decoration: none;
-  text-align: center; /* 标题居中 */
+  text-align: center; /* Content spacing */
 }
 
 .site-signature {
   color: var(--text-light);
-  font-size: 0.75rem; /* 小字 */
+  font-size: 0.75rem; /* Content spacing */
   line-height: 1.4;
-  width: 100%; /* 充满宽度 */
-  text-align: left; /* 左对齐 */
+  width: 100%; /* Content spacing */
+  text-align: left; /* Content spacing */
   margin: 0;
 }
 
-// 旧的header nav样式已删除
+/* Old header nav styles removed */
 
-// 导航样式
+/* Navigation styles */
 .sidebar-nav {
   padding: 0;
 }
@@ -234,7 +234,7 @@ body {
   font-size: 12px;
 }
 
-// 子菜单
+/* Submenu */
 .nav-submenu {
   list-style: none;
   margin: 0;
@@ -277,7 +277,7 @@ body {
   font-size: 14px;
 }
 
-// 主内容区域 - 可滚动
+/* Main content area - scrollable */
 .main-content {
   flex: 1;
   overflow-y: auto;
@@ -294,7 +294,7 @@ body {
   width: 100%;
 }
 
-// 内容区域
+/* Content sections */
 .content-section {
   display: none;
   animation: fadeIn 0.3s ease;
@@ -309,7 +309,7 @@ body {
   to { opacity: 1; }
 }
 
-// 页面头部
+/* Page header */
 .page-header {
   text-align: center;
   margin-bottom: 40px;
@@ -330,7 +330,7 @@ body {
   margin: 0;
 }
 
-// 介绍区域样式
+/* Introduction section styles */
 .intro-section {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -367,7 +367,7 @@ body {
   margin: 0;
 }
 
-// 关于我区域样式
+/* About me section styles */
 .about-section {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -405,7 +405,7 @@ body {
   border-bottom: none;
 }
 
-// 内容占位符
+/* Content placeholder */
 .content-placeholder {
   text-align: center;
   padding: 60px 20px;
@@ -421,7 +421,7 @@ body {
   margin: 0;
 }
 
-// 底部footer - 跟随内容滚动
+/* Footer - scrolls with content */
 .site-footer {
   background: var(--soft-green);
   border-top: 2px solid var(--border-color);
@@ -431,14 +431,14 @@ body {
 .footer-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 10px 10px 5px; /* 再次压缩上下边距 */
+  padding: 10px 10px 5px; /* Content spacing */
 }
 
 .footer-content {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20px; /* 压缩一半 */
-  margin-bottom: 8px; /* 再次压缩 */
+  gap: 20px; /* Content spacing */
+  margin-bottom: 8px; /* Content spacing */
 }
 
 .footer-section {
@@ -449,13 +449,13 @@ body {
   color: var(--primary-green);
   font-size: 1.3rem;
   font-weight: 600;
-  margin-bottom: 10px; /* 压缩一半 */
+  margin-bottom: 10px; /* Content spacing */
 }
 
 .contact-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr; /* 两列布局 */
-  gap: 20px; /* 列间距 */
+  grid-template-columns: 1fr 1fr; /* Content spacing */
+  gap: 20px; /* Content spacing */
   max-width: 100%;
 }
 
@@ -526,7 +526,7 @@ body {
 
 .footer-bottom {
   text-align: center;
-  padding-top: 5px; /* 再次压缩 */
+  padding-top: 5px; /* Content spacing */
   border-top: 1px solid var(--border-color);
 }
 
@@ -536,7 +536,7 @@ body {
   font-size: 14px;
 }
 
-// 文章和页面样式
+/* Article and page styles */
 .post, .page {
   background: white;
   border-radius: 12px;
@@ -719,50 +719,50 @@ body {
   font-size: 14px;
 }
 
-// 响应式设计 - 移动端使用overlay模式
+/* Responsive design - mobile uses overlay mode */
 @media (max-width: 768px) {
   .page-wrapper {
     flex-direction: row;
   }
   
-  // 移动端侧边栏使用overlay模式
+  /* Mobile sidebar uses overlay mode */
   .sidebar {
     position: fixed;
     top: 0;
-    left: calc(-1 * var(--sidebar-width)); /* 默认隐藏 */
+    left: calc(-1 * var(--sidebar-width)); /* Content spacing */
     width: var(--sidebar-width);
     height: 100vh;
     z-index: 1100;
-    transition: left 0.3s ease, box-shadow 0.3s ease; /* 阴影也有过渡 */
-    box-shadow: none; /* 隐藏状态无阴影 */
+    transition: left 0.3s ease, box-shadow 0.3s ease; /* Content spacing */
+    box-shadow: none; /* Content spacing */
   }
   
-  // 移动端展开状态
+  /* Mobile expanded state */
   .sidebar.mobile-open {
-    left: 0; /* 覆盖显示 */
-    box-shadow: 2px 0 12px rgba(45, 90, 65, 0.3); /* 展开时显示明显阴影 */
+    left: 0; /* Content spacing */
+    box-shadow: 2px 0 12px rgba(45, 90, 65, 0.3); /* Content spacing */
   }
   
-  // 移动端按钮位置
+  /* Mobile button position */
   .sidebar-toggle-btn {
     position: fixed;
     top: 50%;
     transform: translateY(-50%);
-    left: -2px; /* 默认在左边界 */
+    left: -2px; /* Content spacing */
     z-index: 1200;
     transition: left 0.3s ease;
   }
   
-  // 侧边栏展开时按钮位置 - 与PC端保持一致
+  /* Button position when sidebar expanded - consistent with PC */
   .sidebar.mobile-open .sidebar-toggle-btn {
-    left: calc(var(--sidebar-width) - 2px); /* 与PC端相同的计算方式 */
+    left: calc(var(--sidebar-width) - 2px); /* Content spacing */
   }
   
-  // 移动端右侧区域固定宽度，不受侧边栏影响
+  /* Mobile right area fixed width, not affected by sidebar */
   .right-content-area {
-    width: 100% !important; /* 强制占满100% */
-    margin-left: 0 !important; /* 强制无左边距 */
-    transition: none; /* 移动端不需要过渡效果 */
+    width: 100% !important; /* Content spacing */
+    margin-left: 0 !important; /* Content spacing */
+    transition: none; /* Content spacing */
   }
   
   .content-wrapper {
@@ -791,19 +791,19 @@ body {
   }
   
   .contact-grid {
-    gap: 15px; /* 移动端减少间距 */
+    gap: 15px; /* Content spacing */
   }
   
   .contact-item {
-    font-size: 12px; /* 移动端字体稍小 */
+    font-size: 12px; /* Content spacing */
     gap: 4px;
   }
   
   .contact-group-title {
-    font-size: 14px; /* 移动端标题稍小 */
+    font-size: 14px; /* Content spacing */
   }
   
-  // 文章和项目列表响应式
+  /* Responsive article and project lists */
   .article-grid,
   .project-grid {
     grid-template-columns: 1fr;
@@ -827,7 +827,7 @@ body {
     gap: 0.5rem;
   }
   
-  // 子页签响应式
+  /* Responsive sub-tabs */
   .sub-tabs {
     justify-content: center;
   }
@@ -854,7 +854,7 @@ body {
     }
   }
   
-  // 文章显示优化
+  /* Article display optimization */
   .article-display {
     padding: 0.3rem 0.2rem;
     
@@ -871,7 +871,7 @@ body {
     }
   }
   
-  // 完整文章内容优化
+  /* Full article content optimization */
   .post-full-content {
     padding: 1rem;
     
@@ -892,17 +892,17 @@ body {
 
 @media (max-width: 480px) {
   .header-content {
-    padding: 10px 15px; /* 移动端减少上下padding */
-    min-height: auto; /* 移动端不设最小高度，完全自适应 */
+    padding: 10px 15px; /* Content spacing */
+    min-height: auto; /* Content spacing */
   }
   
   .site-title {
     font-size: 1.2rem;
-    margin: 0 0 6px 0; /* 减少标题底边距 */
+    margin: 0 0 6px 0; /* Content spacing */
   }
   
   .site-signature {
-    font-size: 0.7rem; /* 移动端签名字体更小 */
+    font-size: 0.7rem; /* Content spacing */
     line-height: 1.3;
   }
   
@@ -930,11 +930,11 @@ body {
   }
 }
 
-// ==========================================
-// 新增样式：文章列表和项目展示
-// ==========================================
+/* ==========================================
+   New styles: Article lists and project showcase
+   ========================================== */
 
-// 文章列表样式
+/* Article list styles */
 .articles-container {
   max-width: 1200px;
   margin: 0 auto;
@@ -1025,7 +1025,7 @@ body {
   font-size: 0.8rem;
 }
 
-// 项目展示样式
+/* Project showcase styles */
 .projects-container {
   max-width: 1200px;
   margin: 0 auto;
@@ -1158,7 +1158,7 @@ body {
   }
 }
 
-// 分页样式
+/* Pagination styles */
 .pagination {
   text-align: center;
   margin: 2rem 0;
@@ -1178,7 +1178,7 @@ body {
   }
 }
 
-// 空状态样式
+/* Empty state styles */
 .empty-state {
   text-align: center;
   padding: 3rem 1rem;
@@ -1210,9 +1210,9 @@ body {
   }
 }
 
-// ==========================================
-// 文章显示区域样式
-// ==========================================
+/* ==========================================
+   Article display area styles
+   ========================================== */
 
 .article-display {
   max-width: 1000px;
@@ -1281,16 +1281,16 @@ body {
   }
 }
 
-// ==========================================
-// 动态子页签样式
-// ==========================================
+/* ==========================================
+   Dynamic sub-tab styles
+   ========================================== */
 
 .dynamic-content {
   max-width: 1200px;
   margin: 0 auto;
 }
 
-// 子页签导航
+/* Sub-tab navigation */
 .sub-tabs {
   display: flex;
   flex-wrap: wrap;
@@ -1323,7 +1323,7 @@ body {
   }
 }
 
-// 子内容区域
+/* Sub-content area */
 .sub-content-area {
   position: relative;
   min-height: 400px;
@@ -1349,7 +1349,7 @@ body {
   }
 }
 
-// 文章摘要样式
+/* Article summary styles */
 .post-summary {
   background: white;
   border-radius: 12px;
@@ -1434,9 +1434,9 @@ body {
   }
 }
 
-// ==========================================
-// 完整文章内容样式
-// ==========================================
+/* ==========================================
+   Full article content styles
+   ========================================== */
 
 .post-full-content {
   background: white;
