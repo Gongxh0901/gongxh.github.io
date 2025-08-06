@@ -44,7 +44,7 @@ markdown: kramdown
 highlighter: rouge
 permalink: /posts/:title/
 
-# Kramdown配置
+# Kramdown配置 - 优化编码处理
 kramdown:
   input: GFM
   hard_wrap: false
@@ -83,6 +83,10 @@ sass:
   style: compressed
   sass_dir: _sass
   cache: false
+  load_paths:
+    - _sass
+
+
 
 # 自定义设置
 author:
