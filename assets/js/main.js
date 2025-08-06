@@ -693,4 +693,65 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-}); 
+    
+    // 视频自动暂停功能 - 当视频滚动出屏幕时暂停播放
+    initVideoAutoPause();
+});
+
+// 初始化视频自动暂停功能
+function initVideoAutoPause() {
+    // 检查视频是否在屏幕内
+    function isVideoVisible(video) {
+        const rect = video.getBoundingClientRect();
+        const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+        const windowWidth = window.innerWidth || document.documentElement.clientWidth;
+        
+        // 检查视频是否在窗口可视区域内
+        return (
+            rect.top < windowHeight &&
+            rect.bottom > 0 &&
+            rect.left < windowWidth &&
+            rect.right > 0
+        );
+    }
+    
+    // 检查并暂停不可见的视频
+    function checkAndPauseVideos() {
+        const videos = document.querySelectorAll('video');
+        
+        videos.forEach(function(video) {
+            const isVisible = isVideoVisible(video);
+            const isPaused = video.paused;
+            
+            if (!isVisible && !isPaused) {
+                video.pause();
+                video.setAttribute('data-auto-paused', 'true');
+            } else if (isVisible && video.hasAttribute('data-auto-paused')) {
+                video.removeAttribute('data-auto-paused');
+            }
+        });
+    }
+    
+    // 立即检查一次
+    setTimeout(function() {
+        checkAndPauseVideos();
+    }, 1000);
+    
+    // 滚动监听
+    let scrollContainer = document.getElementById('mainContent') || document.body;
+    let scrollTimer = null;
+    
+    function handleScroll() {
+        if (scrollTimer) {
+            clearTimeout(scrollTimer);
+        }
+        
+        scrollTimer = setTimeout(function() {
+            checkAndPauseVideos();
+        }, 150);
+    }
+    
+    // 添加滚动监听
+    scrollContainer.addEventListener('scroll', handleScroll, {passive: true});
+    window.addEventListener('scroll', handleScroll, {passive: true});
+} 
