@@ -4,7 +4,7 @@
         <!-- 代码雨动画背景 -->
         <canvas id="code-rain"></canvas>
     </div>
-    
+
     <div class="hero-content">
         <div class="hero-main">
             <!-- 个人头像 -->
@@ -12,7 +12,7 @@
                 <img src="{{ '/assets/images/placeholder.svg' | relative_url }}" alt="gongxh" class="avatar">
                 <div class="avatar-glow"></div>
             </div>
-            
+
             <!-- 标题区域 -->
             <div class="hero-text">
                 <h1 class="hero-title">
@@ -24,43 +24,47 @@
                     深耕Cocos Creator引擎5年+ | 打造过5款获奖精品游戏 | 1000+开发者的工具选择
                 </p>
             </div>
-            
+
             <!-- 个人简介 -->
             <div class="hero-intro">
                 <p>用代码雕琢游戏体验，用工具赋能开发团队。致力于将创意转化为现实，<br>
-                让复杂的技术变得简单易用。从比特小队到宫爆老奶奶，我的代码让百万玩家的快乐成为可能。</p>
+                    让复杂的技术变得简单易用。从比特小队到宫爆老奶奶，我的代码让百万玩家的快乐成为可能。</p>
             </div>
-            
+
             <!-- CTA按钮 -->
             <div class="hero-cta">
                 <a href="#projects" class="btn btn-primary">🎯 查看我的游戏项目</a>
                 <a href="#contact" class="btn btn-secondary">💬 技术交流</a>
             </div>
-            
+
             <!-- 社交链接 -->
             <div class="social-links">
                 <a href="https://github.com/gongxh0901" target="_blank" title="GitHub">
                     <svg class="social-icon" viewBox="0 0 24 24">
-                        <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.342-3.369-1.342-.454-1.155-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
+                        <path
+                            d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.342-3.369-1.342-.454-1.155-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z" />
                     </svg>
                 </a>
-                <a href="https://gitee.com/gongxinhai" target="_blank" title="Gitee">
+                <a href="https://gitee.com/gongxh0901" target="_blank" title="Gitee">
                     <svg class="social-icon" viewBox="0 0 24 24">
-                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
+                        <path
+                            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z" />
                     </svg>
                 </a>
                 <a href="javascript:void(0)" onclick="showWechat()" title="微信">
                     <svg class="social-icon" viewBox="0 0 24 24">
-                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        <path
+                            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
                     </svg>
                 </a>
                 <a href="mailto:gong.xinhai@163.com" title="邮箱">
                     <svg class="social-icon" viewBox="0 0 24 24">
-                        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                        <path
+                            d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
                     </svg>
                 </a>
             </div>
-            
+
             <!-- 成就数字 -->
             <div class="achievements">
                 <div class="achievement-item">
@@ -78,12 +82,12 @@
             </div>
         </div>
     </div>
-    
+
     <!-- 滚动提示 -->
     <div class="scroll-indicator">
         <span>向下滚动</span>
         <svg viewBox="0 0 24 24" width="24" height="24">
-            <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
+            <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" />
         </svg>
     </div>
 </section>
@@ -95,19 +99,20 @@
             <h2 class="section-title">🚀 项目精选</h2>
             <p class="section-subtitle">展示我的核心项目和技术贡献</p>
         </div>
-        
+
         <div class="projects-grid">
             <!-- 比特小队项目卡片 -->
             <div class="project-card game-project">
                 <div class="project-media">
-                    <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #2196F3 0%, #00BCD4 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;">
+                    <div
+                        style="width: 100%; height: 100%; background: linear-gradient(135deg, #2196F3 0%, #00BCD4 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;">
                         比特小队
                     </div>
                     <div class="media-overlay">
                         <span class="play-button">▶ 查看演示</span>
                     </div>
                 </div>
-                
+
                 <div class="project-info">
                     <div class="project-header">
                         <h3 class="project-title">《比特小队》🏆 多项大奖获得者</h3>
@@ -117,11 +122,11 @@
                             <span class="badge">多人合作</span>
                         </div>
                     </div>
-                    
+
                     <p class="project-description">
                         一款融合Roguelike元素的多人合作射击游戏，支持最多4人联机对战
                     </p>
-                    
+
                     <div class="project-contributions">
                         <h4>⚡ 技术贡献</h4>
                         <ul>
@@ -130,7 +135,7 @@
                             <li>🛠️ 开发界面配置工具和实体配置工具，策划工作效率提升50%</li>
                         </ul>
                     </div>
-                    
+
                     <div class="tech-stack">
                         <span class="tech-tag">Cocos Creator</span>
                         <span class="tech-tag">TypeScript</span>
@@ -138,7 +143,7 @@
                         <span class="tech-tag">AI逻辑</span>
                         <span class="tech-tag">网络同步</span>
                     </div>
-                    
+
                     <div class="project-links">
                         <a href="#" class="project-link">🎮 游戏试玩</a>
                         <a href="#" class="project-link">📹 演示视频</a>
@@ -146,18 +151,19 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- 宫爆老奶奶项目卡片 -->
             <div class="project-card game-project">
                 <div class="project-media">
-                    <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #FF9800 0%, #FF5722 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;">
+                    <div
+                        style="width: 100%; height: 100%; background: linear-gradient(135deg, #FF9800 0%, #FF5722 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;">
                         宫爆老奶奶
                     </div>
                     <div class="media-overlay">
                         <span class="play-button">▶ 查看演示</span>
                     </div>
                 </div>
-                
+
                 <div class="project-info">
                     <div class="project-header">
                         <h3 class="project-title">《宫爆老奶奶家族篇》💰 过亿流水</h3>
@@ -167,11 +173,11 @@
                             <span class="badge">单机精品</span>
                         </div>
                     </div>
-                    
+
                     <p class="project-description">
                         经典动作游戏续作，累计流水破亿，获得玩家广泛好评
                     </p>
-                    
+
                     <div class="project-contributions">
                         <h4>⚡ 技术贡献</h4>
                         <ul>
@@ -180,14 +186,14 @@
                             <li>⚡ 移动端性能优化，确保各种机型流畅运行</li>
                         </ul>
                     </div>
-                    
+
                     <div class="tech-stack">
                         <span class="tech-tag">Cocos Creator</span>
                         <span class="tech-tag">TypeScript</span>
                         <span class="tech-tag">Jenkins</span>
                         <span class="tech-tag">自动化构建</span>
                     </div>
-                    
+
                     <div class="project-links">
                         <a href="#" class="project-link">🎮 游戏下载</a>
                         <a href="#" class="project-link">📖 开发日志</a>
@@ -195,18 +201,19 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- Creator Inspector 工具项目 -->
             <div class="project-card tool-project">
                 <div class="project-media">
-                    <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #4CAF50 0%, #8BC34A 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;">
+                    <div
+                        style="width: 100%; height: 100%; background: linear-gradient(135deg, #4CAF50 0%, #8BC34A 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;">
                         Creator Inspector
                     </div>
                     <div class="media-overlay">
                         <span class="play-button">▶ 查看演示</span>
                     </div>
                 </div>
-                
+
                 <div class="project-info">
                     <div class="project-header">
                         <h3 class="project-title">Creator Inspector 🏆 Cocos官方推荐插件</h3>
@@ -216,11 +223,11 @@
                             <span class="badge">官方推荐</span>
                         </div>
                     </div>
-                    
+
                     <p class="project-description">
                         强大的Cocos Creator编辑器增强插件，提供更便捷的属性检查和编辑功能
                     </p>
-                    
+
                     <div class="project-contributions">
                         <h4>⚡ 核心功能</h4>
                         <ul>
@@ -229,32 +236,34 @@
                             <li>📊 性能分析工具，快速定位问题</li>
                         </ul>
                     </div>
-                    
+
                     <div class="tech-stack">
                         <span class="tech-tag">TypeScript</span>
                         <span class="tech-tag">Cocos Creator</span>
                         <span class="tech-tag">插件开发</span>
                     </div>
-                    
+
                     <div class="project-links">
-                        <a href="https://store.cocos.com/app/detail/7752" class="project-link" target="_blank">🛒 商店链接</a>
+                        <a href="https://store.cocos.com/app/detail/7752" class="project-link" target="_blank">🛒
+                            商店链接</a>
                         <a href="#" class="project-link">📖 使用文档</a>
                         <a href="#" class="project-link">💻 源码仓库</a>
                     </div>
                 </div>
             </div>
-            
+
             <!-- KunpoLibrary 开源框架 -->
             <div class="project-card opensource-project">
                 <div class="project-media">
-                    <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #9C27B0 0%, #673AB7 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;">
+                    <div
+                        style="width: 100%; height: 100%; background: linear-gradient(135deg, #9C27B0 0%, #673AB7 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;">
                         KunpoLibrary
                     </div>
                     <div class="media-overlay">
                         <span class="play-button">▶ 查看演示</span>
                     </div>
                 </div>
-                
+
                 <div class="project-info">
                     <div class="project-header">
                         <h3 class="project-title">KunpoLibrary - 游戏开发框架</h3>
@@ -264,11 +273,11 @@
                             <span class="badge">TypeScript</span>
                         </div>
                     </div>
-                    
+
                     <p class="project-description">
                         轻量级、模块化的游戏开发框架，提供完整的游戏开发解决方案
                     </p>
-                    
+
                     <div class="project-contributions">
                         <h4>⚡ 框架特性</h4>
                         <ul>
@@ -277,15 +286,16 @@
                             <li>📖 完善的文档和示例，易于上手</li>
                         </ul>
                     </div>
-                    
+
                     <div class="tech-stack">
                         <span class="tech-tag">TypeScript</span>
                         <span class="tech-tag">Cocos Creator</span>
                         <span class="tech-tag">游戏框架</span>
                     </div>
-                    
+
                     <div class="project-links">
-                        <a href="https://github.com/gongxh0901/kunpolibrary" class="project-link" target="_blank">💻 GitHub</a>
+                        <a href="https://github.com/gongxh0901/kunpolibrary" class="project-link" target="_blank">💻
+                            GitHub</a>
                         <a href="#" class="project-link">📖 文档</a>
                         <a href="#" class="project-link">🎮 示例项目</a>
                     </div>
@@ -302,7 +312,7 @@
             <h2 class="section-title">⚡ 技术栈与专长</h2>
             <p class="section-subtitle">深耕游戏开发领域，掌握全栈技术体系</p>
         </div>
-        
+
         <div class="skills-container">
             <!-- 游戏引擎 -->
             <div class="skill-category">
@@ -321,7 +331,7 @@
                             <span class="tag">主力引擎</span>
                         </div>
                     </div>
-                    
+
                     <div class="skill-item">
                         <div class="skill-header">
                             <span class="skill-name">Cocos2d-x</span>
@@ -335,7 +345,7 @@
                             <span class="tag">深度使用</span>
                         </div>
                     </div>
-                    
+
                     <div class="skill-item">
                         <div class="skill-header">
                             <span class="skill-name">Cocos2d-x Lua</span>
@@ -351,7 +361,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- 编程语言 -->
             <div class="skill-category">
                 <h3 class="category-title">💻 编程语言</h3>
@@ -369,7 +379,7 @@
                             <span class="tag">主力语言</span>
                         </div>
                     </div>
-                    
+
                     <div class="skill-item">
                         <div class="skill-header">
                             <span class="skill-name">JavaScript</span>
@@ -383,7 +393,7 @@
                             <span class="tag">全栈开发</span>
                         </div>
                     </div>
-                    
+
                     <div class="skill-item">
                         <div class="skill-header">
                             <span class="skill-name">C/C++</span>
@@ -397,7 +407,7 @@
                             <span class="tag">Cocos2d-x开发</span>
                         </div>
                     </div>
-                    
+
                     <div class="skill-item">
                         <div class="skill-header">
                             <span class="skill-name">Lua</span>
@@ -411,7 +421,7 @@
                             <span class="tag">Cocos2d-x Lua</span>
                         </div>
                     </div>
-                    
+
                     <div class="skill-item">
                         <div class="skill-header">
                             <span class="skill-name">Objective-C</span>
@@ -425,7 +435,7 @@
                             <span class="tag">iOS SDK接入</span>
                         </div>
                     </div>
-                    
+
                     <div class="skill-item">
                         <div class="skill-header">
                             <span class="skill-name">Java</span>
@@ -441,7 +451,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- 工具与框架 -->
             <div class="skill-category">
                 <h3 class="category-title">🛠️ 工具与框架</h3>
@@ -458,7 +468,7 @@
                             <span class="tag">专业特长</span>
                         </div>
                     </div>
-                    
+
                     <div class="skill-item">
                         <div class="skill-header">
                             <span class="skill-name">CI/CD工具链</span>
@@ -471,7 +481,7 @@
                             <span class="tag">DevOps实践</span>
                         </div>
                     </div>
-                    
+
                     <div class="skill-item">
                         <div class="skill-header">
                             <span class="skill-name">FGUI界面系统</span>
@@ -484,7 +494,7 @@
                             <span class="tag">UI开发专家</span>
                         </div>
                     </div>
-                    
+
                     <div class="skill-item">
                         <div class="skill-header">
                             <span class="skill-name">Git版本控制</span>
@@ -499,7 +509,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- 专业技能 -->
             <div class="skill-category">
                 <h3 class="category-title">⚡ 专业技能</h3>
@@ -516,7 +526,7 @@
                             <span class="tag">核心优势</span>
                         </div>
                     </div>
-                    
+
                     <div class="skill-item">
                         <div class="skill-header">
                             <span class="skill-name">架构设计</span>
@@ -529,7 +539,7 @@
                             <span class="tag">系统思维</span>
                         </div>
                     </div>
-                    
+
                     <div class="skill-item">
                         <div class="skill-header">
                             <span class="skill-name">团队协作</span>
@@ -542,7 +552,7 @@
                             <span class="tag">项目管理</span>
                         </div>
                     </div>
-                    
+
                     <div class="skill-item">
                         <div class="skill-header">
                             <span class="skill-name">问题诊断</span>
@@ -558,7 +568,7 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- 技能亮点标签 -->
         <div class="skill-highlights">
             <h3>🏆 技能亮点</h3>
@@ -580,12 +590,13 @@
             <h2 class="section-title">📚 技术分享</h2>
             <p class="section-subtitle">分享开发经验，与社区共同成长</p>
         </div>
-        
+
         <div class="articles-grid">
             <!-- 文章卡片示例 -->
             <article class="article-card">
                 <div class="article-thumbnail">
-                    <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #FF5722 0%, #F44336 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem;">
+                    <div
+                        style="width: 100%; height: 100%; background: linear-gradient(135deg, #FF5722 0%, #F44336 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem;">
                         性能优化
                     </div>
                 </div>
@@ -614,10 +625,11 @@
                     </div>
                 </div>
             </article>
-            
+
             <article class="article-card">
                 <div class="article-thumbnail">
-                    <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #03A9F4 0%, #00BCD4 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem;">
+                    <div
+                        style="width: 100%; height: 100%; background: linear-gradient(135deg, #03A9F4 0%, #00BCD4 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem;">
                         插件开发
                     </div>
                 </div>
@@ -646,10 +658,11 @@
                     </div>
                 </div>
             </article>
-            
+
             <article class="article-card">
                 <div class="article-thumbnail">
-                    <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #607D8B 0%, #455A64 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem;">
+                    <div
+                        style="width: 100%; height: 100%; background: linear-gradient(135deg, #607D8B 0%, #455A64 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem;">
                         踩坑经验
                     </div>
                 </div>
@@ -679,7 +692,7 @@
                 </div>
             </article>
         </div>
-        
+
         <!-- 文章分类筛选 -->
         <div class="article-filter">
             <button class="filter-btn active" data-category="all">全部文章</button>
@@ -688,7 +701,7 @@
             <button class="filter-btn" data-category="optimization">⚡ 性能优化</button>
             <button class="filter-btn" data-category="troubleshooting">🐛 问题解决</button>
         </div>
-        
+
         <!-- 成果展示 -->
         <div class="article-achievements">
             <div class="achievement">
@@ -718,7 +731,7 @@
             <h2 class="section-title">👨‍💻 关于我</h2>
             <p class="section-subtitle">一个热爱游戏开发的技术人</p>
         </div>
-        
+
         <div class="about-content">
             <div class="about-main">
                 <!-- 个人故事 -->
@@ -730,7 +743,7 @@
                         就觉得这些年的努力都值了。做游戏不容易，但能让百万人快乐，这事儿很酷。"
                     </blockquote>
                 </div>
-                
+
                 <!-- 工作哲学 -->
                 <div class="work-philosophy">
                     <h3>💭 工作哲学</h3>
@@ -758,7 +771,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- 业余爱好 -->
                 <div class="hobbies">
                     <h3>🎯 业余爱好 & 生活</h3>
@@ -769,7 +782,7 @@
                     </ul>
                 </div>
             </div>
-            
+
             <div class="about-sidebar">
                 <!-- 职业成就 -->
                 <div class="career-achievements">
@@ -793,7 +806,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- 技术里程碑 -->
                 <div class="milestones">
                     <h3>🎯 技术里程碑</h3>
@@ -828,7 +841,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- 个人特色标签 -->
                 <div class="personal-tags">
                     <h3>💫 个人特色</h3>
@@ -853,7 +866,7 @@
             <h2 class="section-title">📞 联系方式</h2>
             <p class="section-subtitle">期待与你的技术交流与合作</p>
         </div>
-        
+
         <div class="contact-content">
             <!-- 合作邀请 -->
             <div class="cooperation-invitation">
@@ -862,7 +875,7 @@
                     我目前正在寻找新的技术挑战与合作机会，无论是游戏项目开发、技术咨询，
                     还是工具定制、团队指导，都欢迎与我交流。让我们一起创造更酷的游戏体验！
                 </p>
-                
+
                 <div class="cooperation-areas">
                     <h4>🎯 擅长协助的领域</h4>
                     <div class="area-grid">
@@ -889,7 +902,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- 联系方式矩阵 -->
             <div class="contact-methods">
                 <div class="contact-card primary">
@@ -902,7 +915,7 @@
                     </div>
                     <p class="response-time">回复时间: 通常24小时内回复</p>
                 </div>
-                
+
                 <div class="contact-card">
                     <div class="contact-icon">💬</div>
                     <h4>即时通讯</h4>
@@ -912,7 +925,7 @@
                     </div>
                     <p class="response-time">适合: 技术快速交流，项目咨询</p>
                 </div>
-                
+
                 <div class="contact-card">
                     <div class="contact-icon">🌐</div>
                     <h4>社交平台</h4>
@@ -921,14 +934,14 @@
                             <span class="platform">GitHub: @gongxh0901</span>
                             <span class="usage">代码交流，开源协作</span>
                         </a>
-                        <a href="https://gitee.com/gongxinhai" target="_blank" class="social-item">
-                            <span class="platform">Gitee: @gongxinhai</span>
+                        <a href="https://gitee.com/gongxh0901" target="_blank" class="social-item">
+                            <span class="platform">Gitee: @gongxh0901</span>
                             <span class="usage">国内项目，技术讨论</span>
                         </a>
                     </div>
                 </div>
             </div>
-            
+
             <!-- 沟通偏好 -->
             <div class="communication-preferences">
                 <h3>⏰ 沟通偏好</h3>
@@ -949,7 +962,8 @@
         <span class="close">&times;</span>
         <h3>微信二维码</h3>
         <div class="qr-code">
-            <div style="width: 200px; height: 200px; background: #f0f0f0; display: flex; align-items: center; justify-content: center; color: #999; font-size: 1rem; text-align: center; border: 1px solid #ddd;">
+            <div
+                style="width: 200px; height: 200px; background: #f0f0f0; display: flex; align-items: center; justify-content: center; color: #999; font-size: 1rem; text-align: center; border: 1px solid #ddd;">
                 微信二维码<br>占位图
             </div>
         </div>
