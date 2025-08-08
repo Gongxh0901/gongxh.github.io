@@ -14,32 +14,84 @@ function createCodeRain(canvasId, options = {}) {
         color: options.color || '#0F0',
         fadeColor: options.fadeColor || 'rgba(26, 26, 26, 0.05)',
         speed: options.speed || 33,
-        density: options.density || 1
+        density: options.density || 1,
+        trailLifetime: options.trailLifetime || 3000  // 拖尾生存时间（毫秒）
     };
     
     const columns = canvas.width / config.fontSize;
     const drops = [];
+    const trails = [];  // 存储所有拖尾字符的信息
     
     for (let i = 0; i < columns; i++) {
         drops[i] = Math.random() * -100;
     }
     
     function draw() {
-        ctx.fillStyle = config.fadeColor;
+        // 清空画布
+        ctx.fillStyle = 'rgba(26, 26, 26, 1)';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         
-        ctx.fillStyle = config.color;
         ctx.font = config.fontSize + 'px monospace';
         
+        // 更新时间戳
+        const currentTime = Date.now();
+        
+        // 绘制拖尾
+        for (let i = trails.length - 1; i >= 0; i--) {
+            const trail = trails[i];
+            const age = currentTime - trail.timestamp;
+            
+            // 如果拖尾超过生存时间，移除它
+            if (age > config.trailLifetime) {
+                trails.splice(i, 1);
+                continue;
+            }
+            
+            // 计算拖尾的透明度（随时间递减）
+            const fadeProgress = age / config.trailLifetime;
+            const alpha = (1 - fadeProgress) * 0.5; // 从0.5渐变到0
+            
+            ctx.fillStyle = `rgba(0, 255, 0, ${alpha})`;
+            ctx.fillText(trail.char, trail.x, trail.y);
+        }
+        
+        // 绘制新的字符
         for (let i = 0; i < drops.length; i++) {
             if (Math.random() > config.density) continue;
             
-            const text = config.chars[Math.floor(Math.random() * config.chars.length)];
-            ctx.fillText(text, i * config.fontSize, drops[i] * config.fontSize);
+            const y = drops[i] * config.fontSize;
             
-            if (drops[i] * config.fontSize > canvas.height && Math.random() > 0.975) {
-                drops[i] = 0;
+            // 只在字符还在屏幕内时绘制
+            if (y < canvas.height + 100 && y > -100) {
+                // 计算渐变透明度：顶部和底部更透明
+                let alpha = 1;
+                if (y < 100) {
+                    alpha = y / 100; // 顶部渐入
+                } else if (y > canvas.height - 200) {
+                    alpha = (canvas.height - y) / 200; // 底部渐出
+                }
+                alpha = Math.max(0, Math.min(1, alpha)) * 0.8; // 限制最大透明度为0.8
+                
+                ctx.fillStyle = `rgba(0, 255, 0, ${alpha})`;
+                const text = config.chars[Math.floor(Math.random() * config.chars.length)];
+                ctx.fillText(text, i * config.fontSize, y);
+                
+                // 将字符添加到拖尾列表
+                trails.push({
+                    char: text,
+                    x: i * config.fontSize,
+                    y: y,
+                    timestamp: currentTime
+                });
             }
+            
+            // 当字符到达底部时，有更高概率重置
+            if (y > canvas.height) {
+                if (Math.random() > 0.5) { // 50%概率重置
+                    drops[i] = Math.random() * -20; // 重置到屏幕上方
+                }
+            }
+            
             drops[i]++;
         }
     }
@@ -51,11 +103,10 @@ function createCodeRain(canvasId, options = {}) {
 function initCodeRain() {
     // 只使用全局代码雨
     createCodeRain('global-rain', {
-        color: 'rgba(0, 255, 0, 0.4)',  // 适中的透明度
-        fadeColor: 'rgba(26, 26, 26, 0.02)',
+        fadeColor: 'rgba(26, 26, 26, 0.08)',  // 调整淡出速度
         fontSize: 14,
-        speed: 45,
-        density: 0.5
+        speed: 20,
+        density: 0.25  // 稍微提高密度，因为现在有渐变效果
     });
 }
 

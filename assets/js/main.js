@@ -145,9 +145,7 @@ class URLRouter {
                         const arrow = parentNavItem.querySelector('.nav-arrow');
                         if (submenu && !submenu.classList.contains('expanded')) {
                             submenu.classList.add('expanded');
-                            if (arrow) {
-                                arrow.textContent = '▼';
-                            }
+                            // 箭头旋转由CSS控制
                         }
                     }
                     
@@ -442,9 +440,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     const parentArrow = parentNavItem.querySelector('.nav-arrow');
                     if (parentSubmenu && !parentSubmenu.classList.contains('expanded')) {
                         parentSubmenu.classList.add('expanded');
-                        if (parentArrow) {
-                            parentArrow.textContent = '▼';
-                        }
+                        // 箭头旋转由CSS控制
                     }
                 }
             }
@@ -463,9 +459,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     const parentArrow = parentNavItem.querySelector('.nav-arrow');
                     if (parentSubmenu && !parentSubmenu.classList.contains('expanded')) {
                         parentSubmenu.classList.add('expanded');
-                        if (parentArrow) {
-                            parentArrow.textContent = '▼';
-                        }
+                        // 箭头旋转由CSS控制
                     }
                 }
             } else {
@@ -483,9 +477,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         const arrow = parentNavItem.querySelector('.nav-arrow');
                         if (submenu && !submenu.classList.contains('expanded')) {
                             submenu.classList.add('expanded');
-                            if (arrow) {
-                                arrow.textContent = '▼';
-                            }
+                            // 箭头旋转由CSS控制
                         }
                     }
                 }
@@ -496,11 +488,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // 切换子菜单展开状态
     function toggleSubmenu(navItem) {
         const submenu = navItem.querySelector('.nav-submenu');
-        const arrow = navItem.querySelector('.nav-arrow');
         
         if (submenu) {
             submenu.classList.toggle('expanded');
-            arrow.textContent = submenu.classList.contains('expanded') ? '▼' : '▶';
+            // 箭头旋转由CSS控制，不需要改变文本
         }
     }
     

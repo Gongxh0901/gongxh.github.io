@@ -358,7 +358,7 @@ body {
     
     .nav-arrow {
       color: var(--secondary-color);
-      transform: rotate(180deg);
+      // 移除hover时的旋转，保持当前状态
     }
   }
 }
@@ -397,11 +397,12 @@ body {
 }
 
 .nav-arrow {
-  margin-left: auto;
-  transition: transform 0.3s ease;
-  font-size: 12px;
-  color: var(--text-light);
-  opacity: 0.6;
+    margin-left: auto;
+    transition: transform 0.3s ease;
+    font-size: 12px;
+    color: var(--text-light);
+    opacity: 0.6;
+    transform: rotate(0deg); // 默认朝右
 }
 
 /* Submenu */
@@ -419,6 +420,11 @@ body {
 .nav-submenu.expanded {
   max-height: 500px;
   border-top: 1px solid rgba(33, 150, 243, 0.3);
+}
+
+// 当子菜单展开时，箭头朝下
+.nav-item.has-children:has(.nav-submenu.expanded) .nav-arrow {
+  transform: rotate(90deg); // 朝下
 }
 
 .nav-subitem {
