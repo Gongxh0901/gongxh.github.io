@@ -65,7 +65,8 @@ class URLRouter {
                 decodedHash = hash;
             }
         }
-        const path = decodedHash || window.location.pathname.substring(1) || '';
+        // 如果没有指定路径，默认导航到"关于我"页面
+        const path = decodedHash || window.location.pathname.substring(1) || 'about';
         this.navigate(path, false); // 不更新历史记录
     }
     
