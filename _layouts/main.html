@@ -13,6 +13,9 @@
     <meta name="theme-color" content="#2196F3">
 
     <link rel="stylesheet" href="{{ '/assets/main.css' | relative_url }}">
+    {% if page.custom_css %}
+    <link rel="stylesheet" href="{{ '/assets/' | append: page.custom_css | append: '.css' | relative_url }}">
+    {% endif %}
     {% if site.plugins contains "jekyll-feed" %}
     <link type="application/atom+xml" rel="alternate" href="{{ '/feed.xml' | relative_url }}"
         title="{{ site.title | escape }}">
@@ -32,30 +35,6 @@
                 {% include header.html %}
 
                 <div class="content-wrapper">
-                    <!-- 首页内容 -->
-                    <section class="content-section active" id="home-content">
-                        <div class="page-header">
-                            <h1 class="page-title">欢迎来到游戏开发技术分享平台</h1>
-                            <p class="page-subtitle">专注于Cocos Creator游戏开发技术</p>
-                        </div>
-
-                        <div class="intro-section">
-                            <div class="intro-card">
-                                <h2>🎮 专业游戏开发</h2>
-                                <p>10+年游戏开发经验，专注于Cocos Creator引擎开发，深入理解游戏架构设计与性能优化。</p>
-                            </div>
-
-                            <div class="intro-card">
-                                <h2>🛠️ 开发工具专家</h2>
-                                <p>分享实用的开发工具使用技巧，提供自研工具和插件，帮助开发者提升效率。</p>
-                            </div>
-
-                            <div class="intro-card">
-                                <h2>📚 技术知识分享</h2>
-                                <p>定期分享技术文章、踩坑经验和最佳实践，与开发者社区共同成长。</p>
-                            </div>
-                        </div>
-                    </section>
 
                     <!-- 游戏项目内容 -->
                     <section class="content-section" id="projects-content">

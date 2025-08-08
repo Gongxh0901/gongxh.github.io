@@ -1,8 +1,4 @@
 main:
-  - title: "首页"
-    id: "home"
-    icon: "🏠"
-    
   - title: "游戏项目"
     id: "projects"
     icon: "🎮"

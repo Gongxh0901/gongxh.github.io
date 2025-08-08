@@ -24,8 +24,7 @@ function findByDataTarget(targetValue, className = null) {
 class URLRouter {
     constructor() {
         this.routes = new Map([
-            ['', 'home'],
-            ['home', 'home'],
+            ['', 'about'],  // 默认显示关于页面
             ['about', 'about'],
             ['projects', 'projects'],
             ['project-showcase', 'project-showcase'],
