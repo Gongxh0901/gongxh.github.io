@@ -100,7 +100,7 @@ class URLRouter {
             return true;
         } else {
             console.warn('未找到路由:', path);
-            this.navigate('home', updateHistory);
+            this.navigate('about', updateHistory);
             return false;
         }
     }
@@ -325,6 +325,14 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // 暴露router到全局作用域
     window.router = router;
+    
+    // 如果当前URL没有hash且在博客页面，自动导航到关于我
+    if (!window.location.hash && (window.location.pathname === '/blog/' || window.location.pathname === '/blog')) {
+        // 延迟执行，确保DOM完全加载
+        setTimeout(() => {
+            router.navigate('about');
+        }, 100);
+    }
     
     // 初始状态 - 移动端默认收起，PC端默认展开
     let sidebarCollapsed = window.innerWidth <= 768;

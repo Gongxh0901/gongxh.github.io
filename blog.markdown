@@ -194,13 +194,3 @@ permalink: /blog/
     </div>
 </div>
 
-<script>
-// 页面加载完成后，自动切换到"关于我"标签
-document.addEventListener('DOMContentLoaded', function() {
-    // 查找关于我的导航项并点击
-    const aboutLink = document.querySelector('[data-target="about"]');
-    if (aboutLink) {
-        aboutLink.click();
-    }
-});
-</script>

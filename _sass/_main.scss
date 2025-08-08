@@ -285,28 +285,50 @@ body {
   &:hover {
     background-color: rgba(255, 255, 255, 0.02);
   }
+  
+  // 带有子菜单的导航项特殊样式
+  &.has-children {
+    background: rgba(255, 255, 255, 0.03);
+    transition: all 0.3s ease;
+    
+    &:hover {
+      background: rgba(255, 255, 255, 0.05);
+    }
+    
+    // 当子菜单展开时的样式
+    &:has(.nav-submenu.expanded) {
+      background: linear-gradient(to right, rgba(33, 150, 243, 0.05) 0%, transparent 100%);
+    }
+  }
 }
 
 .nav-link {
   display: flex;
   align-items: center;
-  padding: 16px 24px;
+  padding: 11px 24px;
   color: var(--text-secondary);
   text-decoration: none;
   transition: all 0.3s ease;
   cursor: pointer;
   position: relative;
   
-  &:before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: 100%;
-    width: 3px;
-    background: var(--primary-color);
-    transform: scaleY(0);
-    transition: transform 0.3s ease;
+
+  
+  // 父级菜单（带子菜单的）特殊样式
+  .nav-item.has-children & {
+    font-weight: 600;
+    color: var(--text-primary);
+    background: rgba(33, 150, 243, 0.15);
+    
+    .nav-icon {
+      color: var(--primary-color);
+      filter: brightness(1.3);
+    }
+    
+    .nav-arrow {
+      color: var(--primary-color);
+      opacity: 0.9;
+    }
   }
 }
 
@@ -315,13 +337,27 @@ body {
   color: var(--primary-color);
   padding-left: 28px;
   
-  &:before {
-    transform: scaleY(1);
-  }
+
   
   .nav-icon {
     color: var(--primary-color);
     transform: scale(1.1);
+  }
+  
+  // 带子菜单的导航项悬停效果
+  .nav-item.has-children & {
+    background: linear-gradient(90deg, rgba(33, 150, 243, 0.1) 0%, rgba(0, 188, 212, 0.05) 100%);
+    color: white;
+    
+    .nav-icon {
+      transform: scale(1.15) rotate(5deg);
+      filter: brightness(1.5);
+    }
+    
+    .nav-arrow {
+      color: var(--secondary-color);
+      transform: rotate(180deg);
+    }
   }
 }
 
@@ -329,10 +365,7 @@ body {
   background: linear-gradient(90deg, rgba(33, 150, 243, 0.1) 0%, transparent 100%);
   color: var(--primary-color);
   
-  &:before {
-    transform: scaleY(1);
-    background: linear-gradient(180deg, var(--primary-color), var(--secondary-color));
-  }
+
   
   .nav-icon {
     color: var(--primary-color);
@@ -351,6 +384,14 @@ body {
   font-weight: 500;
   font-size: 15px;
   letter-spacing: 0.3px;
+  
+  // 父级菜单文字样式
+  .nav-item.has-children & {
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-shadow: 0 0 10px rgba(33, 150, 243, 0.3);
+  }
 }
 
 .nav-arrow {
@@ -366,14 +407,16 @@ body {
   list-style: none;
   margin: 0;
   padding: 0;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.5);
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.3s ease;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.3);
 }
 
 .nav-submenu.expanded {
   max-height: 500px;
+  border-top: 1px solid rgba(33, 150, 243, 0.3);
 }
 
 .nav-subitem {
@@ -691,6 +734,26 @@ body {
   color: var(--text-secondary);
   margin: 0;
   font-size: 14px;
+}
+
+/* Link styles for content area */
+.post-content a, .page-content a,
+.post-excerpt a, .page-excerpt a,
+.content-wrapper a {
+  color: #00BCD4;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border-bottom: 1px solid transparent;
+  
+  &:hover {
+    color: #4FC3F7;
+    border-bottom-color: #4FC3F7;
+  }
+  
+  &:active {
+    color: #0288D1;
+    border-bottom-color: #0288D1;
+  }
 }
 
 /* Article and page styles */
