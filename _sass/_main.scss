@@ -158,6 +158,8 @@ body {
   border-radius: 1px;
 }
 
+
+
 /* Right content area - adjust based on sidebar state */
 .right-content-area {
   flex: 1;
@@ -427,7 +429,7 @@ body {
   display: flex;
   align-items: center;
   padding: 12px 20px 12px 60px;
-  color: var(--text-light);
+  color: rgba(255, 255, 255, 0.85);
   text-decoration: none;
   transition: all 0.3s ease;
   cursor: pointer;

@@ -161,23 +161,10 @@ html {
     .nav-menu {
         display: flex;
         gap: 30px;
+        align-items: center;
         
         @media (max-width: 768px) {
-            position: fixed;
-            top: 70px;
-            left: 0;
-            right: 0;
-            background: rgba(26, 26, 26, 0.95);
-            flex-direction: column;
-            padding: 20px;
-            transform: translateY(-100%);
-            opacity: 0;
-            transition: all 0.3s ease;
-            
-            &.active {
-                transform: translateY(0);
-                opacity: 1;
-            }
+            gap: 15px;
         }
     }
     
@@ -209,8 +196,7 @@ html {
         }
         
         @media (max-width: 768px) {
-            padding: 10px 0;
-            font-size: 1.1rem;
+            display: none; // 移动端隐藏其他导航项，只保留博客按钮
         }
         
         &.nav-blog {
@@ -250,42 +236,17 @@ html {
             }
             
             @media (max-width: 768px) {
+                display: flex !important; // 强制显示博客按钮
                 margin-left: 0;
                 margin-top: 0;
+                padding: 8px 20px; // 稍微缩小按钮尺寸
+                font-size: 0.9rem;
             }
         }
     }
     
     .nav-toggle {
-        display: none;
-        flex-direction: column;
-        gap: 4px;
-        cursor: pointer;
-        
-        @media (max-width: 768px) {
-            display: flex;
-        }
-        
-        span {
-            width: 25px;
-            height: 3px;
-            background: #ccc;
-            transition: all 0.3s ease;
-        }
-        
-        &.active {
-            span:nth-child(1) {
-                transform: rotate(45deg) translate(5px, 5px);
-            }
-            
-            span:nth-child(2) {
-                opacity: 0;
-            }
-            
-            span:nth-child(3) {
-                transform: rotate(-45deg) translate(5px, -5px);
-            }
-        }
+        display: none; // 完全隐藏三条横线按钮
     }
 }
 
