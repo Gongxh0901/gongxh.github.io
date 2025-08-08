@@ -295,6 +295,10 @@ html, body {
     overflow: hidden;
     padding-top: 70px; // 为导航栏留出空间
     
+    @media (max-width: 768px) {
+        padding-bottom: 80px; // 移动端为滚动按钮预留空间
+    }
+    
     .hero-background {
         position: absolute;
         top: 0;
@@ -410,69 +414,9 @@ html, body {
         }
     }
     
-    .social-links {
-        margin: 30px 0;
-        
-        a {
-            display: inline-block;
-            margin: 0 15px;
-            transition: all 0.3s ease;
-            
-            &:hover {
-                transform: translateY(-3px) scale(1.2);
-            }
-            
-            .social-icon {
-                width: 30px;
-                height: 30px;
-                fill: #ccc;
-                transition: fill 0.3s ease;
-                
-                &:hover {
-                    fill: $primary-color;
-                }
-            }
-        }
-    }
+
     
-    .achievements {
-        display: flex;
-        justify-content: center;
-        gap: 50px;
-        margin-top: 50px;
-        flex-wrap: wrap;
-        
-        @media (max-width: 768px) {
-            gap: 20px;
-        }
-        
-        .achievement-item {
-            text-align: center;
-            flex: 0 1 auto;
-            min-width: 100px;
-            
-            .achievement-number {
-                font-size: 2.5rem;
-                font-weight: bold;
-                color: $primary-color;
-                
-                @media (max-width: 768px) {
-                    font-size: 2rem;
-                }
-            }
-            
-            .achievement-label {
-                display: block;
-                font-size: 0.9rem;
-                color: #999;
-                margin-top: 5px;
-                
-                @media (max-width: 768px) {
-                    font-size: 0.8rem;
-                }
-            }
-        }
-    }
+
     
     .scroll-indicator {
         position: absolute;
@@ -481,16 +425,27 @@ html, body {
         transform: translateX(-50%);
         text-align: center;
         animation: bounce 2s infinite;
+        z-index: 10; // 确保在其他元素之上
+        
+        @media (max-width: 768px) {
+            bottom: 20px; // 移动端调整底部距离
+        }
         
         span {
             display: block;
             font-size: 0.9rem;
             color: #666;
             margin-bottom: 10px;
+            
+            @media (max-width: 768px) {
+                font-size: 0.8rem;
+            }
         }
         
         svg {
             fill: #666;
+            width: 24px;
+            height: 24px;
         }
     }
 }
@@ -1168,11 +1123,7 @@ html, body {
             }
         }
         
-        .achievements {
-            flex-direction: column;
-            gap: 20px;
-            align-items: center;
-        }
+
     }
     
     .projects-grid {
