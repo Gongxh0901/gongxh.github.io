@@ -325,15 +325,74 @@ document.addEventListener('DOMContentLoaded', function() {
     playButtons.forEach(btn => {
         btn.addEventListener('click', () => {
             const src = btn.getAttribute('data-video');
-            if (src && videoElement) {
-                // 切换视频源并播放
-                if (videoElement.src !== src) {
-                    videoElement.src = src;
-                }
+            if (!src || !videoElement) return;
+
+            // 切换视频源
+            if (videoElement.src !== src) {
+                videoElement.src = src;
+            }
+
+            // 动态根据视频原始宽高比设置弹窗尺寸，尽量贴合视频比例
+            const modalContent = videoModal.querySelector('.modal-content');
+            const setSizeByRatio = (videoWidth, videoHeight) => {
+                if (!modalContent) return;
+                const ratio = videoWidth / videoHeight; // >1 横屏, <1 竖屏
+                // 为横屏与竖屏分别设置更保守的上限，避免太宽或溢出
+                const isLandscape = ratio >= 1;
+                const maxW = isLandscape
+                    ? Math.min(window.innerWidth * 0.75, 900)   // 横屏：更窄一些
+                    : Math.min(window.innerWidth * 0.55, 420);  // 竖屏：更窄，避免底部溢出
+                const maxH = isLandscape
+                    ? Math.min(window.innerHeight * 0.85, 900)  // 横屏：更矮一些
+                    : Math.min(window.innerHeight * 0.90, 1000); // 竖屏：优先保证高度不溢出
+
+                // 通过比例统一计算，严格贴合视频尺寸并不超过上限
+                const scale = Math.min(maxW / ratio, maxH);
+                const width = Math.max(1, Math.floor(ratio * scale));
+                const height = Math.max(1, Math.floor(scale));
+
+                modalContent.style.width = `${width}px`;
+                modalContent.style.height = `${height}px`;
+            };
+
+            // 先尝试使用已加载的视频元数据
+            if (videoElement.videoWidth && videoElement.videoHeight) {
+                setSizeByRatio(videoElement.videoWidth, videoElement.videoHeight);
                 videoModal.style.display = 'block';
-                videoElement.play().catch(() => {/* 忽略自动播放限制错误 */});
+                videoElement.play().catch(() => {});
+            } else {
+                // 元数据未就绪时，临时创建探测视频
+                const probe = document.createElement('video');
+                probe.src = src;
+                probe.addEventListener('loadedmetadata', () => {
+                    setSizeByRatio(probe.videoWidth, probe.videoHeight);
+                    videoModal.style.display = 'block';
+                    videoElement.play().catch(() => {});
+                    probe.remove();
+                }, { once: true });
             }
         });
+    });
+
+    // 窗口尺寸变化时，若弹窗打开则按当前视频比例重新计算尺寸
+    window.addEventListener('resize', () => {
+        if (!videoModal || videoModal.style.display !== 'block' || !videoElement) return;
+        const modalContent = videoModal.querySelector('.modal-content');
+        if (videoElement.videoWidth && videoElement.videoHeight && modalContent) {
+            const ratio = videoElement.videoWidth / videoElement.videoHeight;
+            const isLandscape = ratio >= 1;
+            const maxW = isLandscape
+                ? Math.min(window.innerWidth * 0.75, 900)
+                : Math.min(window.innerWidth * 0.55, 420);
+            const maxH = isLandscape
+                ? Math.min(window.innerHeight * 0.85, 900)
+                : Math.min(window.innerHeight * 0.90, 1000);
+            const scale = Math.min(maxW / ratio, maxH);
+            const width = Math.max(1, Math.floor(ratio * scale));
+            const height = Math.max(1, Math.floor(scale));
+            modalContent.style.width = `${width}px`;
+            modalContent.style.height = `${height}px`;
+        }
     });
 
     const videoCloseBtn = videoModal ? videoModal.querySelector('.close') : null;
