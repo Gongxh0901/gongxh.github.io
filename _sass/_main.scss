@@ -631,7 +631,7 @@ body {
 
 /* Footer - scrolls with content */
 .site-footer {
-  background: var(--darker-bg);
+  background: var(--dark-bg);
   border-top: 1px solid var(--border-color);
   margin-top: auto;
 }
@@ -647,6 +647,7 @@ body {
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 20px; /* Content spacing */
   margin-bottom: 8px; /* Content spacing */
+  background: var(--dark-bg);
 }
 
 .footer-section {
@@ -679,8 +680,7 @@ body {
   font-size: 15px;
   margin-bottom: 4px;
   text-align: center;
-  border-bottom: 1px solid var(--border-color);
-  padding-bottom: 4px;
+  padding-bottom: 4px; /* remove divider line in blog */
 }
 
 .contact-item {
@@ -736,6 +736,7 @@ body {
   text-align: center;
   padding-top: 5px; /* Content spacing */
   border-top: 1px solid var(--border-color);
+  background: var(--dark-bg);
 }
 
 .footer-bottom p {
@@ -1632,6 +1633,114 @@ body {
   &:hover {
     background: #1976D2;
   }
+}
+
+/* Blog-only theme overrides */
+.blog-theme {
+  /* Softer text/colors, homepage background */
+  --primary-color: #8AB4F8;
+  --secondary-color: #80CBC4;
+  --accent-color: #F6C56B;
+  --dark-bg: #1A1A1A;     /* match homepage */
+  --darker-bg: #121212;   /* match homepage */
+  --card-bg: #2a2a2a;     /* match homepage surfaces */
+  --text-primary: #E8EAED;
+  --text-secondary: #B0B4BA;
+  --text-light: #8A8D91;
+  --border-color: rgba(255, 255, 255, 0.10);
+  --content-bg: #30343a; /* slightly different from card for inner article */
+
+  /* Sidebar toggle softer shadow */
+  .sidebar-toggle-btn {
+    box-shadow: 2px 2px 12px rgba(138, 180, 248, 0.25);
+  }
+  .sidebar-toggle-btn:hover {
+    box-shadow: 2px 2px 20px rgba(128, 203, 196, 0.35);
+  }
+
+  /* Navigation gradients */
+  .nav-item.has-children .nav-link:hover {
+    background: linear-gradient(90deg, rgba(138, 180, 248, 0.10) 0%, rgba(128, 203, 196, 0.05) 100%);
+    color: var(--text-primary);
+  }
+  .nav-link.active {
+    background: linear-gradient(90deg, rgba(138, 180, 248, 0.12) 0%, transparent 100%);
+  }
+  .nav-submenu.expanded {
+    border-top: 1px solid rgba(138, 180, 248, 0.25);
+  }
+
+  /* Content links */
+  .post-content a, .page-content a,
+  .post-excerpt a, .page-excerpt a,
+  .content-wrapper a {
+    color: var(--primary-color);
+    &:hover {
+      color: #AECBFA;
+      border-bottom-color: #AECBFA;
+    }
+    &:active {
+      color: #669DF6;
+      border-bottom-color: #669DF6;
+    }
+  }
+
+  /* Code blocks and quotes */
+  .post-content pre, .page-content pre {
+    background: rgba(0, 0, 0, 0.4);
+  }
+  .post-content blockquote, .page-content blockquote {
+    border-left: 4px solid rgba(138, 180, 248, 0.7);
+    background: rgba(138, 180, 248, 0.06);
+  }
+
+  /* Status and buttons */
+  .project-status.status-active { background: rgba(138, 180, 248, 0.18); }
+  .project-status.status-development { background: rgba(246, 197, 107, 0.20); color: var(--accent-color); }
+  .project-status.status-planning { background: rgba(246, 197, 107, 0.12); color: var(--accent-color); }
+  .project-status.status-completed { background: rgba(128, 203, 196, 0.18); }
+
+  .project-link.github:hover { background: #669DF6; }
+  .pagination-link:hover { background: #669DF6; }
+  .read-more-btn:hover { background: #669DF6; }
+
+  /* Level-1 tab content area uses card background */
+  .content-section {
+    background: var(--card-bg);
+    border: 0;
+    border-radius: 12px;
+    padding: 0.5rem;
+  }
+
+  /* Merge wrappers visually: inherit Level-1 background */
+  .dynamic-content,
+  .sub-content-area {
+    background: var(--card-bg);
+    border: 0;
+    box-shadow: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  /* Third-level wrapper follows same background and flattened chrome */
+  .sub-content {
+    background: var(--card-bg);
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  /* Level-2 article content follows same background and flattened chrome */
+  .post-full-content {
+    background: var(--card-bg);
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  /* Footer lines removed for seamless look */
+  .site-footer { border-top: 0; }
+  .footer-bottom { border-top: 0; }
 }
 
 .no-content {

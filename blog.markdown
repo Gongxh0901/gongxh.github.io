@@ -18,12 +18,12 @@ permalink: /blog/
 .blog-title {
     font-size: 2.5rem;
     margin-bottom: 20px;
-    color: #333;
+    color: var(--text-primary);
 }
 
 .blog-subtitle {
     font-size: 1.2rem;
-    color: #666;
+    color: var(--text-secondary);
 }
 
 .blog-categories {
@@ -34,17 +34,17 @@ permalink: /blog/
 }
 
 .category-card {
-    background: white;
+    background: var(--card-bg);
     border-radius: 10px;
     padding: 30px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
     transition: all 0.3s ease;
     cursor: pointer;
 }
 
 .category-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
 }
 
 .category-icon {
@@ -55,22 +55,22 @@ permalink: /blog/
 .category-name {
     font-size: 1.5rem;
     margin-bottom: 10px;
-    color: #333;
+    color: var(--text-primary);
 }
 
 .category-description {
-    color: #666;
+    color: var(--text-secondary);
     line-height: 1.6;
 }
 
 .category-count {
     margin-top: 15px;
     font-size: 0.9rem;
-    color: #999;
+    color: var(--text-light);
 }
 
 .recent-posts {
-    background: #f8f8f8;
+    background: var(--card-bg);
     padding: 40px;
     border-radius: 10px;
 }
@@ -107,24 +107,24 @@ permalink: /blog/
 }
 
 .post-info h3 a {
-    color: #333;
+    color: var(--text-primary);
     text-decoration: none;
 }
 
 .post-info h3 a:hover {
-    color: #2196F3;
+    color: var(--primary-color);
 }
 
 .post-meta {
     display: flex;
     gap: 20px;
     font-size: 0.9rem;
-    color: #666;
+    color: var(--text-secondary);
 }
 
 .post-date {
     text-align: right;
-    color: #999;
+    color: var(--text-light);
     font-size: 0.9rem;
 }
 </style>
