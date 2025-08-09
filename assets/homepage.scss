@@ -757,17 +757,34 @@ html, body {
             
             .philosophy-item {
                 display: flex;
-                gap: 20px;
-                align-items: flex-start;
+                gap: 16px;
+                align-items: center; // 图标与文本垂直居中对齐
                 
+                .philosophy-icon {
+                    display: flex;
+                    align-items: center; // 图标容器内垂直居中
+                    justify-content: center;
+                    width: 2.2rem;  // 固定图标占位宽度
+                    flex: 0 0 2.2rem;
+                }
+
                 .icon {
                     font-size: 2rem;
                     color: $primary-color;
+                    line-height: 1;
                 }
                 
+                // 文本容器
+                .philosophy-text {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 6px; // 统一两行文本的上下间距
+                    text-align: left;  // 文本与图标右侧左对齐
+                }
+
                 h4 {
                     font-size: 1.1rem;
-                    margin-bottom: 5px;
+                    margin: 0; // 移除默认上下外边距，避免顶部额外空隙
                     color: white;
                 }
                 
@@ -1194,11 +1211,15 @@ html, body {
     .about-content {
         .philosophy-items {
             .philosophy-item {
-                flex-direction: column;
-                text-align: center;
-                
+                // 移动端仍保持图标在左、文本在右
+                flex-direction: row;
+                text-align: left;
+                align-items: flex-start;
+
                 .icon {
-                    font-size: 1.5rem;
+                    font-size: 1.8rem; // 略微缩小
+                    width: 2rem;
+                    flex-basis: 2rem;
                 }
             }
         }

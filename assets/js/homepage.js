@@ -334,6 +334,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // 动态根据视频原始宽高比设置弹窗尺寸，尽量贴合视频比例
             const modalContent = videoModal.querySelector('.modal-content');
+            const videoContainer = videoModal.querySelector('.video-container');
+            const toolbar = videoModal.querySelector('.video-toolbar');
             const setSizeByRatio = (videoWidth, videoHeight) => {
                 if (!modalContent) return;
                 const ratio = videoWidth / videoHeight; // >1 横屏, <1 竖屏
@@ -346,13 +348,25 @@ document.addEventListener('DOMContentLoaded', function() {
                     ? Math.min(window.innerHeight * 0.85, 900)  // 横屏：更矮一些
                     : Math.min(window.innerHeight * 0.90, 1000); // 竖屏：优先保证高度不溢出
 
+                // 预留工具栏的高度，确保整体不超出视口导致底部控件出框
+                const toolbarHeight = (toolbar ? toolbar.offsetHeight : 44) + 8; // 再预留8px，避免边缘遮挡
+                const availableVideoHeight = Math.max(100, maxH - toolbarHeight);
+
                 // 通过比例统一计算，严格贴合视频尺寸并不超过上限
-                const scale = Math.min(maxW / ratio, maxH);
+                const scale = Math.min(maxW / ratio, availableVideoHeight);
                 const width = Math.max(1, Math.floor(ratio * scale));
                 const height = Math.max(1, Math.floor(scale));
 
+                // 设置容器尺寸：视频容器使用计算出的宽高，外层容器高度要额外加上工具栏高度
+                if (videoContainer) {
+                    videoContainer.style.width = `${width}px`;
+                    videoContainer.style.height = `${height}px`;
+                    videoContainer.style.display = 'flex';
+                    videoContainer.style.alignItems = 'center';
+                    videoContainer.style.justifyContent = 'center';
+                }
                 modalContent.style.width = `${width}px`;
-                modalContent.style.height = `${height}px`;
+                modalContent.style.height = `${height + toolbarHeight}px`;
             };
 
             // 先尝试使用已加载的视频元数据
@@ -378,6 +392,8 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('resize', () => {
         if (!videoModal || videoModal.style.display !== 'block' || !videoElement) return;
         const modalContent = videoModal.querySelector('.modal-content');
+        const videoContainer = videoModal.querySelector('.video-container');
+        const toolbar = videoModal.querySelector('.video-toolbar');
         if (videoElement.videoWidth && videoElement.videoHeight && modalContent) {
             const ratio = videoElement.videoWidth / videoElement.videoHeight;
             const isLandscape = ratio >= 1;
@@ -387,24 +403,45 @@ document.addEventListener('DOMContentLoaded', function() {
             const maxH = isLandscape
                 ? Math.min(window.innerHeight * 0.85, 900)
                 : Math.min(window.innerHeight * 0.90, 1000);
-            const scale = Math.min(maxW / ratio, maxH);
+
+            const toolbarHeight = (toolbar ? toolbar.offsetHeight : 44) + 8; // 额外留白，避免底部出框
+            const availableVideoHeight = Math.max(100, maxH - toolbarHeight);
+            const scale = Math.min(maxW / ratio, availableVideoHeight);
             const width = Math.max(1, Math.floor(ratio * scale));
             const height = Math.max(1, Math.floor(scale));
+            if (videoContainer) {
+                videoContainer.style.width = `${width}px`;
+                videoContainer.style.height = `${height}px`;
+                videoContainer.style.display = 'flex';
+                videoContainer.style.alignItems = 'center';
+                videoContainer.style.justifyContent = 'center';
+            }
             modalContent.style.width = `${width}px`;
-            modalContent.style.height = `${height}px`;
+            modalContent.style.height = `${height + toolbarHeight}px`;
         }
     });
 
     const videoCloseBtn = videoModal ? videoModal.querySelector('.close') : null;
-    if (videoCloseBtn) {
-        videoCloseBtn.onclick = function() {
-            if (videoModal) videoModal.style.display = 'none';
-            if (videoElement) {
-                videoElement.pause();
-                videoElement.currentTime = 0;
-            }
+    const closeVideoModal = () => {
+        if (videoModal) videoModal.style.display = 'none';
+        if (videoElement) {
+            videoElement.pause();
+            videoElement.currentTime = 0;
+            videoElement.removeAttribute('src');
+            videoElement.load();
         }
+    };
+
+    if (videoCloseBtn) {
+        videoCloseBtn.onclick = closeVideoModal;
     }
+    // 兼容部分浏览器（如夸克）可能拦截/覆盖靠边元素：
+    // 监听键盘Esc关闭、以及添加一个不可见但可点击的关闭区域提高命中率
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && videoModal.style.display === 'block') {
+            closeVideoModal();
+        }
+    });
 
     window.addEventListener('click', function(event) {
         // 点击空白处关闭两个模态框
@@ -412,11 +449,7 @@ document.addEventListener('DOMContentLoaded', function() {
             wechatModal.style.display = 'none';
         }
         if (event.target === videoModal) {
-            videoModal.style.display = 'none';
-            if (videoElement) {
-                videoElement.pause();
-                videoElement.currentTime = 0;
-            }
+            closeVideoModal();
         }
     });
 });
