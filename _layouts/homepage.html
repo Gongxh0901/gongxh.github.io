@@ -89,23 +89,21 @@
         </div>
     </section>
 
-    <!-- 项目精选 Featured Projects -->
+    <!-- 精选项目 Featured Projects -->
     <section class="projects-section" id="projects">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">🚀 项目精选</h2>
+                <h2 class="section-title">🚀 精选项目</h2>
             </div>
 
             <div class="projects-grid">
                 <!-- 比特小队项目卡片 -->
                 <div class="project-card game-project">
                     <div class="project-media">
-                        <div
-                            style="width: 100%; height: 100%; background: linear-gradient(135deg, #2196F3 0%, #00BCD4 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;">
-                            比特小队
-                        </div>
+                        <img src="{{ '/assets/images/homepage/bit-homepage.jpeg' | relative_url }}" alt="《比特小队》封面图"
+                            style="width: 100%; height: 100%; object-fit: cover; display: block;">
                         <div class="media-overlay">
-                            <span class="play-button">▶ 查看演示</span>
+                            <span class="play-button" data-video="{{ site.baseurl }}/assets/videos/game-projects/bit-team.mp4">▶ 查看演示</span>
                         </div>
                     </div>
 
@@ -115,7 +113,10 @@
                         </div>
 
                         <p class="project-description">
-                            一款融合Roguelike元素的多人合作射击游戏，支持最多4人联机对战
+                            《比特小队》：一场硬核又有趣的星际冒险。由 KunpoGames 旗下 bit 工作室倾力打造的
+                            Roguelike + TPS（第三人称射击）独立游戏。你将穿梭于充满未知的随机宇宙，探索多样星球，
+                            收集强力道具与装备，挑战各类敌人，最终拯救危在旦夕的星系。上线以来在 TapTap 获得 9.4 高分与大量好评，
+                            并荣获 2018 年豌豆荚年度游戏设计奖、2018 年 OPPO 开发者大会最佳星火游戏奖。
                         </p>
 
 
@@ -550,6 +551,14 @@
                 </div>
             </div>
             <p>微信号: G0900901</p>
+        </div>
+    </div>
+
+    <!-- 视频弹窗（比特小队演示） -->
+    <div id="video-modal" class="modal">
+        <div class="modal-content" style="max-width: 900px; padding: 0; overflow: hidden;">
+            <span class="close" style="position: absolute; right: 16px; top: 12px; font-size: 28px; cursor: pointer; z-index: 2;">&times;</span>
+            <video id="project-video" style="width: 100%; height: auto; display: block; background: #000;" controls playsinline preload="metadata"></video>
         </div>
     </div>
 

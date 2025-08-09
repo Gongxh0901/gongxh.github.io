@@ -310,19 +310,56 @@ document.addEventListener('DOMContentLoaded', function() {
         observer.observe(num);
     });
     
-    // 模态框关闭
-    const modal = document.getElementById('wechat-modal');
-    const closeBtn = modal.querySelector('.close');
-    
-    closeBtn.onclick = function() {
-        modal.style.display = 'none';
+    // 微信模态框关闭
+    const wechatModal = document.getElementById('wechat-modal');
+    const wechatCloseBtn = wechatModal.querySelector('.close');
+    wechatCloseBtn.onclick = function() {
+        wechatModal.style.display = 'none';
     }
-    
-    window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = 'none';
+
+    // 视频弹窗与播放逻辑
+    const videoModal = document.getElementById('video-modal');
+    const videoElement = document.getElementById('project-video');
+    const playButtons = document.querySelectorAll('.project-card .play-button[data-video]');
+
+    playButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const src = btn.getAttribute('data-video');
+            if (src && videoElement) {
+                // 切换视频源并播放
+                if (videoElement.src !== src) {
+                    videoElement.src = src;
+                }
+                videoModal.style.display = 'block';
+                videoElement.play().catch(() => {/* 忽略自动播放限制错误 */});
+            }
+        });
+    });
+
+    const videoCloseBtn = videoModal ? videoModal.querySelector('.close') : null;
+    if (videoCloseBtn) {
+        videoCloseBtn.onclick = function() {
+            if (videoModal) videoModal.style.display = 'none';
+            if (videoElement) {
+                videoElement.pause();
+                videoElement.currentTime = 0;
+            }
         }
     }
+
+    window.addEventListener('click', function(event) {
+        // 点击空白处关闭两个模态框
+        if (event.target === wechatModal) {
+            wechatModal.style.display = 'none';
+        }
+        if (event.target === videoModal) {
+            videoModal.style.display = 'none';
+            if (videoElement) {
+                videoElement.pause();
+                videoElement.currentTime = 0;
+            }
+        }
+    });
 });
 
 // 响应式处理

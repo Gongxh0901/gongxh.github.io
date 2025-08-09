@@ -1,366 +1,56 @@
-# Cursor 项目规则文件 - gongxh游戏开发技术博客
-# 专注于Cocos Creator游戏开发的个人技术分享网站
+# Cursor 项目协作规则（重制版）
 
-## 🎯 项目概述
-这是一个基于Jekyll的专业游戏开发技术博客，由拥有10+年游戏开发经验的gongxh维护。
-网站专注于Cocos Creator技术分享、开发工具使用、踩坑经验总结，致力于帮助游戏开发者提升技能。
+本规则适用于本仓库的日常协作与自动化助手（AI/插件）行为约束。除非明确说明，以下规则均为默认强制要求。
 
-## 🛠️ 技术栈
-- **静态生成器**: Jekyll 4.4.1
-- **主题**: 自定义主题基于Minima
-- **样式**: SCSS + CSS变量
-- **脚本**: Vanilla JavaScript (SPA架构)
-- **内容**: Markdown + Liquid模板
-- **部署**: GitHub Pages
-- **SEO**: jekyll-sitemap + jekyll-seo-tag
-- **专业领域**: Cocos Creator游戏开发
+## 基本原则
+- 清晰、可追溯、最小必要变更。
+- 遵循当前代码风格与信息架构，不做无关重构。
+- 优先保证站点可构建，其次优化表现与内容。
 
-## 📁 项目结构与文件规范
+## 工作流约束（重要）
+- 修改代码或文案后：不要执行任何提交（commit）或推送（push）。等待我明确指令再进行。
+- 当我要求提交时：
+  - 使用中文提交信息，聚焦改动意图与影响（不需过度细节）。
+  - 不要合并或变基，只做普通提交。
+- 不要自动启动本地测试、构建或服务。例如：npm 脚本、bundler、Jekyll、预览服务器等。
+  - 仅在我明确要求时，才运行如 `bundle exec jekyll build`/`serve` 等命令。
 
-### 核心配置文件
-- `_config.yml`: 网站核心配置，包含作者信息、项目展示、社交链接
-- `_config_dev.yml`: 开发环境专用配置
-- `Gemfile`: Ruby依赖管理，包含GitHub Pages兼容性
-- `assets/main.scss`: 主样式入口文件
-- `assets/css/style.scss`: 自定义样式文件
+## 内容与文案
+- 保持与站点定位一致：游戏开发、Cocos Creator、工具链、性能优化。
+- 面向用户的文案：
+  - 标题精炼，副标题点明亮点；首段给出关键信息与价值。
+  - 中文标点与空格规范（中英文间加空格，专有名词保留英文，如 Cocos Creator、TypeScript、Roguelike、TPS）。
+  - 奖项、评分等可信信息需明确来源与年份（例如：TapTap 9.4，2018 年豌豆荚年度游戏设计奖，2018 年 OPPO 开发者大会最佳星火游戏奖）。
 
-### 页面布局系统
-- `_layouts/default.html`: 基础页面模板
-- `_layouts/main.html`: 主页布局，包含SPA导航
-- `_layouts/page.html`: 静态页面布局
-- `_layouts/post.html`: 文章页面布局
-- `_includes/header.html`: 页面头部组件
-- `_includes/footer.html`: 页面底部组件
-- `_includes/sidebar.html`: 侧边栏导航组件
+## 结构与文件
+- Jekyll 站点：
+  - 配置：`_config.yml` 与 `_config_dev.yml` 按环境分离，避免互相污染。
+  - 布局与包含：优先复用 `_layouts/` 与 `_includes/`，保持组件化。
+  - 文章与页面：文章在 `_posts/`，页面在根或 `about.markdown` 等；Front Matter 完整。
+- 资源：`assets/` 下按类型与页面归档；避免无用资源与超大文件。
 
-### 内容组织
-- `_posts/`: 技术文章目录 (格式: YYYY-MM-DD-title.markdown)
-- `_data/navigation.yml`: 导航菜单配置
-- `about.markdown`: 个人介绍页面
-- `index.markdown`: 网站主页
+## 代码与样式
+- 不擅自更改全站样式变量与排版规则；新增样式遵循现有命名与层级。
+- JavaScript 仅做与当前需求相关的最小增强；避免引入新依赖。
+- 对外链接使用带描述的 Markdown 链接或安全属性（target/_blank, rel=noopener）。
 
-### 静态资源
-- `assets/images/`: 图片资源
-- `assets/js/main.js`: 主要JavaScript功能
-- `icon/`: 社交媒体图标 (SVG格式)
+## 可访问性与 SEO
+- 图片包含合理 `alt`；标题层级有序。
+- 页面包含 `title` 与 `description`，避免关键词堆砌。
+- 不在未声明的页面启用分页或实验性功能。
 
-## 🎮 游戏开发专业内容规范
+## 变更说明要求
+- 每次编辑请在提交信息中侧重“为什么”，避免只描述“做了什么”。
+- 若编辑为视觉/样式层面，简述影响范围（组件/页面）。
 
-### Cocos Creator技术文章要求
-1. **实战导向**: 每篇文章必须包含完整可运行的代码示例
-2. **版本明确**: 明确标注Cocos Creator版本和相关依赖
-3. **性能关注**: 重点关注游戏性能优化技巧
-4. **平台适配**: 包含多平台发布的适配经验
-5. **工具使用**: 详细介绍开发工具的使用技巧
+## 质量与回滚
+- 禁止批量改名或结构大迁移，除非有明确迁移计划。
+- 如修改影响构建（Jekyll/Liquid/Front Matter），需在我要求时进行一次构建验证。
 
-### 内容分类体系
-```yaml
-categories:
-  - cocos-creator    # Cocos Creator相关
-  - game-development # 游戏开发通用
-  - performance      # 性能优化
-  - tools           # 开发工具
-  - experience      # 踩坑经验
-  - tutorial        # 教程指南
-```
-
-### 技术标签规范
-```yaml
-tags:
-  # 技术栈
-  - [cocos-creator, typescript, javascript, nodejs]
-  # 平台
-  - [微信小游戏, h5, native, android, ios]
-  # 功能
-  - [ui系统, 动画系统, 物理引擎, 音频系统]
-  # 工具
-  - [构建发布, 调试技巧, 性能分析]
-```
-
-## 🎨 SPA内容分块功能规范
-
-### 导航栏架构 (Sidebar)
-```css
-/* 导航栏尺寸规范 */
-.sidebar-nav {
-  width: 210px;           /* 展开状态标准宽度 */
-  position: fixed;
-  transition: transform 0.3s ease;
-}
-
-.sidebar-nav.collapsed {
-  transform: translateX(-170px);  /* 收起状态，保留40px */
-}
-
-/* 主内容区域适配 */
-.main-content {
-  margin-left: 210px;     /* 配合导航栏宽度 */
-  transition: margin-left 0.3s ease;
-}
-
-.main-content.expanded {
-  margin-left: 40px;      /* 导航栏收起时的适配 */
-}
-```
-
-### 内容区域管理
-```css
-/* 内容分块显示控制 */
-.content-section {
-  display: none;          /* 默认隐藏所有内容块 */
-  animation: fadeIn 0.3s ease-in;
-}
-
-.content-section.active {
-  display: block;         /* 激活状态显示 */
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-```
-
-### JavaScript功能要求
-```javascript
-// 必需功能模块
-- 导航栏收起/展开状态管理
-- 内容区域动态切换逻辑
-- 移动端响应式导航处理
-- 子菜单项的页面内锚点定位
-- 浏览器前进后退支持
-- 移动端侧滑手势支持
-```
-
-### 响应式设计规范
-```css
-/* 移动端适配 (max-width: 768px) */
-.sidebar-nav {
-  width: 100vw;           /* 全屏显示 */
-  transform: translateX(-100%);  /* 默认隐藏 */
-}
-
-.sidebar-nav.mobile-open {
-  transform: translateX(0);      /* 显示状态 */
-}
-
-.main-content {
-  margin-left: 0;         /* 移动端无边距 */
-}
-```
-
-## 📝 Markdown文档规范
-
-### 文章头部格式 (Front Matter)
-```yaml
----
-layout: post
-title: "Cocos Creator性能优化实战指南"
-date: 2024-01-15 14:30:00 +0800
-categories: cocos-creator performance
-tags: [cocos-creator, 性能优化, 内存管理, 渲染优化]
-excerpt: "深入分析Cocos Creator性能瓶颈，提供具体的优化方案和代码示例，助你打造高性能游戏应用"
-author: gongxh
-featured_projects: true   # 是否在项目展示中显示
-difficulty: intermediate  # 文章难度: beginner/intermediate/advanced
----
-```
-
-### 代码块规范
-```markdown
-# TypeScript代码示例
-​```typescript
-// Cocos Creator组件示例
-import { _decorator, Component, Node, Label } from 'cc';
-const { ccclass, property } = _decorator;
-
-@ccclass('GameManager')
-export class GameManager extends Component {
-    @property(Label)
-    scoreLabel: Label = null;
-    
-    start() {
-        console.log('游戏开始');
-    }
-}
-​```
-
-# 配置文件示例
-​```json
-{
-  "name": "my-cocos-game",
-  "version": "1.0.0",
-  "engine": "3.8.0"
-}
-​```
-```
-
-## 🚀 GitHub Pages部署规范
-
-### GitHub Pages配置
-```yaml
-# _config.yml中的GitHub Pages设置
-url: "https://gongxh0901.github.io"
-baseurl: ""
-github_username: gongxh0901
-
-# 构建优化
-sass:
-  style: compressed
-  cache: false
-
-# 排除文件
-exclude:
-  - .cursor-rules
-  - _dev_docs/
-  - Gemfile
-  - Gemfile.lock
-```
-
-### 部署流程
-```bash
-# GitHub Pages自动部署流程
-1. 推送代码到GitHub主分支
-2. GitHub Actions自动触发构建
-3. Jekyll构建静态文件
-4. 自动部署到GitHub Pages
-5. 验证网站访问正常
-
-# 访问地址
-- 主域名: https://gongxh0901.github.io
-```
-
-## 🎯 开发工作流
-
-### 本地开发环境
-```bash
-# 开发服务器启动
-bundle exec jekyll serve --config _config.yml,_config_dev.yml
-
-# 增量构建 (开发时提速)
-bundle exec jekyll serve --incremental
-
-# 局域网访问 (移动端测试)
-bundle exec jekyll serve --host 0.0.0.0
-
-# 生产构建
-bundle exec jekyll build
-```
-
-### Git提交规范
-```bash
-feat(cocos): 新增Cocos Creator组件开发指南
-fix(ui): 修复导航栏在移动端的显示问题
-docs(readme): 更新项目说明文档
-style(css): 优化代码块的样式显示
-refactor(js): 重构SPA导航逻辑
-perf(image): 压缩并优化图片资源
-post(game): 发布新的游戏开发文章
-config(jekyll): 更新Jekyll配置
-deploy: 部署相关更新
-```
-
-## 📊 性能与SEO优化
-
-### 性能优化checklist
-- [ ] 图片压缩并使用WebP格式
-- [ ] CSS/JS文件压缩和合并
-- [ ] 启用浏览器缓存策略
-- [ ] 减少HTTP请求数量
-- [ ] 优化字体加载策略
-- [ ] 实现图片懒加载
-- [ ] 监控首屏加载时间 (<3秒)
-
-### SEO优化要求
-```html
-<!-- 每个页面必需的meta标签 -->
-<title>{{ page.title | default: site.title }}</title>
-<meta name="description" content="{{ page.excerpt | default: site.description }}">
-<meta name="keywords" content="Cocos Creator,游戏开发,{{ page.tags | join: ',' }}">
-<meta name="author" content="{{ page.author | default: site.author.name }}">
-
-<!-- Open Graph标签 -->
-<meta property="og:title" content="{{ page.title }}">
-<meta property="og:description" content="{{ page.excerpt }}">
-<meta property="og:type" content="{% if page.layout == 'post' %}article{% else %}website{% endif %}">
-```
-
-## 🔧 维护与质量保证
-
-### 内容质量标准
-1. **技术准确性**: 所有代码示例必须经过测试验证
-2. **时效性**: 定期更新过时的技术内容
-3. **完整性**: 文章结构完整，包含前言、正文、总结
-4. **可读性**: 使用清晰的标题层级和段落结构
-5. **实用性**: 提供可复制的解决方案
-
-### 定期维护任务
-- [ ] 每周发布至少1篇技术文章
-- [ ] 每月检查外部链接有效性
-- [ ] 每季度更新依赖包版本
-- [ ] 定期备份重要内容和配置
-- [ ] 监控网站访问性能和错误
-
-### 调试与故障排除
-```bash
-# 常见问题排查
-1. Jekyll构建失败: 检查YAML格式和依赖版本
-2. 图片显示异常: 确认路径正确性和文件存在
-3. 样式不生效: 清除缓存并重新构建
-4. JavaScript错误: 检查浏览器控制台
-5. 移动端适配问题: 使用浏览器开发者工具测试
-
-# 调试命令
-bundle exec jekyll doctor    # 检查配置问题
-bundle exec jekyll clean     # 清理构建缓存
-```
-
-## 🎮 游戏开发专业特色
-
-### Cocos Creator最佳实践
-1. **组件化开发**: 合理拆分游戏功能模块
-2. **资源管理**: 优化资源加载和释放策略
-3. **性能调优**: 减少DrawCall和内存占用
-4. **平台适配**: 处理不同平台的兼容性问题
-5. **热更新**: 实现游戏内容的动态更新
-
-### 项目展示要求
-```yaml
-# _config.yml中的项目配置示例
-featured_projects:
-  - name: "Cocos Creator开发框架"
-    description: "高效的游戏开发工具链与框架"
-    tech: "Cocos Creator, TypeScript"
-    url: "https://github.com/gongxh/cocos-framework"
-    image: "assets/images/projects/framework.png"
-    featured: true
-```
-
-## 📱 用户体验规范
-
-### 移动端优化
-- 触摸友好的按钮尺寸 (最小44px)
-- 快速的页面加载速度
-- 流畅的动画过渡效果
-- 清晰的文字大小和对比度
-
-### 可访问性要求
-- 所有图片必须有alt属性
-- 合理的颜色对比度
-- 键盘导航支持
-- 语义化的HTML结构
-
-## ⚠️ 重要注意事项
-
-1. **配置修改**: 修改`_config.yml`后必须重启Jekyll服务器
-2. **文件命名**: 文章文件名必须使用有效的日期格式
-3. **链接检查**: 定期验证所有外部链接的有效性
-4. **GitHub部署**: 确保推送到main分支后GitHub Pages正常构建
-5. **SPA功能**: 修改导航功能后测试所有页面切换
-6. **性能监控**: 定期检查网站加载速度和性能指标
-7. **内容备份**: 重要内容和配置文件要有备份策略
+## 交互约束（对助手）
+- 如需查找或修改文件，先定位、再最小范围编辑。
+- 不创建新分支、不推送远程。
+- 不自动生成过长或不相关的文档文件。
 
 ---
-
-## 🌟 技术愿景
-致力于打造最专业的Cocos Creator技术分享平台，帮助游戏开发者解决实际问题，分享前沿技术和最佳实践，共同推动游戏开发技术的进步与发展。 
+备注：以上“不要提交/不推送、不自动启动本地测试或服务、提交使用中文描述”的规则优先级最高；仅在我显式指令后才可执行对应操作。
