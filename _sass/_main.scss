@@ -1704,6 +1704,12 @@ body {
   .pagination-link:hover { background: #669DF6; }
   .read-more-btn:hover { background: #669DF6; }
 
+  /* Sidebar uses softer gray-black (match main content) */
+  .sidebar {
+    background: var(--dark-bg);
+    box-shadow: 2px 0 12px rgba(0, 0, 0, 0.2);
+  }
+
   /* Level-1 tab content area uses card background */
   .content-section {
     background: var(--card-bg);
