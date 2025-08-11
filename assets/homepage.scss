@@ -1115,8 +1115,12 @@ html, body {
         
         .qr-code {
             img {
-                width: 200px;
-                height: 200px;
+                width: auto;
+                height: auto;
+                max-width: 260px;
+                max-height: 360px;
+                object-fit: contain;
+                display: inline-block;
             }
         }
     }

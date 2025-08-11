@@ -228,6 +228,7 @@ body {
   .back-home-btn {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 12px;
     padding: 12px 20px;
     background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
@@ -1247,11 +1248,12 @@ body {
 }
 
 .tag {
-  background: var(--secondary-color);
-  color: white;
+  background: #404040;
+  color: var(--text-secondary);
   padding: 0.25rem 0.5rem;
   border-radius: 4px;
   font-size: 0.8rem;
+  border: 1px solid var(--border-color);
 }
 
 /* Project showcase styles */
@@ -1476,12 +1478,13 @@ body {
         margin-top: 0.5rem;
         
         .tag {
-          background: var(--secondary-color);
-          color: white;
+          background: #404040;
+          color: var(--text-secondary);
           padding: 0.4rem 0.8rem;
           border-radius: 6px;
           font-size: 0.9rem;
           margin-right: 0.5rem;
+          border: 1px solid var(--border-color);
         }
       }
     }
@@ -1700,6 +1703,15 @@ body {
   .project-status.status-planning { background: rgba(246, 197, 107, 0.12); color: var(--accent-color); }
   .project-status.status-completed { background: rgba(128, 203, 196, 0.18); }
 
+  /* Softer tag chips for blog theme */
+  .tags .tag,
+  .post-tags .tag,
+  .article-tags .tag {
+    background: #404040; /* softened tag background */
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+  }
+
   .project-link.github:hover { background: #669DF6; }
   .pagination-link:hover { background: #669DF6; }
   .read-more-btn:hover { background: #669DF6; }
@@ -1820,12 +1832,13 @@ body {
       flex-wrap: wrap;
       
       .tag {
-        background: var(--secondary-color);
-        color: white;
+        background: #404040;
+        color: var(--text-secondary);
         padding: 0.4rem 0.8rem;
         border-radius: 6px;
         font-size: 0.9rem;
         font-weight: 500;
+        border: 1px solid var(--border-color);
       }
     }
   }

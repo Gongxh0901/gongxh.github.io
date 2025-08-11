@@ -297,7 +297,7 @@
     **🌐 社交平台:**
     ```
     GitHub: @gongxh0901     → 代码交流，开源协作
-    Gitee:  @gongxinhai     → 国内项目，技术讨论  
+    Gitee:  @gongxh0901     → 国内项目，技术讨论  
     Blog:   技术分享平台    → 深度技术文章
     ```
 
