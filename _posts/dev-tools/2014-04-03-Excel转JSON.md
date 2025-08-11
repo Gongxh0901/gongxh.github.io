@@ -11,7 +11,7 @@ categories: ["游戏开发工具"]
 用过很多excel转json的工具，但是策划说都不太好用，所以按照策划的要求自己实现了一个。
 可能有更强的工具，但是适合自己的才是最好的。
 
-![Excel转JSON 插件界面]({{ '/assets/images/dev-tools/excel-json.jpeg' | relative_url }})
+![Excel转JSON 插件界面]({{ '/assets/images/dev-tools/excel-json.jpg' | relative_url }})
 
 ## 项目信息
 
