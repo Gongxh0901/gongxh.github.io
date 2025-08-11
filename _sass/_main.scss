@@ -27,6 +27,12 @@ body, html {
   --sidebar-collapsed-width: 60px;
   --header-height: 70px;
   --toggle-btn-size: 32px;
+
+  /* Decoupled component gradients */
+  --home-btn-start: #00a7e6;   /* default: same as primary */
+  --home-btn-end:   #da009a;   /* default: same as secondary */
+  --toggle-btn-start: #00a7e6; /* default: same as primary */
+  --toggle-btn-end:   #da009a; /* default: same as secondary */
 }
 
 body {
@@ -102,7 +108,7 @@ body {
   left: calc(var(--sidebar-width) - 2px); /* Move left 2px to cover sidebar border */
   width: var(--toggle-btn-size);
   height: 53px; /* Aspect ratio 3:5, width 32px, height 53px */
-  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  background: linear-gradient(135deg, var(--toggle-btn-start), var(--toggle-btn-end));
   border: none;
   border-radius: 0 8px 8px 0; /* Left straight edge, right rounded */
   cursor: pointer;
@@ -231,7 +237,7 @@ body {
     justify-content: center;
     gap: 12px;
     padding: 12px 20px;
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    background: linear-gradient(135deg, var(--home-btn-start), var(--home-btn-end));
     color: white;
     text-decoration: none;
     border-radius: 10px;
@@ -1647,7 +1653,7 @@ body {
   --dark-bg: #1A1A1A;     /* match homepage */
   --darker-bg: #121212;   /* match homepage */
   --card-bg: #2a2a2a;     /* match homepage surfaces */
-  --text-primary: #E8EAED;
+  --text-primary: #e0e0e0;
   --text-secondary: #B0B4BA;
   --text-light: #8A8D91;
   --border-color: rgba(255, 255, 255, 0.10);
